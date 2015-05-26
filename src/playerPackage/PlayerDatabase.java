@@ -17,7 +17,13 @@ public class PlayerDatabase {
 	
 
 
-	public void createPlayer(){
+	public void createPlayer(String PlayerName){
+		for(Player p : players){
+			if (p.getName()==PlayerName){
+				System.out.println("This Player name is already taken!");/*Εμφανιση του μηνυματος με Dialog πλαισιο.*/
+			}
+		}
+		players.add(new Player(PlayerName,0));
 		
 	}
 

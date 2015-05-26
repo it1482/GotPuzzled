@@ -8,8 +8,12 @@ public class Player {
 		this.score = score;
 	}
 	
-	public int addScore(int currentScore, int scoreToAdd){
-		return 0;
+	public void addScore(int scoreToAdd){
+		score += scoreToAdd;
+	}
+	
+	public String getName(){
+		return name;
 	}
 	
 
