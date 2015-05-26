@@ -2,6 +2,8 @@ package GuiPackage;
 
 import java.awt.EventQueue;
 
+/*Graphical User Interface Implementation*/
+
 import javax.swing.JFrame;
 
 public class MainGUI {
