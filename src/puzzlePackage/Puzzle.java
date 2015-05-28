@@ -1,8 +1,10 @@
 package puzzlePackage;
 import java.awt.Image;
 
+import javax.swing.JPanel;
 
-public abstract  class Puzzle {
+
+public abstract  class Puzzle extends JPanel{
 	//fields
 	private String name;
 	private Image image;

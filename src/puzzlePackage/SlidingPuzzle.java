@@ -20,9 +20,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class SlidingPuzzle extends JPanel implements ActionListener{
+public class SlidingPuzzle extends Puzzle implements ActionListener{
 
 	
+	
+
 	Image image;
 	ImageIcon icon;
 	JButton buttons[],blankButton,newGame;
@@ -33,9 +35,11 @@ public class SlidingPuzzle extends JPanel implements ActionListener{
 	private Timer timer;
 	public int counting = 0;
 	int size_pleuras;
-	public SlidingPuzzle(){
+	public SlidingPuzzle(String name, Image image, int partsNumber) {
+		super(name, image, partsNumber);
+		
 		//Pleura tou puzzle
-		size_pleuras=10;
+		size_pleuras=partsNumber;
 		setSize(400,300);
 		
 		buttons = new JButton[size_pleuras*size_pleuras];
