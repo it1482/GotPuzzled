@@ -1,6 +1,8 @@
 package playerPackage;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,11 +12,14 @@ public class LoadSavePlayers implements Serializable{
 	
 	
 	public ArrayList<Player> load(){
+		ArrayList<Player> p = null;
 		try{
-		FileOutputStream fos = new FileOutputStream("players.ser");
-		ObjectOutputStream oos = new ObjectOutputStream(fos);
-		oos.writeObject(players);
-		oos.close();
+			FileInputStream fis = new FileInputStream("players.ser");
+	         ObjectInputStream ois = new ObjectInputStream(fis);
+	         p = (ArrayList<Player>) ois.readObject();
+	         players = p;
+	         ois.close();
+	         fis.close();
 		}
 		catch (Exception e){
 			e.printStackTrace();
