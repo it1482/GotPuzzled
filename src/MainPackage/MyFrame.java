@@ -12,7 +12,7 @@ public class MyFrame extends JFrame{
 		this.setContentPane(new SlidingPuzzle());
 		this.setVisible(true);
 		this.setSize(800, 800);
-		this.setTitle("ChessBoard");
+		this.setTitle("Jigsaw");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}	
 	

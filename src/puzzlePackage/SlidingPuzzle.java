@@ -32,15 +32,15 @@ public class SlidingPuzzle extends JPanel implements ActionListener{
 	
 	private Timer timer;
 	public int counting = 0;
-	int n;
+	int size_pleuras;
 	public SlidingPuzzle(){
 		//Pleura tou puzzle
-		n=3;
+		size_pleuras=10;
 		setSize(400,300);
 		
-		buttons = new JButton[n*n];
+		buttons = new JButton[size_pleuras*size_pleuras];
 		//Gia na mpoun se stoixish ta koumpia
-		grid = new JPanel ( new GridLayout(n,n) );
+		grid = new JPanel ( new GridLayout(size_pleuras,size_pleuras) );
 		
 		setupPanels();
 		setupImage();
@@ -54,7 +54,7 @@ public class SlidingPuzzle extends JPanel implements ActionListener{
 	
 	public void setupPanels(){
 		
-		spots = new JPanel[n*n];
+		spots = new JPanel[size_pleuras*size_pleuras];
 		blankButton = new JButton(" ");
 		blankButton.setBackground(Color.BLACK);
 		for(int i=0;i<spots.length;i++){
@@ -98,12 +98,12 @@ public class SlidingPuzzle extends JPanel implements ActionListener{
 		int height=image.getHeight(this);
 		
 		int count = 0;
-		for(int i=n-1;i>=0;i--)
-			for(int j=0;j<n;j++){
-				BufferedImage window = bimage.getSubimage(i*width/n,
-															j*height/n,
-															width/n,
-															height/n);
+		for(int i=0;i<size_pleuras;i++)
+			for(int j=0;j<size_pleuras;j++){
+				BufferedImage window = bimage.getSubimage(i*width/size_pleuras,
+															j*height/size_pleuras,
+															width/size_pleuras,
+															height/size_pleuras);
 				setupButton(count++,window);
 			}
 		spots[spots.length-1].add(blankButton);
@@ -123,8 +123,10 @@ public class SlidingPuzzle extends JPanel implements ActionListener{
 		// TODO Auto-generated method stub
 		Object src = e.getSource();
 		for(int i=0;i<buttons.length;i++){
-			if(buttons[i] == src)
+			if(buttons[i] == src){
 				changeSpots(i);
+				return;
+			}
 				 
 			
 		}
