@@ -10,6 +10,11 @@ import java.util.ArrayList;
 public class LoadSavePlayers implements Serializable{
 	private ArrayList<Player> players = new ArrayList<Player>();
 	
+	public LoadSavePlayers(){
+		players = new ArrayList<Player>();
+		this.save(players);
+	}
+	
 	
 	public ArrayList<Player> load(){
 		ArrayList<Player> p = null;
@@ -24,6 +29,11 @@ public class LoadSavePlayers implements Serializable{
 		catch (Exception e){
 			e.printStackTrace();
 		}
+		this.players = p;//Μετα το διαβασμα απο αρχειο η ArrayList φορτωνεται στο προγραμμα για περαιτερω χρηση
+		return players;
+	}
+	
+	public ArrayList<Player> getPlayers() {
 		return players;
 	}
 	
