@@ -26,14 +26,12 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 
 	
 	
-	int[] thesis = new int[9];
-	JButton help = new JButton("Help");
+	
+	JButton tipButton = new JButton("Tip");
 	Image image;
 	ImageIcon icon;
-	JButton buttons[],blankButton,newGame;
-	//ArrayList<JPanel> rightspots = new ArrayList<JPanel>();
-	//ArrayList<JPanel> tempspots = new ArrayList<JPanel>();
-	JPanel grid,spots[],tempspots[],rightspots[];
+	JButton buttons[],tempbuttons[],rightbuttons[],blankButton,newGame;
+	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label,time_label;
 	
@@ -58,9 +56,11 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		setupImage();
 		
 		add(grid);
-		add(help);
+		add(tipButton);
+		
 		MouseHandler handler = new MouseHandler();
-		help.addMouseListener(handler);
+		tipButton.addMouseListener(handler);
+		
 		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));
 		add(moves_label,BorderLayout.SOUTH);
 		
@@ -69,6 +69,11 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	public void setupPanels(){
 		
 		spots = new JPanel[size_pleuras*size_pleuras];
+
+		
+		rightbuttons = new JButton[size_pleuras*size_pleuras];
+		tempbuttons = new JButton[size_pleuras*size_pleuras];
+		
 		blankButton = new JButton(" ");
 		blankButton.setBackground(Color.BLACK);
 		for(int i=0;i<spots.length;i++){
@@ -124,7 +129,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			}
 		spots[spots.length-1].add(blankButton);
 		currentBlankSpot = spots.length-1;
-		rightspots[spots.length-1]=spots[spots.length-1];
+		rightbuttons[currentBlankSpot]=blankButton;
+		
 	}
 	
 	public void setupButton(int id,Image img){
@@ -134,14 +140,14 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		buttons[id].setContentAreaFilled(false);
 		//thesis[id]=id;
 		spots[id].add(buttons[id],BorderLayout.CENTER);
-		rightspots[id]=spots[id];
+		rightbuttons[id]=buttons[id];
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		Object src = e.getSource();
-		if(src == help){
+		if(src == tipButton){
 			
 			
 		}else{
@@ -184,19 +190,12 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		
 		@Override
 		public void mouseClicked(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			for(int i=0;i<spots.length-1;i++){
-				tempspots[i]=spots[i];
-				spots[i].removeAll();
-				spots[i]=tempspots[i];
-				
-			}			
-			repaint();
+		
 		}
 
 		@Override
 		public void mouseEntered(MouseEvent arg0) {
-			
+		
 		}
 
 		@Override
@@ -207,13 +206,27 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
-			
-			
+			for(int i=0;i<spots.length-1;i++){
+				tempbuttons[i]=buttons[i];
+				spots[i].removeAll();
+				spots[i].add(rightbuttons[i]);
+			}
+			tempbuttons[spots.length-1]=buttons[spots.length-1];
+			spots[spots.length-1].removeAll();
+			spots[spots.length-1].add(blankButton);
+			repaint();
 		}
 
 		@Override
 		public void mouseReleased(MouseEvent arg0) {
-			// TODO Auto-generated method stub
+			for(int i=0;i<spots.length;i++){
+				buttons[i]=tempbuttons[i];
+				spots[i].removeAll();
+				spots[i].add(buttons[i]);
+				
+			}
+			
+			repaint();
 			
 		}
 		
