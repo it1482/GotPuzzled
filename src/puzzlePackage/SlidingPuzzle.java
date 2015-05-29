@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.MediaTracker;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -14,28 +15,28 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 public class SlidingPuzzle extends Puzzle implements ActionListener{
 
 	
 	
 	
-	JButton tipButton = new JButton("Tip");
 	Image image;
 	ImageIcon icon;
 	JButton buttons[],tempbuttons[],rightbuttons[],blankButton,newGame;
+	JButton tipButton = new JButton("Tip"),new_gameButton = new JButton("New Game");
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label,time_label;
 	
-	private Timer timer;
 	public int counting = 0;
 	int size_pleuras;
 	public SlidingPuzzle(String name, Image image, int partsNumber) {
@@ -56,13 +57,17 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		setupImage();
 		
 		add(grid);
-		add(tipButton);
+		new_gameButton.addActionListener(this);
 		
 		MouseHandler handler = new MouseHandler();
 		tipButton.addMouseListener(handler);
 		
 		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));
-		add(moves_label,BorderLayout.SOUTH);
+	
+		
+		add(moves_label,BorderLayout.CENTER);
+		add(tipButton,BorderLayout.CENTER);
+		add(new_gameButton,BorderLayout.CENTER);
 		
 	}
 	
@@ -130,7 +135,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		spots[spots.length-1].add(blankButton);
 		currentBlankSpot = spots.length-1;
 		rightbuttons[currentBlankSpot]=blankButton;
-		
+		shufflePuzzle();
 	}
 	
 	public void setupButton(int id,Image img){
@@ -138,33 +143,33 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		buttons[id].addActionListener(this);
 		buttons[id].setMargin(new Insets(0,0,0,0));
 		buttons[id].setContentAreaFilled(false);
-		//thesis[id]=id;
 		spots[id].add(buttons[id],BorderLayout.CENTER);
 		rightbuttons[id]=buttons[id];
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		Object src = e.getSource();
-		if(src == tipButton){
-			
-			
-		}else{
+		if(new_gameButton == e.getSource()){
+			movecounter=0;
+			moves_label.setText("Moves : "+Integer.toString(movecounter));
+			shufflePuzzle();
+		}else
 			for(int i=0;i<buttons.length;i++){
-				if(buttons[i] == src){
-					changeSpots(i);
-					return;
-				}
+					if(buttons[i] == e.getSource()){
+						changeSpots(i,false);
+						return;
+					}
 			}
-		}
+		
 	}
 	
-	public void changeSpots(int i){
-		if(currentBlankSpot-1 == i || currentBlankSpot -size_pleuras == i ||
-				currentBlankSpot +1 == i || currentBlankSpot + size_pleuras == i){
-			movecounter++;
-			moves_label.setText("Moves : "+Integer.toString(movecounter));
+	public void changeSpots(int i,boolean automatic){
+		if(validMove(i,currentBlankSpot)){
+			if(!automatic){
+				movecounter++;
+				moves_label.setText("Moves : "+Integer.toString(movecounter));
+			}
+			
 			
 			spots[currentBlankSpot].removeAll();
 			spots[i].removeAll();
@@ -185,6 +190,51 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		
 	}
 	
+	public void shufflePuzzle(){
+		int last_position=-1;
+		
+		int[] possible_cells_to_move = new int[4];
+		
+		int random_number = 100 + (int)(Math.random()*2000); 
+		for(int i=0;i<random_number;i++){
+			possible_cells_to_move[0]=currentBlankSpot-1;
+			possible_cells_to_move[1]=currentBlankSpot+1;
+			possible_cells_to_move[2]=currentBlankSpot-size_pleuras;
+			possible_cells_to_move[3]=currentBlankSpot+size_pleuras;
+			
+			ArrayList<Integer> possible_moves = new ArrayList<Integer>();
+			for(int k=0;k<4;k++){
+				if(!validMove(possible_cells_to_move[k],currentBlankSpot) 
+						|| last_position==currentBlankSpot 
+								|| possible_cells_to_move[k]>=size_pleuras*size_pleuras
+									|| possible_cells_to_move[k]<0)
+						possible_cells_to_move[k]=-1;
+				else
+					possible_moves.add(possible_cells_to_move[k]);
+			
+			}
+			if(possible_moves.size()==0)
+				System.out.println("Malakia");
+			else{
+				last_position=currentBlankSpot;
+				changeSpots(possible_moves.get( (int) (Math.random()*possible_moves.size()) ),true);
+				
+			}
+			possible_moves.clear();
+		}
+		
+	}
+	
+	public boolean validMove(int i,int blankpos){
+		if(i/size_pleuras==blankpos/size_pleuras && (blankpos-1==i || blankpos+1==i))
+			return true;
+		else if(blankpos -size_pleuras == i )
+			return true;
+		else if(blankpos + size_pleuras == i)
+			return true;
+		return false;
+	}
+	
 	class MouseHandler implements MouseListener{
 		
 		
@@ -200,8 +250,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 
 		@Override
 		public void mouseExited(MouseEvent arg0) {
-			// TODO Auto-generated method stub
-			
+		
 		}
 
 		@Override
@@ -225,7 +274,6 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 				spots[i].add(buttons[i]);
 				
 			}
-			
 			repaint();
 			
 		}
