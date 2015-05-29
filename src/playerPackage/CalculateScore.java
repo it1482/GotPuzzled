@@ -1,15 +1,15 @@
 package playerPackage;
 
 public class CalculateScore {
-	private int puzzleValue;
+	private int puzzleDifficulty;
 	private double timer;
-	public CalculateScore(int puzzleValue, double timer) {
-		this.puzzleValue = puzzleValue;
+	public CalculateScore(int puzzleDifficulty, double timer) {
+		this.puzzleDifficulty = puzzleDifficulty;
 		this.timer = timer;
 	}
 	
-	public int returnScore(){
-		return 0;
+	public double returnScore(){
+		return puzzleDifficulty/timer;
 	}
 	
 	
