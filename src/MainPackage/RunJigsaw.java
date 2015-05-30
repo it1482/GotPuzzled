@@ -23,9 +23,9 @@ import java.io.IOException;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JCheckBox;
 
-import jigsawPackage.JigsawCutter;
-import jigsawPackage.JigsawFrame;
-import jigsawPackage.OKCancelPane;
+import JigsawPuzzlePackage.JigsawCutter;
+import JigsawPuzzlePackage.JigsawFrame;
+import JigsawPuzzlePackage.OKCancelPane;
 
 public class RunJigsaw extends JFrame {
 

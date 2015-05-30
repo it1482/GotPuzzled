@@ -1,4 +1,4 @@
-package jigsawPackage;
+package JigsawPuzzlePackage;
 
 
 import javax.swing.Timer;

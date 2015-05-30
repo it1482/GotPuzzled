@@ -1,4 +1,4 @@
-package jigsawPackage;
+package JigsawPuzzlePackage;
 import java.awt.*;
 import java.awt.geom.GeneralPath;
 import java.awt.image.PixelGrabber;
