@@ -101,23 +101,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	
 	public void setupImage(){
 		
-		MediaTracker tracker = new MediaTracker(this);
-		tracker.addImage(image,1);
-		
-		JFileChooser fc = new JFileChooser();
-		int result = fc.showOpenDialog(null);
-		if(result == JFileChooser.APPROVE_OPTION){
-			File file = fc.getSelectedFile();
-			try{
-				tracker.waitForAll();
-				image = ImageIO.read(file);
-				image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);
-			} catch (Exception exp){
-				exp.printStackTrace();
-				
-			}
+		image=SlidingCreator.fileChooser(this);
 			
-		}
 		/*
 		try{
 			tracker.waitForAll();
