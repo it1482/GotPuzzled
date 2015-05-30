@@ -1,4 +1,4 @@
-package puzzlePackage;
+package SlidingPuzzlePackage;
 
 public class Tile {
 	private int tileX;
