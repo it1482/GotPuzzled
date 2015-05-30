@@ -1,4 +1,4 @@
-package puzzlePackage;
+package SlidingPuzzlePackage;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -18,13 +18,18 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.Timer;
+
+import puzzlePackage.Puzzle;
 
 public class SlidingPuzzle extends Puzzle implements ActionListener{
 
-	
+	// Checkpoint/Milestone
+		SlidingTimer timer ;
+		
 	
 	
 	Image image;
@@ -33,9 +38,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	JButton tipButton = new JButton("Tip"),new_gameButton = new JButton("New Game");
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
-	JLabel moves_label,time_label;
-	
-	Timer timer ;
+	JLabel moves_label;
 	
 	public int counting = 0;
 	int size_pleuras;
@@ -43,17 +46,11 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		super(name, image, partsNumber);
 		//gia na perastei i photo
 		//this.image = image;
-	
-		time_label = new JLabel("");
-		ActionListener actListener = new ActionListener(){
-			int i=0;
-			public void actionPerformed(ActionEvent e){
-				time_label.setText("Time: "+Integer.toString(i));
-				i+=1;
-			}
-		};
-		timer = new Timer(1000,actListener);
-		timer.start();
+
+
+		
+		
+		
 		
 		//Pleura tou puzzle
 		
@@ -68,7 +65,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		setupImage();
 		
 		add(grid);
-		add(time_label);
+		add(timer.getTime_label());
 		new_gameButton.addActionListener(this);
 		
 		MouseHandler handler = new MouseHandler();
@@ -82,6 +79,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		add(new_gameButton,BorderLayout.CENTER);
 		
 	}
+	
+	
 	
 	public void setupPanels(){
 		
@@ -105,19 +104,21 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		MediaTracker tracker = new MediaTracker(this);
 		tracker.addImage(image,1);
 		
-		/*JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser();
 		int result = fc.showOpenDialog(null);
 		if(result == JFileChooser.APPROVE_OPTION){
 			File file = fc.getSelectedFile();
 			try{
-				BufferedImage bi1 = ImageIO.read(file);
-				bi1.getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+				tracker.waitForAll();
+				image = ImageIO.read(file);
+				image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);
 			} catch (Exception exp){
 				exp.printStackTrace();
 				
 			}
+			
 		}
-		*/
+		/*
 		try{
 			tracker.waitForAll();
 			image = ImageIO.read(new File("images/pic.jpg"));
@@ -125,7 +126,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		} catch (Exception e){
 			
 		
-		}
+		}*/
 		BufferedImage bimage = new BufferedImage(
 				image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bimage.getGraphics();
@@ -148,6 +149,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		currentBlankSpot = spots.length-1;
 		rightbuttons[currentBlankSpot]=blankButton;
 		shufflePuzzle();
+		timer = new SlidingTimer(1000);
+		
 	}
 	
 	public void setupButton(int id,Image img){
@@ -162,6 +165,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(new_gameButton == e.getSource()){
+			timer.stopTimer();
+			JOptionPane.showMessageDialog(grid,timer.getTimerCounter()-1+" seconds");
+			timer.setTimerCounter(0);
+			timer.startTimer();
+			
+			/*timer = new Timer(1000,actListener);
+			timer.start();*/
 			movecounter=0;
 			moves_label.setText("Moves : "+Integer.toString(movecounter));
 			shufflePuzzle();
@@ -291,6 +301,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		}
 		
 	}
+	
 
 	
 }

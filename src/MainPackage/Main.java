@@ -2,7 +2,7 @@ package MainPackage;
 
 import javax.swing.JFrame;
 
-import puzzlePackage.SlidingPuzzle;
+import SlidingPuzzlePackage.SlidingPuzzle;
 
 public class Main {
 	public static void main(String[] args) {

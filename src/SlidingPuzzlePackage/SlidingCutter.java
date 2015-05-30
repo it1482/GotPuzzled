@@ -1,7 +1,9 @@
-package puzzlePackage;
+package SlidingPuzzlePackage;
 
 import java.awt.Image;
 import java.util.ArrayList;
+
+import puzzlePackage.Tile;
 
 public class SlidingCutter {
 	public String getName() {
