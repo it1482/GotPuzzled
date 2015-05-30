@@ -7,7 +7,6 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.MediaTracker;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -15,14 +14,13 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class SlidingPuzzle extends Puzzle implements ActionListener{
 
@@ -37,12 +35,25 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label,time_label;
 	
+	Timer timer ;
+	
 	public int counting = 0;
 	int size_pleuras;
 	public SlidingPuzzle(String name, Image image, int partsNumber) {
 		super(name, image, partsNumber);
 		//gia na perastei i photo
 		//this.image = image;
+	
+		time_label = new JLabel("");
+		ActionListener actListener = new ActionListener(){
+			int i=0;
+			public void actionPerformed(ActionEvent e){
+				time_label.setText("Time: "+Integer.toString(i));
+				i+=1;
+			}
+		};
+		timer = new Timer(1000,actListener);
+		timer.start();
 		
 		//Pleura tou puzzle
 		
@@ -57,6 +68,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		setupImage();
 		
 		add(grid);
+		add(time_label);
 		new_gameButton.addActionListener(this);
 		
 		MouseHandler handler = new MouseHandler();
@@ -280,4 +292,5 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		
 	}
 
+	
 }
