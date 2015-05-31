@@ -16,15 +16,19 @@ import playerPackage.Player;
 
 //NEED REWORKING
 public class LoadSavePuzzles implements Serializable{
-	private ArrayList<Puzzle> puzzles = new ArrayList<Puzzle>();
+	private ArrayList<PuzzleData> puzzles = new ArrayList<PuzzleData>();
+	
+	public LoadSavePuzzles(ArrayList<PuzzleData> p){
+		puzzles = p;
+	}
 	
 	
-	public ArrayList<Puzzle> load(){
-		ArrayList<Puzzle> p = null;
+	public ArrayList<PuzzleData> load(){
+		ArrayList<PuzzleData> p = null;
 		try{
-			FileInputStream fis = new FileInputStream("puzzles.ser");
+			FileInputStream fis = new FileInputStream("puzzlesData.ser");
 	         ObjectInputStream ois = new ObjectInputStream(fis);
-	         p = (ArrayList<Puzzle>) ois.readObject();
+	         p = (ArrayList<PuzzleData>) ois.readObject();
 	         puzzles = p;
 	         ois.close();
 	         fis.close();
@@ -36,9 +40,9 @@ public class LoadSavePuzzles implements Serializable{
 		return puzzles;
 	}
 
-	public void save (ArrayList<Puzzle> puzzles){
+	public void save (ArrayList<PuzzleData> puzzles){
 		try{
-			FileOutputStream fos = new FileOutputStream("puzzles.ser");
+			FileOutputStream fos = new FileOutputStream("puzzlesData.ser");
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(puzzles);
 			oos.close();
@@ -51,7 +55,7 @@ public class LoadSavePuzzles implements Serializable{
 	}
 	
 	public void importPuzzle(){
-		Puzzle puzzle=null;
+		PuzzleData puzzleData=null;
 		
 		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
 		int result = fc.showOpenDialog(null);
@@ -60,7 +64,7 @@ public class LoadSavePuzzles implements Serializable{
 			try{
 				FileInputStream saveFile = new FileInputStream(file.getPath());
 				ObjectInputStream save = new ObjectInputStream(saveFile);
-				puzzle = (Puzzle) save.readObject();
+				puzzleData = (PuzzleData) save.readObject();
 				save.close();
 				
 			} catch (Exception exp){
