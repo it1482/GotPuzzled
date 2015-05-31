@@ -39,6 +39,9 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label;
+	//o xronos kai oi kinhseis pou 8a emfanizei sto victory
+	int endTime,endMoves;
+	String playerName;
 	
 	public int counting = 0;
 	int size_pleuras;
@@ -164,6 +167,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
 						changeSpots(i,false);
+						endStats();
 						break; 
 					}
 			}
@@ -176,7 +180,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			}
 			if(flag){
 				System.out.println("Victory!");
-				
+				//endStats();
 			}
 			return;
 		}
@@ -300,6 +304,14 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			
 		}
 		
+	}
+	
+	public void endStats() {
+		endTime = timer.getTimerCounter();
+		endMoves = movecounter;
+		playerName=JOptionPane.showInputDialog(grid,"Time:" + endTime + " ,Moves:" + endMoves + "\nYour Name:","You Won!", JOptionPane.PLAIN_MESSAGE);
+		System.out.println(playerName);
+		//System.out.println("Time:" + endTime + " ,Moves:" + endMoves);
 	}
 	
 
