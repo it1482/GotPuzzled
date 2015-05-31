@@ -160,13 +160,26 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			movecounter=0;
 			moves_label.setText("Moves : "+Integer.toString(movecounter));
 			shufflePuzzle();
-		}else
+		}else{
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
 						changeSpots(i,false);
-						return;
+						break; 
 					}
 			}
+			int i=0;
+			boolean flag = true;
+			while(flag && i<buttons.length-1){
+				if(!spots[i].getComponent(0).equals(rightbuttons[i]))
+					flag=false;				
+				i++;
+			}
+			if(flag){
+				System.out.println("Victory!");
+				
+			}
+			return;
+		}
 		
 	}
 	
@@ -265,7 +278,9 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			for(int i=0;i<spots.length-1;i++){
 				tempbuttons[i]=buttons[i];
 				spots[i].removeAll();
+				
 				spots[i].add(rightbuttons[i]);
+				
 			}
 			tempbuttons[spots.length-1]=buttons[spots.length-1];
 			spots[spots.length-1].removeAll();
