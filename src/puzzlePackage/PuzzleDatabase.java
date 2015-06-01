@@ -12,7 +12,8 @@ import playerPackage.Player;
 public class PuzzleDatabase {
 	private ArrayList<PuzzleData> puzzlesData;
 	private LoadSavePuzzles loadsave;
-	
+	private ArrayList<String> puzzlesNames; // This array is needed for the JList in order to show the names!
+
 	
 	
 	
@@ -20,12 +21,21 @@ public class PuzzleDatabase {
 		super();
 		this.puzzlesData = new ArrayList<PuzzleData>();
 		this.loadsave = new LoadSavePuzzles(puzzlesData);
+		this.puzzlesNames = new  ArrayList<String>();
 	}
 	
 
 
 	public ArrayList<PuzzleData> getPuzzles() {
 		return puzzlesData;
+	}
+
+
+
+
+
+	public  ArrayList<String> getPuzzlesNames() {
+		return puzzlesNames;
 	}
 
 
@@ -37,11 +47,14 @@ public class PuzzleDatabase {
 			}
 		}
 		puzzlesData.add(new PuzzleData(name,image,difficulty));
+
 		
 	}
 	
 	
-	//Just for testing
+	/**Just for testing creates a database to see if things are working properly.
+	 *  
+	 */
 	public void testDatabase() {
 		Image image = null;
 		 try {                
@@ -52,6 +65,9 @@ public class PuzzleDatabase {
 		 
 
 		puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
+		puzzlesNames.add("Puzzle 1");
+
+
 	}
 
 }

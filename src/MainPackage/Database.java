@@ -6,9 +6,9 @@ import playerPackage.PlayerDatabase;
 import puzzlePackage.PuzzleDatabase;
 
 public class Database {
-	private PuzzleDatabase puzzleDatabase;
-	private LadderDatabase ladderDatabase;
-	private OptionDatabase options;
+	private PuzzleDatabase puzzleDatabase = new PuzzleDatabase();
+	private LadderDatabase ladderDatabase = new LadderDatabase();
+	private OptionDatabase options = new OptionDatabase();
 	private PlayerDatabase players;
 
 	public PuzzleDatabase getPuzzleDatabase() {

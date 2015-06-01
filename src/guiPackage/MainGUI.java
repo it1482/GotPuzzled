@@ -3,6 +3,7 @@ package guiPackage;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -20,7 +21,11 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JList;
+
+import MainPackage.Database;
+import puzzlePackage.PuzzleDatabase;
 
 public class MainGUI {
 	
@@ -28,6 +33,10 @@ public class MainGUI {
 	 * here we post all frames and panels to be visible and enable for whole code
 	 */
 	// kentriko vasiko frame - panw sto opoio kathontai ola ta panels
+	Database database = new Database();
+	
+	
+	
 	private JFrame frmGotPuzzled;
 
 	
@@ -256,14 +265,15 @@ public class MainGUI {
 				playPanel.setVisible(true);
 			}
 		});
-		
+
 		JLabel customGameTitle = new JLabel("Custom Game!");
 		customGameTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		customGameTitle.setFont(new Font("Segoe UI Black", Font.PLAIN, 26));
 		customGameTitle.setBounds(139, 12, 357, 31);
 		customGamePanel.add(customGameTitle);
 		
-		JList customGameJList = new JList();
+		database.getPuzzleDatabase().testDatabase(); // Just for Testing the database
+		JList customGameJList = new JList(database.getPuzzleDatabase().getPuzzlesNames().toArray());	//List of puzzles.
 		customGameJList.setBorder(new LineBorder(new Color(0, 0, 0)));
 		customGameJList.setBounds(165, 120, 300, 150);
 		customGamePanel.add(customGameJList);
