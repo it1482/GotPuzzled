@@ -65,9 +65,9 @@ public class JigsawPuzzle extends Puzzle
    * @param image the final picture
    * @param cut the cut to use on the image
    */
-  public JigsawPuzzle (String name, int difficulty, BufferedImage loadedImage, JigsawCutter cutter, boolean rotation)
+  public JigsawPuzzle (String name, BufferedImage loadedImage, JigsawCutter cutter, boolean rotation)
   {
-	super(name,difficulty,loadedImage);
+	super(name,loadedImage);
 	this.rotation = rotation;
     this.image = imageScale(loadedImage);
     this.cutter = cutter;

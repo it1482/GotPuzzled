@@ -43,7 +43,7 @@ public static void main (String[] args)
   {
     super ("Jigsaw Puzzle");
     this.rotation = rotation;
-    puzzle = new JigsawPuzzle ("random name", 1,image, cutter,rotation);
+    puzzle = new JigsawPuzzle ("random name", image, cutter,rotation);
     setContentPane (new JScrollPane (puzzle));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();

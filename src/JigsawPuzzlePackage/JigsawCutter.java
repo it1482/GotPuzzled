@@ -33,11 +33,14 @@ public class JigsawCutter
     setPreferredPieceCount (prefPieces);
   }
 
-  public void setPreferredPieceCount(int count)
+  public void setPreferredPieceCount(int difficulty)
   {
-    if (count < 2) throw new IllegalArgumentException
-      ("Invalid preferred pieces: "+count);
-    this.prefPieces = count;
+    if (difficulty == 1) 
+    	this.prefPieces = 20;
+    else if (difficulty == 2)
+    	this.prefPieces = 50;
+    else
+    	this.prefPieces = 100;
   }
 
   private int prefPieces;

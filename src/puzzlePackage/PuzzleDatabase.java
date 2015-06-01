@@ -1,6 +1,10 @@
 package puzzlePackage;
 import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import playerPackage.Player;
 
@@ -10,11 +14,14 @@ public class PuzzleDatabase {
 	private LoadSavePuzzles loadsave;
 	
 	
+	
+	
 	public PuzzleDatabase() {
 		super();
 		this.puzzlesData = new ArrayList<PuzzleData>();
 		this.loadsave = new LoadSavePuzzles(puzzlesData);
 	}
+	
 
 
 	public ArrayList<PuzzleData> getPuzzles() {
@@ -31,6 +38,20 @@ public class PuzzleDatabase {
 		}
 		puzzlesData.add(new PuzzleData(name,image,difficulty));
 		
+	}
+	
+	
+	//Just for testing
+	public void testDatabase() {
+		Image image = null;
+		 try {                
+			 image = ImageIO.read(new File("images/pic.jpg"));
+	       } catch (IOException ex) {
+	            // handle exception...
+	       }
+		 
+
+		puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
 	}
 
 }

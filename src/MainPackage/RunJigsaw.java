@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Image;
 
 import javax.imageio.ImageIO;
+import javax.swing.ButtonGroup;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -26,6 +27,12 @@ import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
 import JigsawPuzzlePackage.OKCancelPane;
 
+import javax.swing.JRadioButton;
+
+import puzzlePackage.PuzzleData;
+import puzzlePackage.PuzzleDatabase;
+import puzzlePackage.PuzzleJigsawData;
+
 public class RunJigsaw extends JFrame {
 
 	private JFrame frame;
@@ -38,6 +45,7 @@ public class RunJigsaw extends JFrame {
 	private Image image;
 	//static final JigsawCutter cutter =   new JigsawCutter();
 	String imagePath;
+	private int difficulty = 1;
 
 	/**
 	 * Launch the application.
@@ -70,10 +78,7 @@ public class RunJigsaw extends JFrame {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JLabel lblImage = new JLabel("Image");
-		lblImage.setBounds(10, 11, 46, 14);
-		frame.getContentPane().add(lblImage);
+
 		
 		imageField = new JTextField();
 		imageField.setBounds(20, 36, 257, 34);
@@ -111,6 +116,51 @@ public class RunJigsaw extends JFrame {
 
 		chckbxRotation.setBounds(272, 154, 119, 30);
 		frame.getContentPane().add(chckbxRotation);
+		
+
+		JRadioButton rdbtnEasy = new JRadioButton("Easy");
+		rdbtnEasy.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				difficulty = 1;
+			}
+		});
+		rdbtnEasy.setSelected(true);
+		rdbtnEasy.setBounds(20, 104, 200, 34);
+		frame.getContentPane().add(rdbtnEasy);
+
+		
+		
+		JRadioButton rdbtnMedium = new JRadioButton("Medium");
+		rdbtnMedium.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				difficulty = 2;
+			}
+		});
+		rdbtnMedium.setBounds(20, 138, 200, 30);
+		frame.getContentPane().add(rdbtnMedium);
+
+		
+		JRadioButton rdbtnHard = new JRadioButton("Hard");
+		rdbtnHard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				difficulty = 3;
+			}
+		});
+		rdbtnHard.setBounds(20, 171, 200, 30);
+		frame.getContentPane().add(rdbtnHard);
+
+
+		
+		 ButtonGroup group = new ButtonGroup();
+		    group.add(rdbtnEasy);
+		    group.add(rdbtnMedium);
+		    group.add(rdbtnHard);
+		    
+
+		    
+
+		
+
 	}
 	 protected void fireOKAction()
 	  {
@@ -134,7 +184,7 @@ public class RunJigsaw extends JFrame {
 			    JigsawCutter varCutter = new JigsawCutter(chckbxRotation.isSelected());
 			      int count = ((Number) pieceSpinner.getValue()).intValue();
 			      System.out.println ("count = "+count);
-			      varCutter.setPreferredPieceCount (count);
+			      varCutter.setPreferredPieceCount (difficulty);
 			    
 
 			    // Set up and show the frame.
