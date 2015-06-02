@@ -291,7 +291,14 @@ public class GotPuzzledGUI {
 		// thn apo katw entolh thn egrapsa gia na testarw oti to scrollpane douleuei kanonika
 		//laddersJList.setListData(new String[1000]);
 		
+		
+		// here you can add code to implement the Start Ladder function
 		JButton ladderStartLadderButton = new JButton("Start Ladder!");
+		ladderStartLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
 		ladderStartLadderButton.setForeground(Color.WHITE);
 		ladderStartLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		ladderStartLadderButton.setBackground(new Color(34, 139, 34));
@@ -356,7 +363,14 @@ public class GotPuzzledGUI {
 		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
 		
+		
+		// here you can add code to implement the Start CustomGame function
 		JButton customGameStartGameButton = new JButton("Start Game!");
+		customGameStartGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		customGameStartGameButton.setForeground(Color.WHITE);
 		customGameStartGameButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		customGameStartGameButton.setBackground(new Color(34, 139, 34));
