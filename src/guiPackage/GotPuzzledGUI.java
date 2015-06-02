@@ -316,6 +316,7 @@ public class GotPuzzledGUI {
 		customGamePanel.setBackground(new Color(245, 245, 220));
 		customGamePanel.setBounds(0, 0, 631, 557);
 		frmGotPuzzled.getContentPane().add(customGamePanel);
+		customGamePanel.setVisible(false);
 		
 		JLabel customGameTitleLabel = new JLabel("Custom Game!");
 		customGameTitleLabel.setToolTipText("");
