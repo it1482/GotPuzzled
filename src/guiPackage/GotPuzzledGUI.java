@@ -2,8 +2,26 @@ package guiPackage;
 
 import java.awt.EventQueue;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -14,12 +32,16 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
 
 
+import java.awt.Image;
+import java.awt.MediaTracker;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 import javax.swing.JButton;
 import javax.swing.JList;
@@ -30,6 +52,10 @@ import javax.swing.JTextField;
 import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
+
+import puzzlePackage.PuzzleData;
+import puzzlePackage.PuzzleJigsawData;
+import MainPackage.Database;
 
 
 public class GotPuzzledGUI {
@@ -64,7 +90,12 @@ public class GotPuzzledGUI {
 	private JCheckBox createPuzzleRotationCheckBox;
 	private JTextField createPuzzlePiecesTextField;
 	
-	//private JRadioButton createPuzzleSlidingRadioButton;
+	//fields needed
+
+	Database database = new Database();
+	private Image image;
+	DefaultListModel<String> model;
+
 	
 	/**
 	 * Launch the application.
@@ -305,7 +336,8 @@ public class GotPuzzledGUI {
 		laddersListScrollPane.setBounds(110, 110, 400, 300);
 		ladderPanel.add(laddersListScrollPane);
 		
-		JList laddersJList = new JList();
+		
+		JList<String> laddersJList = new JList();
 		laddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		// this adds to the JList the ability to ScrollDown
@@ -377,11 +409,16 @@ public class GotPuzzledGUI {
 		customGamePreviewPanel.setBounds(177, 230, 250, 200);
 		customGamePanel.add(customGamePreviewPanel);
 		
-		JScrollPane customPuzzlesListScrollPane = new JScrollPane();
+		JScrollPane customPuzzlesListScrollPane = new JScrollPane( );
 		customPuzzlesListScrollPane.setBounds(150, 70, 300, 150);
 		customGamePanel.add(customPuzzlesListScrollPane);
 		
-		JList customPuzzlesJList = new JList();
+		final DefaultListModel model = new DefaultListModel();
+		database.getPuzzleDatabase().testDatabase(); //Initiate list with the current puzzles taken from database
+
+		final JList customPuzzlesJList = new JList(model);
+		UpdateJList(customPuzzlesJList);
+
 		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
@@ -516,7 +553,7 @@ public class GotPuzzledGUI {
 		createPuzzleBackToCreateButton.addActionListener(new createPuzzleBackToCreateListener());
 	
 		
-		JLabel createPuzzleNewPuzzleNameLabel = new JLabel("Name:");
+		final JLabel createPuzzleNewPuzzleNameLabel = new JLabel("Name:");
 		createPuzzleNewPuzzleNameLabel.setBackground(new Color(238, 238, 238));
 		createPuzzleNewPuzzleNameLabel.setToolTipText("");
 		createPuzzleNewPuzzleNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -533,6 +570,14 @@ public class GotPuzzledGUI {
 		createPuzzleNewPuzzleNameTextField.setColumns(10);
 		
 		JButton createPuzzleLoadImageButton = new JButton("Load Image");
+		createPuzzleLoadImageButton.addActionListener(new ActionListener() {
+
+
+			public void actionPerformed(ActionEvent arg0) {
+				image = fileChooser(frmGotPuzzled);
+				
+			}
+		});
 		createPuzzleLoadImageButton.setForeground(Color.WHITE);
 		createPuzzleLoadImageButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		createPuzzleLoadImageButton.setBackground(new Color(34, 139, 34));
@@ -544,6 +589,7 @@ public class GotPuzzledGUI {
 			public void actionPerformed(ActionEvent e) {
 				if (createPuzzleJigsawRadioButton.isSelected()){
 					createPuzzleRotationCheckBox.setEnabled(true);
+					
 				}
 			}
 		});
@@ -552,7 +598,7 @@ public class GotPuzzledGUI {
 		createPuzzleJigsawRadioButton.setBounds(50, 220, 121, 24);
 		createPuzzlePanel.add(createPuzzleJigsawRadioButton);
 		
-		final JRadioButton createPuzzleSlidingRadioButton = new JRadioButton("Sliding Puzzle");
+		final JRadioButton createPuzzleSlidingRadioButton = new JRadioButton("Sliding Puzzle",true);
 		createPuzzleSlidingRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (createPuzzleSlidingRadioButton.isSelected()) {
@@ -586,13 +632,13 @@ public class GotPuzzledGUI {
 		createPuzzleDificultyLabel.setBounds(300, 180, 160, 30);
 		createPuzzlePanel.add(createPuzzleDificultyLabel);
 		
-		JRadioButton createPuzzleEasyRadioButton = new JRadioButton("Easy");
+		final JRadioButton createPuzzleEasyRadioButton = new JRadioButton("Easy",true);
 		createPuzzleEasyRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleEasyRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleEasyRadioButton.setBounds(300, 220, 121, 24);
 		createPuzzlePanel.add(createPuzzleEasyRadioButton);
 		
-		JRadioButton createPuzzleMediumRadioButton = new JRadioButton("Medium");
+		final JRadioButton createPuzzleMediumRadioButton = new JRadioButton("Medium");
 		createPuzzleMediumRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleMediumRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleMediumRadioButton.setBounds(300, 250, 121, 24);
@@ -626,8 +672,56 @@ public class GotPuzzledGUI {
 		createPuzzlePiecesTextField.setBounds(420, 310, 62, 30);
 		createPuzzlePanel.add(createPuzzlePiecesTextField);
 		
-		
+		//Gets all the parsed information from the user and creates the puzzle
 		JButton createPuzzleButton = new JButton("Create");
+		createPuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				
+				int difficulty;
+				boolean rotation;
+				String name;
+				
+				
+				rotation = createPuzzleRotationCheckBox.isSelected(); 
+				if(createPuzzleEasyRadioButton.isSelected()){
+					difficulty = 1;
+
+				}
+				else if(createPuzzleMediumRadioButton.isSelected())
+					difficulty = 2;
+				else
+					difficulty = 3;
+				name = createPuzzleNewPuzzleNameTextField.getText();
+				//System.out.println(name);
+				//System.out.println(difficulty);
+				//System.out.println(rotation);
+				//System.out.println(image);
+				//System.out.println(createPuzzleJigsawRadioButton.isSelected());
+				
+				//Checking if image has been loaded, name already exists in database or name field is empty
+				if(image != null && (name != "" && !database.getPuzzleDatabase().getPuzzlesNames().contains(name)) ){
+					if(createPuzzleJigsawRadioButton.isSelected())
+					{
+						database.getPuzzleDatabase().getPuzzles().add(new PuzzleJigsawData(name,image,difficulty,rotation));
+						database.getPuzzleDatabase().getPuzzlesNames().add(name);
+					}
+					if(createPuzzleSlidingRadioButton.isSelected())
+					{
+						database.getPuzzleDatabase().getPuzzles().add(new PuzzleData(name,image,difficulty));
+						database.getPuzzleDatabase().getPuzzlesNames().add(name);
+					}
+					UpdateJList(customPuzzlesJList);
+					System.out.println(name + " puzzle got saved!");
+					
+						
+				}
+				else 
+					System.out.println("Please check your input");
+
+				
+			}
+		});
 		createPuzzleButton.setForeground(Color.WHITE);
 		createPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		createPuzzleButton.setBackground(new Color(34, 139, 34));
@@ -639,7 +733,7 @@ public class GotPuzzledGUI {
 		createPuzzleBackToCreateButton.setBounds(20, 470, 100, 50);
 		createPuzzlePanel.add(createPuzzleBackToCreateButton);
 		
-		
+
 	}
 	
 	// createPuzzleBackToCreateButton Listener implementation
@@ -652,4 +746,38 @@ public class GotPuzzledGUI {
 			
 		}
 	}
+	
+	public static Image fileChooser(Component comp){
+		Image image=null;
+		MediaTracker tracker = new MediaTracker(comp);
+		tracker.addImage(image,1);
+		
+		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
+		int result = fc.showOpenDialog(null);
+		if(result == JFileChooser.APPROVE_OPTION){
+			File file = fc.getSelectedFile();
+			try{
+				tracker.waitForAll();
+				image = ImageIO.read(file);
+			} catch (Exception exp){
+				exp.printStackTrace();
+				
+			}
+			
+		}else{
+			System.out.println("Bye");
+			System.exit(0);
+		}
+		return image;
+	}
+
+	private void UpdateJList(JList list){
+	    model = new DefaultListModel<String>();
+	    for(String p : database.getPuzzleDatabase().getPuzzlesNames()){
+	         model.addElement(p);
+	    }    
+	    list.setModel(model);     
+	    list.setSelectedIndex(0);
+	}
+
 }
