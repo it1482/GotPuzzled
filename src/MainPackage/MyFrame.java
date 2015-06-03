@@ -1,15 +1,22 @@
 package MainPackage;
 
+import java.awt.Image;
+
 import javax.swing.JFrame;
 
+import SlidingPuzzlePackage.SlidingCreator;
 import SlidingPuzzlePackage.SlidingPuzzle;
 
 public class MyFrame extends JFrame{
+	Image image;
 	public MyFrame(){
 		System.out.println("ok");
 		//size einai i pleura tou puzzle
-		int size=3;
-		this.setContentPane(new SlidingPuzzle("Test",null,size));
+		
+		image=SlidingCreator.fileChooser(this);
+		int difficulty=1;
+		//JFrame slide = new SlidingPuzzle("Test",image,difficulty);
+		this.setContentPane(new SlidingPuzzle("Test",image,difficulty));
 		this.setVisible(true);
 		this.setSize(800, 800);
 		this.setTitle("Jigsaw");

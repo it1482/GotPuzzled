@@ -45,19 +45,24 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	
 	public int counting = 0;
 	int size_pleuras;
-	public SlidingPuzzle(String name, Image image, int partsNumber) {
-		super(name, image, partsNumber);
+	public SlidingPuzzle(String name, Image image, int difficulty) {
+		super(name, image, difficulty);
+		if(difficulty==1)
+			size_pleuras=3;
+		else if(difficulty==2)
+			size_pleuras=4;
+		else if(difficulty==3)
+			size_pleuras=5;
+		else
+			System.out.println("Error in partsNumber variable.");
+		this.image=image;
 		//gia na perastei i photo
 		//this.image = image;
 
 
 		
 		
-		
-		
 		//Pleura tou puzzle
-		
-		size_pleuras=partsNumber;
 		setSize(400,300);
 		
 		buttons = new JButton[size_pleuras*size_pleuras];
@@ -104,7 +109,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	
 	public void setupImage(){
 		
-		image=SlidingCreator.fileChooser(this);
+		
 			
 		/*
 		try{

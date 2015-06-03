@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 
-public class Puzzle extends JFrame{
+public class Puzzle extends JPanel{
 	//fields
 	private String name;
 	private Image image;
@@ -30,6 +30,14 @@ public class Puzzle extends JFrame{
 	
 	public String getName(){
 		return this.name;
+	}
+
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
 	}
 	
 	
