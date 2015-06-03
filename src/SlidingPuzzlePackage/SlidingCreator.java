@@ -8,6 +8,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class SlidingCreator extends JFrame {
 	
@@ -27,6 +29,8 @@ public class SlidingCreator extends JFrame {
 		tracker.addImage(image,1);
 		
 		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
+		FileFilter filter = new FileNameExtensionFilter("PNG/JPG/BMP","png","jpg","bmp");
+		fc.setFileFilter(filter);
 		int result = fc.showOpenDialog(null);
 		if(result == JFileChooser.APPROVE_OPTION){
 			File file = fc.getSelectedFile();

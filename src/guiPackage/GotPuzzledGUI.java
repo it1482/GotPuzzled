@@ -16,6 +16,7 @@ import java.awt.EventQueue;
 
 
 
+
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -46,6 +47,8 @@ import java.io.File;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JScrollPane;
 import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
@@ -753,6 +756,8 @@ public class GotPuzzledGUI {
 		tracker.addImage(image,1);
 		
 		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
+		FileFilter filter = new FileNameExtensionFilter("PNG/JPG/BMP","png","jpg","bmp");
+		fc.setFileFilter(filter);
 		int result = fc.showOpenDialog(null);
 		if(result == JFileChooser.APPROVE_OPTION){
 			File file = fc.getSelectedFile();

@@ -172,7 +172,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
 						changeSpots(i,false);
-						endStats();
+						
 						break; 
 					}
 			}
@@ -184,8 +184,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 				i++;
 			}
 			if(flag){
-				System.out.println("Victory!");
-				//endStats();
+				timer.stopTimer();
+				endStats();
 			}
 			return;
 		}
