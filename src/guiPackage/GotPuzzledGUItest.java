@@ -38,7 +38,7 @@ import MainPackage.Database;
 
 
 
-public class GotPuzzledGUI {
+public class GotPuzzledGUItest {
 	
 	/*
 	 * here we post all frames and panels to be visible and enable for whole code
@@ -88,7 +88,7 @@ public class GotPuzzledGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GotPuzzledGUI window = new GotPuzzledGUI();
+					GotPuzzledGUItest window = new GotPuzzledGUItest();
 					window.frmGotPuzzled.setVisible(true);
 					
 				} catch (Exception e) {
@@ -102,7 +102,7 @@ public class GotPuzzledGUI {
 	/**
 	 * Create the application.
 	 */
-	public GotPuzzledGUI() {
+	public GotPuzzledGUItest() {
 		initialize();
 	}
 
