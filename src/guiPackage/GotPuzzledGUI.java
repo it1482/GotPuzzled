@@ -574,11 +574,8 @@ public class GotPuzzledGUI {
 		
 		JButton createPuzzleLoadImageButton = new JButton("Load Image");
 		createPuzzleLoadImageButton.addActionListener(new ActionListener() {
-
-
 			public void actionPerformed(ActionEvent arg0) {
 				image = fileChooser(frmGotPuzzled);
-				
 			}
 		});
 		createPuzzleLoadImageButton.setForeground(Color.WHITE);
@@ -597,6 +594,7 @@ public class GotPuzzledGUI {
 			}
 		});
 		createPuzzleJigsawRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleJigsawRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleJigsawRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleJigsawRadioButton.setBounds(50, 220, 121, 24);
 		createPuzzlePanel.add(createPuzzleJigsawRadioButton);
@@ -784,4 +782,5 @@ public class GotPuzzledGUI {
 	    list.setSelectedIndex(0);
 	}
 
+	
 }
