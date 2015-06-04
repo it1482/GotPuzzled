@@ -61,6 +61,13 @@ public class GotPuzzledGUI {
 	private JPanel editorCreatePanel;
 	
 	private JPanel createPuzzlePanel; 
+	
+	private JPanel createLadderPanel;
+	
+	private JPanel optionsPanel;
+	
+	private JPanel leaderboardsPanel;
+	
 	private JTextField createPuzzleNewPuzzleNameTextField;
 	
 	private JCheckBox createPuzzleRotationCheckBox;
@@ -71,6 +78,9 @@ public class GotPuzzledGUI {
 	Database database = new Database();
 	private Image image;
 	DefaultListModel<String> model;
+	private JLabel optionsTitleLabel;
+	private JButton optionsBackToMainMenuButton;
+	private JLabel leaderboardsTitleLabel;
 
 	
 	/**
@@ -197,6 +207,12 @@ public class GotPuzzledGUI {
 		mainMenuPanel.add(mainEditorButton);
 		
 		JButton mainOptionsButton = new JButton("Options");
+		mainOptionsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainMenuPanel.setVisible(false);
+				optionsPanel.setVisible(true);
+			}
+		});
 		mainOptionsButton.setForeground(Color.WHITE);
 		mainOptionsButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		mainOptionsButton.setBackground(new Color(34, 139, 34));
@@ -265,6 +281,12 @@ public class GotPuzzledGUI {
 		playPanel.add(playLoadGame);
 		
 		JButton playLeaderboardsButton = new JButton("Leaderboards");
+		playLeaderboardsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playPanel.setVisible(false);
+				leaderboardsPanel.setVisible(true);
+			}
+		});
 		playLeaderboardsButton.setForeground(Color.WHITE);
 		playLeaderboardsButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		playLeaderboardsButton.setBackground(new Color(34, 139, 34));
@@ -499,6 +521,12 @@ public class GotPuzzledGUI {
 		});
 		
 		JButton editorCreateLadderButton = new JButton("Create Ladder Challenge");
+		editorCreateLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorCreatePanel.setVisible(false);
+				createLadderPanel.setVisible(true);			
+			}
+		});
 		editorCreateLadderButton.setForeground(Color.WHITE);
 		editorCreateLadderButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		editorCreateLadderButton.setBackground(new Color(34, 139, 34));
@@ -509,6 +537,7 @@ public class GotPuzzledGUI {
 		createBackToEditorButton.setBackground(new Color(34, 139, 34));
 		createBackToEditorButton.setBounds(20, 470, 100, 50);
 		editorCreatePanel.add(createBackToEditorButton);
+		
 		
 		createPuzzlePanel = new JPanel();
 		createPuzzlePanel.setLayout(null);
@@ -704,6 +733,99 @@ public class GotPuzzledGUI {
 		createPuzzleBackToCreateButton.setBackground(new Color(34, 139, 34));
 		createPuzzleBackToCreateButton.setBounds(20, 470, 100, 50);
 		createPuzzlePanel.add(createPuzzleBackToCreateButton);
+		
+		
+		
+		createLadderPanel = new JPanel();
+		createLadderPanel.setLayout(null);
+		createLadderPanel.setBackground(new Color(245, 245, 220));
+		createLadderPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(createLadderPanel);
+		
+		JLabel createLadderTitleLabel = new JLabel("Create Ladder Challenge");
+		createLadderTitleLabel.setToolTipText("");
+		createLadderTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		createLadderTitleLabel.setForeground(new Color(34, 139, 34));
+		createLadderTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		createLadderTitleLabel.setBounds(0, 0, 621, 54);
+		createLadderPanel.add(createLadderTitleLabel);
+		createLadderPanel.setVisible(false);
+		
+		JButton createLadderBackToCreateButton = new JButton("Back");
+		createLadderBackToCreateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				createLadderPanel.setVisible(false);
+				editorCreatePanel.setVisible(true);				
+			}
+		});
+		createLadderBackToCreateButton.setForeground(Color.WHITE);
+		createLadderBackToCreateButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		createLadderBackToCreateButton.setBackground(new Color(34, 139, 34));
+		createLadderBackToCreateButton.setBounds(20, 470, 100, 50);
+		createLadderPanel.add(createLadderBackToCreateButton);
+		
+		
+		
+		optionsPanel = new JPanel();
+		optionsPanel.setLayout(null);
+		optionsPanel.setBackground(new Color(245, 245, 220));
+		optionsPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(optionsPanel);
+		optionsPanel.setVisible(false);
+		
+		JLabel optionsTitleLabel;
+		optionsTitleLabel = new JLabel("Options");
+		optionsTitleLabel.setToolTipText("");
+		optionsTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		optionsTitleLabel.setForeground(new Color(34, 139, 34));
+		optionsTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		optionsTitleLabel.setBounds(0, 0, 621, 54);
+		optionsPanel.add(optionsTitleLabel);
+		
+		
+		JButton optionsBackToMainMenuButton;
+		optionsBackToMainMenuButton = new JButton("Back");
+		optionsBackToMainMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				optionsPanel.setVisible(false);
+				mainMenuPanel.setVisible(true);				
+			}
+		});
+		optionsBackToMainMenuButton.setForeground(Color.WHITE);
+		optionsBackToMainMenuButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
+		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
+		optionsPanel.add(optionsBackToMainMenuButton);
+		
+		
+		leaderboardsPanel = new JPanel();
+		leaderboardsPanel.setLayout(null);
+		leaderboardsPanel.setBackground(new Color(245, 245, 220));
+		leaderboardsPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(leaderboardsPanel);
+		leaderboardsPanel.setVisible(false);
+		
+		JLabel leaderboardsTitleLabel;
+		leaderboardsTitleLabel = new JLabel("Leaderboards");
+		leaderboardsTitleLabel.setToolTipText("");
+		leaderboardsTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		leaderboardsTitleLabel.setForeground(new Color(34, 139, 34));
+		leaderboardsTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		leaderboardsTitleLabel.setBounds(0, 0, 621, 54);
+		leaderboardsPanel.add(leaderboardsTitleLabel);
+		
+		JButton leaderboardsBackToPlayButton = new JButton("Back");
+		leaderboardsBackToPlayButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				leaderboardsPanel.setVisible(false);
+				playPanel.setVisible(true);
+			}
+		});
+		leaderboardsBackToPlayButton.setForeground(Color.WHITE);
+		leaderboardsBackToPlayButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		leaderboardsBackToPlayButton.setBackground(new Color(34, 139, 34));
+		leaderboardsBackToPlayButton.setBounds(20, 470, 100, 50);
+		leaderboardsPanel.add(leaderboardsBackToPlayButton);
 		
 
 	}
