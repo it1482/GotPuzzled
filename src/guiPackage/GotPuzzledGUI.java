@@ -690,8 +690,7 @@ public class GotPuzzledGUI {
 				if(createPuzzleEasyRadioButton.isSelected()){
 					difficulty = 1;
 
-				}
-				else if(createPuzzleMediumRadioButton.isSelected())
+				} else if(createPuzzleMediumRadioButton.isSelected())
 					difficulty = 2;
 				else
 					difficulty = 3;
