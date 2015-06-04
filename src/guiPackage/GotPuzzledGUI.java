@@ -17,6 +17,11 @@ import java.awt.EventQueue;
 
 
 
+
+
+
+
+
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
@@ -42,6 +47,7 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
 import java.io.File;
 
 import javax.swing.JButton;
@@ -58,7 +64,10 @@ import javax.swing.JCheckBox;
 
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
+import JigsawPuzzlePackage.JigsawCutter;
+import JigsawPuzzlePackage.JigsawFrame;
 import MainPackage.Database;
+import SlidingPuzzlePackage.SlidingPuzzle;
 
 
 public class GotPuzzledGUI {
@@ -72,6 +81,7 @@ public class GotPuzzledGUI {
 	 */
 	// kentriko vasiko frame - panw sto opoio kathontai ola ta panels
 	private JFrame frmGotPuzzled;
+
 
 	
 	// kentriko panel
@@ -428,6 +438,32 @@ public class GotPuzzledGUI {
 		
 		// here you can add code to implement the Start Game function
 		JButton customGameStartGameButton = new JButton("Start Game!");
+		customGameStartGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int index = database.getPuzzleDatabase().getPuzzlesNames().indexOf(customPuzzlesJList.getSelectedValue());
+				System.out.println(index);
+				if(database.getPuzzleDatabase().getPuzzles().get(index) instanceof PuzzleJigsawData)
+				{
+					//Initiates Jigsaw puzzle
+					PuzzleJigsawData current = (PuzzleJigsawData) database.getPuzzleDatabase().getPuzzles().get(index);
+					JigsawCutter varCutter = new JigsawCutter(current.getRotation());
+					JigsawFrame jigframe = new JigsawFrame ((BufferedImage) current.getImage(), varCutter, ((PuzzleJigsawData)current).getRotation());
+					jigframe.begin();
+					jigframe.setSize (1024, 740);
+				    jigframe.setVisible(true);
+				    frmGotPuzzled.setVisible(false);
+
+				}
+				else
+				{
+					//Initiates Sliding puzzle
+					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),database.getPuzzleDatabase().getPuzzles().get(index).getImage(),database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
+					frmGotPuzzled.setVisible(true);
+					frmGotPuzzled.setResizable(true);
+					frmGotPuzzled.setSize(800, 800);
+				}
+			}
+		});
 		customGameStartGameButton.setForeground(Color.WHITE);
 		customGameStartGameButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		customGameStartGameButton.setBackground(new Color(34, 139, 34));
@@ -771,7 +807,6 @@ public class GotPuzzledGUI {
 			
 		}else{
 			System.out.println("Bye");
-			System.exit(0);
 		}
 		return image;
 	}
