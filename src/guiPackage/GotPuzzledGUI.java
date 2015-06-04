@@ -1,28 +1,12 @@
 package guiPackage;
 
 import java.awt.EventQueue;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.ListModel;
+
 import javax.swing.UIManager;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -31,41 +15,30 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
-
-
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.io.File;
-
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JScrollPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
-import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
-
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
 import MainPackage.Database;
 
 
+
 public class GotPuzzledGUI {
-	
-	
-	
-	
 	
 	/*
 	 * here we post all frames and panels to be visible and enable for whole code
@@ -589,7 +562,6 @@ public class GotPuzzledGUI {
 			public void actionPerformed(ActionEvent e) {
 				if (createPuzzleJigsawRadioButton.isSelected()){
 					createPuzzleRotationCheckBox.setEnabled(true);
-					
 				}
 			}
 		});
