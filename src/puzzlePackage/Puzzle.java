@@ -9,12 +9,10 @@ public class Puzzle extends JPanel{
 	//fields
 	private String name;
 	private Image image;
-	private int type;
-	private String difficulty;
-	private int puzzleValue;;
-	public Puzzle(String name, Image image, int partsNumber) {
+	private int difficulty;
+	public Puzzle(String name, Image image, int difficulty) {
 		this.name = name;
-		this.type = type;
+		this.difficulty = difficulty;
 		this.image = image;
 	}
 	
@@ -38,6 +36,14 @@ public class Puzzle extends JPanel{
 
 	public void setImage(Image image) {
 		this.image = image;
+	}
+
+	public int getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(int difficulty) {
+		this.difficulty = difficulty;
 	}
 	
 	

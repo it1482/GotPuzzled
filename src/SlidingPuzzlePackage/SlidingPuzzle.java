@@ -6,23 +6,21 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.Insets;
-import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import playerPackage.CalculateScore;
+import playerPackage.Player;
 import puzzlePackage.Puzzle;
 
 public class SlidingPuzzle extends Puzzle implements ActionListener{
@@ -55,10 +53,9 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			size_pleuras=5;
 		else
 			System.out.println("Error in partsNumber variable.");
-		this.image=image;
-		//gia na perastei i photo
-		//this.image = image;
-
+		this.image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);
+		
+		
 
 		
 		
@@ -158,16 +155,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(new_gameButton == e.getSource()){
-			timer.stopTimer();
-			JOptionPane.showMessageDialog(grid,timer.getTimerCounter()-1+" seconds");
-			timer.setTimerCounter(0);
-			timer.startTimer();
-			
-			/*timer = new Timer(1000,actListener);
-			timer.start();*/
-			movecounter=0;
-			moves_label.setText("Moves : "+Integer.toString(movecounter));
-			shufflePuzzle();
+			newGame();
 		}else{
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
@@ -243,7 +231,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			
 			}
 			if(possible_moves.size()==0)
-				System.out.println("Malakia");
+				System.out.println("Error in initialize.");
 			else{
 				last_position=currentBlankSpot;
 				changeSpots(possible_moves.get( (int) (Math.random()*possible_moves.size()) ),true);
@@ -311,12 +299,27 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		
 	}
 	
+	
+	public void newGame(){
+		timer.stopTimer();
+		timer.setTimerCounter(0);
+		timer.startTimer();
+		
+		movecounter=0;
+		moves_label.setText("Moves : "+Integer.toString(movecounter));
+		shufflePuzzle();
+	}
+	
 	public void endStats() {
 		endTime = timer.getTimerCounter();
 		endMoves = movecounter;
+		CalculateScore tempscore = new CalculateScore(super.getDifficulty(),(double)endTime);
+		Player newplayer = new Player(super.getName(),(int) tempscore.returnScore());
+		
+		
+		
 		playerName=JOptionPane.showInputDialog(grid,"Time:" + endTime + " ,Moves:" + endMoves + "\nYour Name:","You Won!", JOptionPane.PLAIN_MESSAGE);
-		System.out.println(playerName);
-		//System.out.println("Time:" + endTime + " ,Moves:" + endMoves);
+		newGame();
 	}
 	
 

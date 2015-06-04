@@ -460,7 +460,7 @@ public class GotPuzzledGUI {
 					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),database.getPuzzleDatabase().getPuzzles().get(index).getImage(),database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
 					frmGotPuzzled.setVisible(true);
 					frmGotPuzzled.setResizable(true);
-					frmGotPuzzled.setSize(800, 800);
+					frmGotPuzzled.setSize(800,800);
 				}
 			}
 		});

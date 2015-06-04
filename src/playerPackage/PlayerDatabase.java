@@ -38,5 +38,15 @@ public class PlayerDatabase {
 		players.add(new Player(PlayerName,0));
 		
 	}
+	
+	public void addPlayer(Player player){
+		for(Player p : players){
+			if (p==player){
+				System.out.println("This Player name is already taken!");/*Εμφανιση του μηνυματος με Dialog πλαισιο.*/
+				return;
+			}
+		}
+		players.add(player);
+	}
 
 }

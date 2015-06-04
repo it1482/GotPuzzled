@@ -14,7 +14,7 @@ public class MyFrame extends JFrame{
 		//size einai i pleura tou puzzle
 		
 		image=SlidingCreator.fileChooser(this);
-		int difficulty=1;
+		int difficulty=2;
 		//JFrame slide = new SlidingPuzzle("Test",image,difficulty);
 		this.setContentPane(new SlidingPuzzle("Test",image,difficulty));
 		this.setVisible(true);
