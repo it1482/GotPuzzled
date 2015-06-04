@@ -827,6 +827,15 @@ public class GotPuzzledGUI {
 		leaderboardsBackToPlayButton.setBounds(20, 470, 100, 50);
 		leaderboardsPanel.add(leaderboardsBackToPlayButton);
 		
+		JScrollPane leaderboardsScrollPane = new JScrollPane();
+		leaderboardsScrollPane.setBounds(150, 70, 324, 370);
+		leaderboardsPanel.add(leaderboardsScrollPane);
+		
+		JList leaderboardsJList = new JList();
+		leaderboardsJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		leaderboardsScrollPane.setViewportView(leaderboardsJList);
+		
 
 	}
 	
@@ -874,6 +883,4 @@ public class GotPuzzledGUI {
 	    list.setModel(model);     
 	    list.setSelectedIndex(0);
 	}
-
-	
 }
