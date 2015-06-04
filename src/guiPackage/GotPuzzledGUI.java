@@ -2,32 +2,11 @@ package guiPackage;
 
 import java.awt.EventQueue;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.ListModel;
 import javax.swing.UIManager;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
@@ -37,7 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Font;
 import java.awt.Color;
@@ -56,9 +34,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JScrollPane;
-import javax.swing.JInternalFrame;
 import javax.swing.JTextField;
-import javax.swing.DropMode;
 import javax.swing.JRadioButton;
 import javax.swing.JCheckBox;
 
@@ -71,11 +47,7 @@ import SlidingPuzzlePackage.SlidingPuzzle;
 
 
 public class GotPuzzledGUI {
-	
-	
-	
-	
-	
+		
 	/*
 	 * here we post all frames and panels to be visible and enable for whole code
 	 */
@@ -98,10 +70,27 @@ public class GotPuzzledGUI {
 	private JPanel editorCreatePanel;
 	
 	private JPanel createPuzzlePanel; 
+	
+	
+	
+	private JPanel optionsPanel;
+	
+	private JPanel leaderboardsPanel;
+	
+	
+	
+	//fields needed
+
+	
 	private JTextField createPuzzleNewPuzzleNameTextField;
 	
 	private JCheckBox createPuzzleRotationCheckBox;
 	private JTextField createPuzzlePiecesTextField;
+	
+	
+	private JLabel optionsTitleLabel;
+	private JButton optionsBackToMainMenuButton;
+	private JLabel leaderboardsTitleLabel;
 	
 	//fields needed
 
@@ -234,6 +223,12 @@ public class GotPuzzledGUI {
 		mainMenuPanel.add(mainEditorButton);
 		
 		JButton mainOptionsButton = new JButton("Options");
+		mainOptionsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mainMenuPanel.setVisible(false);
+				optionsPanel.setVisible(true);
+			}
+		});
 		mainOptionsButton.setForeground(Color.WHITE);
 		mainOptionsButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		mainOptionsButton.setBackground(new Color(34, 139, 34));
@@ -302,6 +297,12 @@ public class GotPuzzledGUI {
 		playPanel.add(playLoadGame);
 		
 		JButton playLeaderboardsButton = new JButton("Leaderboards");
+		playLeaderboardsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playPanel.setVisible(false);
+				leaderboardsPanel.setVisible(true);
+			}
+		});
 		playLeaderboardsButton.setForeground(Color.WHITE);
 		playLeaderboardsButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		playLeaderboardsButton.setBackground(new Color(34, 139, 34));
@@ -610,11 +611,8 @@ public class GotPuzzledGUI {
 		
 		JButton createPuzzleLoadImageButton = new JButton("Load Image");
 		createPuzzleLoadImageButton.addActionListener(new ActionListener() {
-
-
 			public void actionPerformed(ActionEvent arg0) {
 				image = fileChooser(frmGotPuzzled);
-				
 			}
 		});
 		createPuzzleLoadImageButton.setForeground(Color.WHITE);
@@ -633,6 +631,7 @@ public class GotPuzzledGUI {
 			}
 		});
 		createPuzzleJigsawRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleJigsawRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleJigsawRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleJigsawRadioButton.setBounds(50, 220, 121, 24);
 		createPuzzlePanel.add(createPuzzleJigsawRadioButton);
@@ -647,6 +646,7 @@ public class GotPuzzledGUI {
 			}
 		});
 		createPuzzleSlidingRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleSlidingRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleSlidingRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleSlidingRadioButton.setBounds(50, 250, 121, 24);
 		createPuzzlePanel.add(createPuzzleSlidingRadioButton);
@@ -657,6 +657,7 @@ public class GotPuzzledGUI {
 		
 		createPuzzleRotationCheckBox = new JCheckBox("Rotation");
 		createPuzzleRotationCheckBox.setForeground(new Color(34, 139, 34));
+		createPuzzleRotationCheckBox.setBackground(new Color(245, 245, 220));
 		createPuzzleRotationCheckBox.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleRotationCheckBox.setBounds(50, 280, 112, 24);
 		createPuzzlePanel.add(createPuzzleRotationCheckBox);
@@ -666,25 +667,28 @@ public class GotPuzzledGUI {
 		createPuzzleDificultyLabel.setToolTipText("");
 		createPuzzleDificultyLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		createPuzzleDificultyLabel.setForeground(new Color(34, 139, 34));
+		createPuzzleDificultyLabel.setBackground(new Color(245, 245, 220));
 		createPuzzleDificultyLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		createPuzzleDificultyLabel.setBackground(UIManager.getColor("Button.background"));
 		createPuzzleDificultyLabel.setBounds(300, 180, 160, 30);
 		createPuzzlePanel.add(createPuzzleDificultyLabel);
 		
 		final JRadioButton createPuzzleEasyRadioButton = new JRadioButton("Easy",true);
 		createPuzzleEasyRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleEasyRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleEasyRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleEasyRadioButton.setBounds(300, 220, 121, 24);
 		createPuzzlePanel.add(createPuzzleEasyRadioButton);
 		
 		final JRadioButton createPuzzleMediumRadioButton = new JRadioButton("Medium");
 		createPuzzleMediumRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleMediumRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleMediumRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleMediumRadioButton.setBounds(300, 250, 121, 24);
 		createPuzzlePanel.add(createPuzzleMediumRadioButton);
 		
 		JRadioButton createPuzzleHardRadioButton = new JRadioButton("Hard");
 		createPuzzleHardRadioButton.setForeground(new Color(34, 139, 34));
+		createPuzzleHardRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleHardRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		createPuzzleHardRadioButton.setBounds(300, 280, 121, 24);
 		createPuzzlePanel.add(createPuzzleHardRadioButton);
@@ -771,6 +775,79 @@ public class GotPuzzledGUI {
 		createPuzzleBackToCreateButton.setBackground(new Color(34, 139, 34));
 		createPuzzleBackToCreateButton.setBounds(20, 470, 100, 50);
 		createPuzzlePanel.add(createPuzzleBackToCreateButton);
+		
+		
+		
+		optionsPanel = new JPanel();
+		optionsPanel.setLayout(null);
+		optionsPanel.setBackground(new Color(245, 245, 220));
+		optionsPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(optionsPanel);
+		optionsPanel.setVisible(false);
+		
+		JLabel optionsTitleLabel;
+		optionsTitleLabel = new JLabel("Options");
+		optionsTitleLabel.setToolTipText("");
+		optionsTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		optionsTitleLabel.setForeground(new Color(34, 139, 34));
+		optionsTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		optionsTitleLabel.setBounds(0, 0, 621, 54);
+		optionsPanel.add(optionsTitleLabel);
+		
+		
+		JButton optionsBackToMainMenuButton;
+		optionsBackToMainMenuButton = new JButton("Back");
+		optionsBackToMainMenuButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				optionsPanel.setVisible(false);
+				mainMenuPanel.setVisible(true);				
+			}
+		});
+		optionsBackToMainMenuButton.setForeground(Color.WHITE);
+		optionsBackToMainMenuButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
+		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
+		optionsPanel.add(optionsBackToMainMenuButton);
+		
+		
+		leaderboardsPanel = new JPanel();
+		leaderboardsPanel.setLayout(null);
+		leaderboardsPanel.setBackground(new Color(245, 245, 220));
+		leaderboardsPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(leaderboardsPanel);
+		leaderboardsPanel.setVisible(false);
+		
+		JLabel leaderboardsTitleLabel;
+		leaderboardsTitleLabel = new JLabel("Leaderboards");
+		leaderboardsTitleLabel.setToolTipText("");
+		leaderboardsTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		leaderboardsTitleLabel.setForeground(new Color(34, 139, 34));
+		leaderboardsTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		leaderboardsTitleLabel.setBounds(0, 0, 621, 54);
+		leaderboardsPanel.add(leaderboardsTitleLabel);
+		
+		JButton leaderboardsBackToPlayButton = new JButton("Back");
+		leaderboardsBackToPlayButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				leaderboardsPanel.setVisible(false);
+				playPanel.setVisible(true);
+			}
+		});
+		leaderboardsBackToPlayButton.setForeground(Color.WHITE);
+		leaderboardsBackToPlayButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		leaderboardsBackToPlayButton.setBackground(new Color(34, 139, 34));
+		leaderboardsBackToPlayButton.setBounds(20, 470, 100, 50);
+		leaderboardsPanel.add(leaderboardsBackToPlayButton);
+		
+		JScrollPane leaderboardsScrollPane = new JScrollPane();
+		leaderboardsScrollPane.setBounds(150, 70, 324, 370);
+		leaderboardsPanel.add(leaderboardsScrollPane);
+		
+		JList leaderboardsJList = new JList();
+		leaderboardsJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		leaderboardsScrollPane.setViewportView(leaderboardsJList);
+		
 		
 
 	}
