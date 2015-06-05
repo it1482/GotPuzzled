@@ -26,6 +26,12 @@ public class PuzzleDatabase {
 	
 
 
+	public void setPuzzlesData(ArrayList<PuzzleData> puzzlesData) {
+		this.puzzlesData = puzzlesData;
+	}
+
+
+
 	public ArrayList<PuzzleData> getPuzzles() {
 		return puzzlesData;
 	}
@@ -69,6 +75,9 @@ public class PuzzleDatabase {
 	       } catch (IOException ex) {
 	            // handle exception...
 	       }
+		 for(int i=0;i<puzzlesData.size();i++){
+			 puzzlesNames.add(puzzlesData.get(i).getName());
+		 }
 		 
 
 		puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));

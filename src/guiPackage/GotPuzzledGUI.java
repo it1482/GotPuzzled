@@ -138,7 +138,7 @@ public class GotPuzzledGUI {
 	private void initialize() {
 		
 		//loading database data
-		database.getPuzzleDatabase().getLoadsave().load();
+		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -431,7 +431,8 @@ public class GotPuzzledGUI {
 		customGamePanel.add(customPuzzlesListScrollPane);
 		
 		final DefaultListModel model = new DefaultListModel();
-		database.getPuzzleDatabase().testDatabase(); //Initiate list with the current puzzles taken from database
+		//Initiate list with the current puzzles taken from database
+		database.getPuzzleDatabase().testDatabase(); 
 
 		final JList customPuzzlesJList = new JList(model);
 		UpdateJList(customPuzzlesJList);
