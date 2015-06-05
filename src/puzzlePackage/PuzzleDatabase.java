@@ -52,6 +52,13 @@ public class PuzzleDatabase {
 	}
 	
 	
+	
+	public LoadSavePuzzles getLoadsave() {
+		return loadsave;
+	}
+
+
+
 	/**Just for testing creates a database to see if things are working properly.
 	 *  
 	 */

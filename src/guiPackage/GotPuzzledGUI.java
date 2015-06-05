@@ -78,8 +78,7 @@ public class GotPuzzledGUI {
 	private JPanel leaderboardsPanel;
 	
 	
-	
-	//fields needed
+
 
 	
 	private JTextField createPuzzleNewPuzzleNameTextField;
@@ -97,6 +96,7 @@ public class GotPuzzledGUI {
 	Database database = new Database();
 	private Image image;
 	DefaultListModel<String> model;
+	
 
 	
 	/**
@@ -136,6 +136,9 @@ public class GotPuzzledGUI {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		//loading database data
+		database.getPuzzleDatabase().getLoadsave().load();
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -755,6 +758,7 @@ public class GotPuzzledGUI {
 						database.getPuzzleDatabase().getPuzzlesNames().add(name);
 					}
 					UpdateJList(customPuzzlesJList);
+					database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
 					System.out.println(name + " puzzle got saved!");
 					
 						
