@@ -70,18 +70,18 @@ public class PuzzleDatabase {
 	 */
 	public void testDatabase() {
 		Image image = null;
-		 try {                
+		/* try {                
 			 image = ImageIO.read(new File("images/pic.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
-	       }
+	       }*/
 		 for(int i=0;i<puzzlesData.size();i++){
 			 puzzlesNames.add(puzzlesData.get(i).getName());
 		 }
 		 
 
-		puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
-		puzzlesNames.add("Puzzle 1");
+		//puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
+		//puzzlesNames.add("Puzzle 1");
 
 
 	}
