@@ -78,7 +78,9 @@ public class GotPuzzledGUI {
 	private JPanel leaderboardsPanel;
 	
 	
-
+	private JMenuBar menuBar;
+	
+	private JButton backFromSlidingToMainMenuButton;
 
 	
 	private JTextField createPuzzleNewPuzzleNameTextField;
@@ -156,7 +158,7 @@ public class GotPuzzledGUI {
 		
 		
 		// a JMenuBar it's been constructed
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		frmGotPuzzled.setJMenuBar(menuBar);
 		
 		// a JMenu Option it's been constructed
@@ -186,6 +188,27 @@ public class GotPuzzledGUI {
 		});
 		mntmAboutGotPuzzled.setIcon(new ImageIcon(GotPuzzledGUI.class.getResource("/guiPackage/img/info.png")));
 		mnAbout.add(mntmAboutGotPuzzled);
+		
+		
+		
+		
+		backFromSlidingToMainMenuButton = new JButton("back");
+		backFromSlidingToMainMenuButton.addActionListener(new ActionListener() {			
+			public void actionPerformed(ActionEvent e) {				
+				frmGotPuzzled.setContentPane(mainMenuPanel);
+				frmGotPuzzled.setBounds(100, 100, 637, 609);
+				playPanel.setVisible(false);
+				mainMenuPanel.setVisible(true);
+				frmGotPuzzled.setResizable(false);
+				backFromSlidingToMainMenuButton.setVisible(false);				
+			}
+		});
+		
+		
+		menuBar.add(backFromSlidingToMainMenuButton);
+		backFromSlidingToMainMenuButton.setVisible(false);
+		
+		
 		frmGotPuzzled.getContentPane().setLayout(null);
 		
 		
@@ -466,8 +489,13 @@ public class GotPuzzledGUI {
 				}
 				else
 				{
+					// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
+					backFromSlidingToMainMenuButton.setVisible(true);
+					
 					//Initiates Sliding puzzle
-					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),database.getPuzzleDatabase().getPuzzles().get(index).getImage(),database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
+					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),
+							database.getPuzzleDatabase().getPuzzles().get(index).getImage(),
+							database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
 					frmGotPuzzled.setVisible(true);
 					frmGotPuzzled.setResizable(true);
 					frmGotPuzzled.setSize(800,800);
