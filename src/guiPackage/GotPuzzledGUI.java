@@ -764,7 +764,7 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzlePiecesTextField);
 		
 		//Gets all the parsed information from the user and creates the puzzle
-		JButton createPuzzleButton = new JButton("Create");
+		JButton createPuzzleButton = new JButton("Create Puzzle");
 		createPuzzleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -821,6 +821,10 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleButton);
 		
 		
+		
+		/**
+		 * Create Ladder Panel Start
+		 */
 		createLadderPanel = new JPanel();
 		createLadderPanel.setLayout(null);
 		createLadderPanel.setBackground(new Color(245, 245, 220));
@@ -849,6 +853,29 @@ public class GotPuzzledGUI {
 			}
 		});
 		createLadderPanel.add(createLadderBackToCreateButton);
+		
+		
+		//Gets all the information for the puzzles and creates the ladder
+		JButton createLadderButton = new JButton("Create Ladder");
+		createLadderButton.setForeground(Color.WHITE);
+		createLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		createLadderButton.setBackground(new Color(34, 139, 34));
+		createLadderButton.setBounds(181, 450, 243, 72);
+		createLadderPanel.add(createLadderButton);
+		
+		// here we implement the create ladder button
+		createLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("create ladder pressed");
+				
+			}
+		});
+		
+		
+		/**
+		 * Create Ladder Panel End
+		 */
+		
 		
 		
 		optionsPanel = new JPanel();
