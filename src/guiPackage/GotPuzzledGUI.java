@@ -93,6 +93,7 @@ public class GotPuzzledGUI {
 	
 	
 	private JRadioButton optionsMusicOnRadioButton;
+	private JRadioButton optionsMusicOffRadioButton;
 	
 	
 	//fields needed
@@ -813,12 +814,20 @@ public class GotPuzzledGUI {
 		optionMusicLabel.setBounds(200, 150, 160, 30);
 		optionsPanel.add(optionMusicLabel);
 		
+		
+		
+		ButtonGroup musicRadioButtonGroup = new ButtonGroup();
+		musicRadioButtonGroup.add(optionsMusicOnRadioButton);
+		musicRadioButtonGroup.add(optionsMusicOffRadioButton);
+		
 		optionsMusicOnRadioButton = new JRadioButton("On", true);
 		optionsMusicOnRadioButton.setForeground(Color.BLACK);
 		optionsMusicOnRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		optionsMusicOnRadioButton.setBackground(new Color(245, 245, 220));
 		optionsMusicOnRadioButton.setBounds(330, 140, 121, 24);
 		optionsPanel.add(optionsMusicOnRadioButton);
+		
+		
 		
 		JRadioButton optionsMusicOffRadioButton = new JRadioButton("Off", false);
 		optionsMusicOffRadioButton.setForeground(Color.BLACK);
