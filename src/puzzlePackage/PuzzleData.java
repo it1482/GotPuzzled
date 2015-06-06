@@ -3,6 +3,8 @@ package puzzlePackage;
 import java.awt.Image;
 import java.io.Serializable;
 
+import javax.swing.ImageIcon;
+
 /** This class contains all the information needed for the sliding puzzle to be created.
  * @param name Contains the name of the puzzle
  * @param image Contains the image of the puzzle
@@ -11,11 +13,11 @@ import java.io.Serializable;
  */
 public class PuzzleData  implements Serializable {
 	private String name;
-	private transient Image image;
+	private ImageIcon image;
 
 	private int difficulty;
 	
-	public PuzzleData(String name, Image image, int difficulty) {
+	public PuzzleData(String name, ImageIcon image, int difficulty) {
 		super();
 		this.name = name;
 		this.image = image;
@@ -32,7 +34,7 @@ public class PuzzleData  implements Serializable {
 		return name;
 	}
 
-	public Image getImage() {
+	public ImageIcon getImage() {
 		return image;
 	}
 

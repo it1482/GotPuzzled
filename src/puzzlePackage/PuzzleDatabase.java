@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 import playerPackage.Player;
 
@@ -46,7 +47,7 @@ public class PuzzleDatabase {
 
 
 
-	public void createPuzzle(String name,Image image, int difficulty){
+	public void createPuzzle(String name,ImageIcon image, int difficulty){
 		for(PuzzleData p : puzzlesData){
 			if (p.getName()==name){
 				System.out.println("This Puzzle already exists!");/*Εμφανιση του μηνυματος με Dialog πλαισιο.*/
@@ -69,7 +70,7 @@ public class PuzzleDatabase {
 	 *  
 	 */
 	public void testDatabase() {
-		Image image = null;
+		ImageIcon image = null;
 		/* try {                
 			 image = ImageIO.read(new File("images/pic.jpg"));
 	       } catch (IOException ex) {

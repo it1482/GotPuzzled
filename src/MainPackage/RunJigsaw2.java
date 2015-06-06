@@ -22,10 +22,10 @@ public class RunJigsaw2 {
 			varCutter = new JigsawCutter(((PuzzleJigsawData)temp_data).getRotation());
 			varCutter.setPreferredPieceCount(temp_data.getDifficulty());
 		}
-		JigsawFrame frame = new JigsawFrame (((BufferedImage)temp_data.getImage()), varCutter, ((PuzzleJigsawData)temp_data).getRotation());
-	    frame.begin();
-	    frame.setSize (1024, 740);
-	    frame.show();
+		//JigsawFrame frame = new JigsawFrame (((BufferedImage)temp_data.getImage()), varCutter, ((PuzzleJigsawData)temp_data).getRotation());
+	    //frame.begin();
+	   // frame.setSize (1024, 740);
+	    //frame.show();
 
 	}
 

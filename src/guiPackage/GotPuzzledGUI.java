@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import java.awt.event.ActionEvent;
@@ -106,7 +107,7 @@ public class GotPuzzledGUI {
 	//fields needed
 
 	Database database = new Database();
-	private Image image;
+	private ImageIcon image;
 	DefaultListModel<String> model;
 	
 
@@ -150,7 +151,7 @@ public class GotPuzzledGUI {
 	private void initialize() {
 		
 		//loading database data
-		//database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
+		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -476,13 +477,17 @@ public class GotPuzzledGUI {
 		customGameStartGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int index = database.getPuzzleDatabase().getPuzzlesNames().indexOf(customPuzzlesJList.getSelectedValue());
+				BufferedImage imageInput;
+				
 				System.out.println(index);
 				if(database.getPuzzleDatabase().getPuzzles().get(index) instanceof PuzzleJigsawData)
 				{
 					//Initiates Jigsaw puzzle
 					PuzzleJigsawData current = (PuzzleJigsawData) database.getPuzzleDatabase().getPuzzles().get(index);
-					JigsawCutter varCutter = new JigsawCutter(current.getRotation());
-					JigsawFrame jigframe = new JigsawFrame ((BufferedImage) current.getImage(), varCutter, ((PuzzleJigsawData)current).getRotation());
+
+					imageInput = ConvertIconToBufferedImage(current.getImage());
+					JigsawCutter varCutter = new JigsawCutter(current.getDifficulty(),current.getRotation());
+					JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation());
 					jigframe.begin();
 					jigframe.setSize (1024, 740);
 				    jigframe.setVisible(true);
@@ -495,9 +500,9 @@ public class GotPuzzledGUI {
 					backFromSlidingToMainMenuButton.setVisible(true);
 					
 					//Initiates Sliding puzzle
+					imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(index).getImage());
 					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),
-							database.getPuzzleDatabase().getPuzzles().get(index).getImage(),
-							database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
+					imageInput,	database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
 					frmGotPuzzled.setVisible(true);
 					frmGotPuzzled.setResizable(true);
 					frmGotPuzzled.setSize(800,800);
@@ -802,14 +807,19 @@ public class GotPuzzledGUI {
 				
 				
 				rotation = createPuzzleRotationCheckBox.isSelected(); 
-				if(createPuzzleEasyRadioButton.isSelected()){
+				if(createPuzzleEasyRadioButton.isSelected())
+				{
 					difficulty = 1;
-
 				}
 				else if(createPuzzleMediumRadioButton.isSelected())
+				{
 					difficulty = 2;
+				}
 				else
+				{
 					difficulty = 3;
+				}
+	
 				name = createPuzzleNewPuzzleNameTextField.getText();
 				//System.out.println(name);
 				//System.out.println(difficulty);
@@ -1139,10 +1149,10 @@ public class GotPuzzledGUI {
 		}
 	}
 	
-	public static Image fileChooser(Component comp){
-		Image image=null;
+	public static ImageIcon fileChooser(Component comp){
+		ImageIcon image=null;
 		MediaTracker tracker = new MediaTracker(comp);
-		tracker.addImage(image,1);
+ 
 		
 		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
 		FileFilter filter = new FileNameExtensionFilter("PNG/JPG/BMP","png","jpg","bmp");
@@ -1152,7 +1162,7 @@ public class GotPuzzledGUI {
 			File file = fc.getSelectedFile();
 			try{
 				tracker.waitForAll();
-				image = ImageIO.read(file);
+				image =new ImageIcon(file.getAbsolutePath());
 			} catch (Exception exp){
 				exp.printStackTrace();
 				
@@ -1163,6 +1173,19 @@ public class GotPuzzledGUI {
 		}
 		return image;
 	}
+	/** Converts ImageIcon to BufferedImage in order to be used on both puzzles.
+	 */
+	private BufferedImage ConvertIconToBufferedImage(ImageIcon icon){
+		BufferedImage bi = new BufferedImage(
+			    icon.getIconWidth(),
+			    icon.getIconHeight(),
+			    BufferedImage.TYPE_INT_RGB);
+			Graphics g = bi.createGraphics();
+			// paint the Icon to the BufferedImage.
+			icon.paintIcon(null, g, 0,0);
+			g.dispose();
+			return bi;
+	}
 
 	private void UpdateJList(JList list){
 	    model = new DefaultListModel<String>();
@@ -1172,5 +1195,7 @@ public class GotPuzzledGUI {
 	    list.setModel(model);     
 	    list.setSelectedIndex(0);
 	}
+	
+	
 
 }
