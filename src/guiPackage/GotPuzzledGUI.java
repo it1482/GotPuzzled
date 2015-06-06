@@ -143,7 +143,7 @@ public class GotPuzzledGUI {
 	private void initialize() {
 		
 		//loading database data
-		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
+		//database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -835,15 +835,10 @@ public class GotPuzzledGUI {
 		optionsMusicOffRadioButton.setBackground(new Color(245, 245, 220));
 		optionsMusicOffRadioButton.setBounds(330, 170, 121, 24);
 		optionsPanel.add(optionsMusicOffRadioButton);
-		optionsBackToMainMenuButton.setForeground(Color.WHITE);
-		optionsBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
-		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
-		optionsPanel.add(optionsBackToMainMenuButton);
 		
 		
 		
-		
+				
 		JButton optionsBackToMainMenuButton;
 		optionsBackToMainMenuButton = new JButton("Back");
 		optionsBackToMainMenuButton.addActionListener(new ActionListener() {
@@ -852,6 +847,7 @@ public class GotPuzzledGUI {
 				mainMenuPanel.setVisible(true);				
 			}
 		});
+		
 		optionsBackToMainMenuButton.setForeground(Color.WHITE);
 		optionsBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
