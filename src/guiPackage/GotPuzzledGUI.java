@@ -190,8 +190,6 @@ public class GotPuzzledGUI {
 		mnAbout.add(mntmAboutGotPuzzled);
 		
 		
-		
-		
 		backFromSlidingToMainMenuButton = new JButton("back");
 		backFromSlidingToMainMenuButton.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent e) {				
@@ -204,11 +202,8 @@ public class GotPuzzledGUI {
 			}
 		});
 		
-		
 		menuBar.add(backFromSlidingToMainMenuButton);
 		backFromSlidingToMainMenuButton.setVisible(false);
-		
-		
 		frmGotPuzzled.getContentPane().setLayout(null);
 		
 		
@@ -320,12 +315,14 @@ public class GotPuzzledGUI {
 		playCustomButton.setBounds(181, 189, 243, 72);
 		playPanel.add(playCustomButton);
 		
+		/*
 		JButton playLoadGame = new JButton("Load Game");
 		playLoadGame.setForeground(Color.WHITE);
 		playLoadGame.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		playLoadGame.setBackground(new Color(34, 139, 34));
 		playLoadGame.setBounds(181, 297, 243, 72);
 		playPanel.add(playLoadGame);
+		*/
 		
 		JButton playLeaderboardsButton = new JButton("Leaderboards");
 		playLeaderboardsButton.addActionListener(new ActionListener() {
@@ -337,7 +334,7 @@ public class GotPuzzledGUI {
 		playLeaderboardsButton.setForeground(Color.WHITE);
 		playLeaderboardsButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		playLeaderboardsButton.setBackground(new Color(34, 139, 34));
-		playLeaderboardsButton.setBounds(181, 407, 243, 72);
+		playLeaderboardsButton.setBounds(181, 340, 243, 72);
 		playPanel.add(playLeaderboardsButton);
 		
 		JButton playBackToMainMenuButton = new JButton("Back");
