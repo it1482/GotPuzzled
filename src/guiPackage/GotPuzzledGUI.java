@@ -816,9 +816,7 @@ public class GotPuzzledGUI {
 		
 		
 		
-		ButtonGroup musicRadioButtonGroup = new ButtonGroup();
-		musicRadioButtonGroup.add(optionsMusicOnRadioButton);
-		musicRadioButtonGroup.add(optionsMusicOffRadioButton);
+		
 		
 		optionsMusicOnRadioButton = new JRadioButton("On", true);
 		optionsMusicOnRadioButton.setForeground(Color.BLACK);
@@ -853,6 +851,10 @@ public class GotPuzzledGUI {
 		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
 		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
 		optionsPanel.add(optionsBackToMainMenuButton);
+		
+		ButtonGroup musicRadioButtonGroup = new ButtonGroup();
+		musicRadioButtonGroup.add(optionsMusicOnRadioButton);
+		musicRadioButtonGroup.add(optionsMusicOffRadioButton);
 		
 		
 		leaderboardsPanel = new JPanel();
