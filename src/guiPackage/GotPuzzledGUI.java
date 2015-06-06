@@ -70,6 +70,7 @@ public class GotPuzzledGUI {
 	private JPanel editorCreatePanel;
 	
 	private JPanel createPuzzlePanel; 
+	private JPanel createLadderPanel;
 	
 	
 	
@@ -589,6 +590,11 @@ public class GotPuzzledGUI {
 		editorCreatePanel.add(editorCreatePuzzleButton);
 		
 		JButton createBackToEditorButton = new JButton("Back");
+		createBackToEditorButton.setForeground(Color.WHITE);
+		createBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		createBackToEditorButton.setBackground(new Color(34, 139, 34));
+		createBackToEditorButton.setBounds(20, 470, 100, 50);
+		editorCreatePanel.add(createBackToEditorButton);
 		createBackToEditorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorCreatePanel.setVisible(false);
@@ -596,18 +602,22 @@ public class GotPuzzledGUI {
 			}
 		});
 		
+		
 		JButton editorCreateLadderButton = new JButton("Create Ladder Challenge");
 		editorCreateLadderButton.setForeground(Color.WHITE);
 		editorCreateLadderButton.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		editorCreateLadderButton.setBackground(new Color(34, 139, 34));
 		editorCreateLadderButton.setBounds(181, 280, 243, 72);
 		editorCreatePanel.add(editorCreateLadderButton);
-		createBackToEditorButton.setForeground(Color.WHITE);
-		createBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		createBackToEditorButton.setBackground(new Color(34, 139, 34));
-		createBackToEditorButton.setBounds(20, 470, 100, 50);
-		editorCreatePanel.add(createBackToEditorButton);
+		editorCreateLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorCreatePanel.setVisible(false);
+				createLadderPanel.setVisible(true);
+			}
+		});
 		
+		
+	
 		createPuzzlePanel = new JPanel();
 		createPuzzlePanel.setLayout(null);
 		createPuzzlePanel.setBackground(new Color(245, 245, 220));
@@ -625,7 +635,11 @@ public class GotPuzzledGUI {
 		
 		JButton createPuzzleBackToCreateButton = new JButton("Back");
 		createPuzzleBackToCreateButton.addActionListener(new createPuzzleBackToCreateListener());
-	
+		createPuzzleBackToCreateButton.setForeground(Color.WHITE);
+		createPuzzleBackToCreateButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		createPuzzleBackToCreateButton.setBackground(new Color(34, 139, 34));
+		createPuzzleBackToCreateButton.setBounds(20, 470, 100, 50);
+		createPuzzlePanel.add(createPuzzleBackToCreateButton);
 		
 		final JLabel createPuzzleNewPuzzleNameLabel = new JLabel("Name:");
 		createPuzzleNewPuzzleNameLabel.setBackground(new Color(238, 238, 238));
@@ -805,12 +819,36 @@ public class GotPuzzledGUI {
 		createPuzzleButton.setBackground(new Color(34, 139, 34));
 		createPuzzleButton.setBounds(181, 450, 243, 72);
 		createPuzzlePanel.add(createPuzzleButton);
-		createPuzzleBackToCreateButton.setForeground(Color.WHITE);
-		createPuzzleBackToCreateButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		createPuzzleBackToCreateButton.setBackground(new Color(34, 139, 34));
-		createPuzzleBackToCreateButton.setBounds(20, 470, 100, 50);
-		createPuzzlePanel.add(createPuzzleBackToCreateButton);
 		
+		
+		createLadderPanel = new JPanel();
+		createLadderPanel.setLayout(null);
+		createLadderPanel.setBackground(new Color(245, 245, 220));
+		createLadderPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(createLadderPanel);
+		createLadderPanel.setVisible(false);
+		
+		
+		JLabel createLadderTitleLabel = new JLabel("Create Ladder Challenge");
+		createLadderTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		createLadderTitleLabel.setForeground(new Color(34, 139, 34));
+		createLadderTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		createLadderTitleLabel.setBounds(0, 0, 621, 54);
+		createLadderPanel.add(createLadderTitleLabel);
+		
+		JButton createLadderBackToCreateButton = new JButton("Back");
+		createLadderBackToCreateButton.addActionListener(new createPuzzleBackToCreateListener());
+		createLadderBackToCreateButton.setForeground(Color.WHITE);
+		createLadderBackToCreateButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		createLadderBackToCreateButton.setBackground(new Color(34, 139, 34));
+		createLadderBackToCreateButton.setBounds(20, 470, 100, 50);
+		createLadderBackToCreateButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				createLadderPanel.setVisible(false);
+				editorCreatePanel.setVisible(true);				
+			}
+		});
+		createLadderPanel.add(createLadderBackToCreateButton);
 		
 		
 		optionsPanel = new JPanel();
