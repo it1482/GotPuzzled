@@ -26,6 +26,12 @@ public class PuzzleDatabase {
 	
 
 
+	public void setPuzzlesData(ArrayList<PuzzleData> puzzlesData) {
+		this.puzzlesData = puzzlesData;
+	}
+
+
+
 	public ArrayList<PuzzleData> getPuzzles() {
 		return puzzlesData;
 	}
@@ -52,20 +58,30 @@ public class PuzzleDatabase {
 	}
 	
 	
+	
+	public LoadSavePuzzles getLoadsave() {
+		return loadsave;
+	}
+
+
+
 	/**Just for testing creates a database to see if things are working properly.
 	 *  
 	 */
 	public void testDatabase() {
 		Image image = null;
-		 try {                
+		/* try {                
 			 image = ImageIO.read(new File("images/pic.jpg"));
 	       } catch (IOException ex) {
 	            // handle exception...
-	       }
+	       }*/
+		 for(int i=0;i<puzzlesData.size();i++){
+			 puzzlesNames.add(puzzlesData.get(i).getName());
+		 }
 		 
 
-		puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
-		puzzlesNames.add("Puzzle 1");
+		//puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
+		//puzzlesNames.add("Puzzle 1");
 
 
 	}

@@ -46,6 +46,7 @@ public class LoadSavePuzzles implements Serializable{
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(puzzles);
 			oos.close();
+			System.out.println("puzzles serialised");
 			}
 			catch (Exception e){
 				e.printStackTrace();

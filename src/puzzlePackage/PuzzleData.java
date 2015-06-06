@@ -1,6 +1,7 @@
 package puzzlePackage;
 
 import java.awt.Image;
+import java.io.Serializable;
 
 /** This class contains all the information needed for the sliding puzzle to be created.
  * @param name Contains the name of the puzzle
@@ -8,9 +9,10 @@ import java.awt.Image;
  * @param difficulty contains the difficulty of the puzzle (from 1 to 3)
  * 
  */
-public class PuzzleData {
+public class PuzzleData  implements Serializable {
 	private String name;
-	private Image image;
+	private transient Image image;
+
 	private int difficulty;
 	
 	public PuzzleData(String name, Image image, int difficulty) {
