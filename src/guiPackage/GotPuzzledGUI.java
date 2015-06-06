@@ -1,42 +1,40 @@
 package guiPackage;
 
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.MediaTracker;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.UIManager;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.Color;
-
-
-import java.awt.Image;
-import java.awt.MediaTracker;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-
-import javax.swing.JButton;
 import javax.swing.JList;
-import javax.swing.border.LineBorder;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
@@ -85,9 +83,15 @@ public class GotPuzzledGUI {
 
 	
 	private JTextField createPuzzleNewPuzzleNameTextField;
+	private JTextField createLadderNewLadderNameTextField;
 	
 	private JCheckBox createPuzzleRotationCheckBox;
 	private JTextField createPuzzlePiecesTextField;
+	
+	
+	private JButton createPuzzleButton;
+	
+	private JButton createLadderButton;
 	
 	
 	private JLabel optionsTitleLabel;
@@ -561,6 +565,10 @@ public class GotPuzzledGUI {
 		editorBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		editorBackToMainMenuButton.setBackground(new Color(34, 139, 34));
 		
+		
+		/**
+		 * Editor Create Panel Start
+		 */
 		editorCreatePanel = new JPanel();
 		editorCreatePanel.setLayout(null);
 		editorCreatePanel.setBackground(new Color(245, 245, 220));
@@ -615,9 +623,15 @@ public class GotPuzzledGUI {
 				createLadderPanel.setVisible(true);
 			}
 		});
+		/**
+		 * Editor Create Panel End
+		 */
 		
 		
-	
+		
+		/**
+		 * Create Puzzle Panel Start
+		 */
 		createPuzzlePanel = new JPanel();
 		createPuzzlePanel.setLayout(null);
 		createPuzzlePanel.setBackground(new Color(245, 245, 220));
@@ -656,6 +670,18 @@ public class GotPuzzledGUI {
 		createPuzzleNewPuzzleNameTextField.setBounds(380, 115, 180, 30);
 		createPuzzlePanel.add(createPuzzleNewPuzzleNameTextField);
 		createPuzzleNewPuzzleNameTextField.setColumns(10);
+		createPuzzleNewPuzzleNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+			public void removeUpdate(DocumentEvent arg0) {
+				if (createPuzzleNewPuzzleNameTextField.getText().isEmpty()){
+					createPuzzleButton.setEnabled(false);
+				}
+			}					
+			public void insertUpdate(DocumentEvent arg0) {				
+				createPuzzleButton.setEnabled(true);
+			}		
+			public void changedUpdate(DocumentEvent arg0) {	}
+		});
+		
 		
 		JButton createPuzzleLoadImageButton = new JButton("Load Image");
 		createPuzzleLoadImageButton.addActionListener(new ActionListener() {
@@ -764,7 +790,8 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzlePiecesTextField);
 		
 		//Gets all the parsed information from the user and creates the puzzle
-		JButton createPuzzleButton = new JButton("Create Puzzle");
+		createPuzzleButton = new JButton("Create Puzzle");
+		createPuzzleButton.setEnabled(false);
 		createPuzzleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -819,6 +846,11 @@ public class GotPuzzledGUI {
 		createPuzzleButton.setBackground(new Color(34, 139, 34));
 		createPuzzleButton.setBounds(181, 450, 243, 72);
 		createPuzzlePanel.add(createPuzzleButton);
+		/**
+		 * Create Puzzle Panel End
+		 */
+		
+		
 		
 		
 		
@@ -832,13 +864,51 @@ public class GotPuzzledGUI {
 		frmGotPuzzled.getContentPane().add(createLadderPanel);
 		createLadderPanel.setVisible(false);
 		
-		
 		JLabel createLadderTitleLabel = new JLabel("Create Ladder Challenge");
 		createLadderTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		createLadderTitleLabel.setForeground(new Color(34, 139, 34));
 		createLadderTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
 		createLadderTitleLabel.setBounds(0, 0, 621, 54);
 		createLadderPanel.add(createLadderTitleLabel);
+		
+		
+		final JLabel createLadderCustomLadderLabel = new JLabel("Ladder:");
+		createLadderCustomLadderLabel.setBackground(new Color(238, 238, 238));
+		createLadderCustomLadderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		createLadderCustomLadderLabel.setForeground(new Color(34, 139, 34));
+		createLadderCustomLadderLabel.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		createLadderCustomLadderLabel.setBounds(5, 50, 200, 54);
+		createLadderPanel.add(createLadderCustomLadderLabel);
+		
+		
+		JScrollPane createLadderCustomLadderListScrollPane = new JScrollPane( );
+		createLadderCustomLadderListScrollPane.setBounds(50, 100, 240, 250);
+		createLadderPanel.add(createLadderCustomLadderListScrollPane);
+		
+		final JList createLadderCustomLadderJList = new JList();
+		createLadderCustomLadderJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		createLadderCustomLadderListScrollPane.setViewportView(createLadderCustomLadderJList);
+		
+		
+		final JLabel createLadderAvailablePuzzlesLabel = new JLabel("Available Puzzles:");
+		createLadderAvailablePuzzlesLabel.setBackground(new Color(238, 238, 238));
+		createLadderAvailablePuzzlesLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		createLadderAvailablePuzzlesLabel.setForeground(new Color(34, 139, 34));
+		createLadderAvailablePuzzlesLabel.setFont(new Font("Segoe UI", Font.BOLD, 25));
+		createLadderAvailablePuzzlesLabel.setBounds(280, 50, 300, 54);
+		createLadderPanel.add(createLadderAvailablePuzzlesLabel);
+		
+		
+		JScrollPane createLadderAvailablePuzzlesListScrollPane = new JScrollPane( );
+		createLadderAvailablePuzzlesListScrollPane.setBounds(310, 100, 260, 250);
+		createLadderPanel.add(createLadderAvailablePuzzlesListScrollPane);
+		
+		final JList createLadderAvailablePuzzlesJList = new JList();
+		createLadderAvailablePuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		createLadderAvailablePuzzlesListScrollPane.setViewportView(createLadderAvailablePuzzlesJList);
+		
 		
 		JButton createLadderBackToCreateButton = new JButton("Back");
 		createLadderBackToCreateButton.addActionListener(new createPuzzleBackToCreateListener());
@@ -855,21 +925,78 @@ public class GotPuzzledGUI {
 		createLadderPanel.add(createLadderBackToCreateButton);
 		
 		
+		final JLabel createLadderNewLadderNameLabel = new JLabel("Name:");
+		createLadderNewLadderNameLabel.setBackground(new Color(238, 238, 238));
+		createLadderNewLadderNameLabel.setToolTipText("");
+		createLadderNewLadderNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		createLadderNewLadderNameLabel.setForeground(new Color(34, 139, 34));
+		createLadderNewLadderNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 27));
+		createLadderNewLadderNameLabel.setBounds(120, 380, 200, 54);
+		createLadderPanel.add(createLadderNewLadderNameLabel);
+		
+		
+		createLadderNewLadderNameTextField = new JTextField();
+		createLadderNewLadderNameTextField.setFont(new Font("Segoe UI", Font.PLAIN, 23));
+		createLadderNewLadderNameTextField.setBackground(new Color(255, 255, 255));
+		createLadderNewLadderNameTextField.setBounds(275, 395, 180, 30);
+		createLadderNewLadderNameTextField.getDocument().addDocumentListener(new DocumentListener() {
+			public void removeUpdate(DocumentEvent arg0) {	
+				if(createLadderNewLadderNameTextField.getText().isEmpty()){
+					createLadderButton.setEnabled(false);
+				}
+				
+			}					
+			public void insertUpdate(DocumentEvent arg0) {				
+				createLadderButton.setEnabled(true);
+			}		
+			public void changedUpdate(DocumentEvent arg0) {	}
+		});
+				
+				
+				
+		
+		createLadderPanel.add(createLadderNewLadderNameTextField);
+		//createLadderNewLadderNameTextField.setColumns(10);
+		
+		
+		
+		
+		// CLEAR CREATE LADDER INFORMATION
+		JButton clearCreateLadderInformationButton = new JButton("Clear");
+		clearCreateLadderInformationButton.setForeground(Color.WHITE);
+		clearCreateLadderInformationButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		clearCreateLadderInformationButton.setBackground(new Color(34, 139, 34));
+		clearCreateLadderInformationButton.setBounds(470, 465, 100, 42);
+		createLadderPanel.add(clearCreateLadderInformationButton);		
+		// here we implement the clear ladder information button
+		clearCreateLadderInformationButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});		
+		
+		
+		// CREATE LADDER BUTTON
 		//Gets all the information for the puzzles and creates the ladder
-		JButton createLadderButton = new JButton("Create Ladder");
+		createLadderButton = new JButton("Create Ladder");
 		createLadderButton.setForeground(Color.WHITE);
 		createLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		createLadderButton.setBackground(new Color(34, 139, 34));
 		createLadderButton.setBounds(181, 450, 243, 72);
-		createLadderPanel.add(createLadderButton);
-		
+		createLadderPanel.add(createLadderButton);		
+		createLadderButton.setEnabled(false);
 		// here we implement the create ladder button
 		createLadderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("create ladder pressed");
 				
 			}
-		});
+		});		
+		
+		
+		
+		
+		
 		
 		
 		/**
