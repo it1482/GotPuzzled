@@ -91,6 +91,10 @@ public class GotPuzzledGUI {
 	private JButton optionsBackToMainMenuButton;
 	private JLabel leaderboardsTitleLabel;
 	
+	
+	private JRadioButton optionsMusicOnRadioButton;
+	
+	
 	//fields needed
 
 	Database database = new Database();
@@ -798,6 +802,37 @@ public class GotPuzzledGUI {
 		optionsTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
 		optionsTitleLabel.setBounds(0, 0, 621, 54);
 		optionsPanel.add(optionsTitleLabel);
+		
+		
+		JLabel optionMusicLabel = new JLabel("Music:");
+		optionMusicLabel.setToolTipText("");
+		optionMusicLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		optionMusicLabel.setForeground(new Color(34, 139, 34));
+		optionMusicLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
+		optionMusicLabel.setBackground(new Color(245, 245, 220));
+		optionMusicLabel.setBounds(200, 150, 160, 30);
+		optionsPanel.add(optionMusicLabel);
+		
+		optionsMusicOnRadioButton = new JRadioButton("On", true);
+		optionsMusicOnRadioButton.setForeground(Color.BLACK);
+		optionsMusicOnRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		optionsMusicOnRadioButton.setBackground(new Color(245, 245, 220));
+		optionsMusicOnRadioButton.setBounds(330, 140, 121, 24);
+		optionsPanel.add(optionsMusicOnRadioButton);
+		
+		JRadioButton optionsMusicOffRadioButton = new JRadioButton("Off", false);
+		optionsMusicOffRadioButton.setForeground(Color.BLACK);
+		optionsMusicOffRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
+		optionsMusicOffRadioButton.setBackground(new Color(245, 245, 220));
+		optionsMusicOffRadioButton.setBounds(330, 170, 121, 24);
+		optionsPanel.add(optionsMusicOffRadioButton);
+		optionsBackToMainMenuButton.setForeground(Color.WHITE);
+		optionsBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
+		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
+		optionsPanel.add(optionsBackToMainMenuButton);
+		
+		
 		
 		
 		JButton optionsBackToMainMenuButton;
