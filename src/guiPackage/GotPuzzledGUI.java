@@ -931,32 +931,44 @@ public class GotPuzzledGUI {
 		createLadderNewLadderNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		createLadderNewLadderNameLabel.setForeground(new Color(34, 139, 34));
 		createLadderNewLadderNameLabel.setFont(new Font("Segoe UI", Font.BOLD, 27));
-		createLadderNewLadderNameLabel.setBounds(120, 380, 200, 54);
+		createLadderNewLadderNameLabel.setBounds(120, 395, 200, 54);
 		createLadderPanel.add(createLadderNewLadderNameLabel);
 		
 		
 		createLadderNewLadderNameTextField = new JTextField();
 		createLadderNewLadderNameTextField.setFont(new Font("Segoe UI", Font.PLAIN, 23));
 		createLadderNewLadderNameTextField.setBackground(new Color(255, 255, 255));
-		createLadderNewLadderNameTextField.setBounds(275, 395, 180, 30);
+		createLadderNewLadderNameTextField.setBounds(275, 410, 180, 30);
+		createLadderPanel.add(createLadderNewLadderNameTextField);
 		createLadderNewLadderNameTextField.getDocument().addDocumentListener(new DocumentListener() {
 			public void removeUpdate(DocumentEvent arg0) {	
 				if(createLadderNewLadderNameTextField.getText().isEmpty()){
 					createLadderButton.setEnabled(false);
 				}
-				
 			}					
 			public void insertUpdate(DocumentEvent arg0) {				
 				createLadderButton.setEnabled(true);
 			}		
 			public void changedUpdate(DocumentEvent arg0) {	}
-		});
-				
-				
-				
+		});		
 		
-		createLadderPanel.add(createLadderNewLadderNameTextField);
 		//createLadderNewLadderNameTextField.setColumns(10);
+		
+		
+		// ADD PUZZLE TO CUSTOM LADDER LIST
+		JButton createLadderAddPuzzleToCustomLadderButton = new JButton("Add");
+		createLadderAddPuzzleToCustomLadderButton.setForeground(Color.WHITE);
+		createLadderAddPuzzleToCustomLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		createLadderAddPuzzleToCustomLadderButton.setBackground(new Color(34, 139, 34));
+		createLadderAddPuzzleToCustomLadderButton.setBounds(255, 355, 100, 42);
+		createLadderPanel.add(createLadderAddPuzzleToCustomLadderButton);		
+		// here we implement the createLadderAddPuzzleToCustomLadderButton button
+		createLadderAddPuzzleToCustomLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+			}
+		});		
+		
 		
 		
 		
