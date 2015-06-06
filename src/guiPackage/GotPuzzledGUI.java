@@ -795,7 +795,7 @@ public class GotPuzzledGUI {
 		optionsTitleLabel.setToolTipText("");
 		optionsTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		optionsTitleLabel.setForeground(new Color(34, 139, 34));
-		optionsTitleLabel.setFont(new Font("Dialog", Font.BOLD, 39));
+		optionsTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
 		optionsTitleLabel.setBounds(0, 0, 621, 54);
 		optionsPanel.add(optionsTitleLabel);
 		
@@ -809,7 +809,7 @@ public class GotPuzzledGUI {
 			}
 		});
 		optionsBackToMainMenuButton.setForeground(Color.WHITE);
-		optionsBackToMainMenuButton.setFont(new Font("Dialog", Font.BOLD, 20));
+		optionsBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		optionsBackToMainMenuButton.setBackground(new Color(34, 139, 34));
 		optionsBackToMainMenuButton.setBounds(20, 470, 100, 50);
 		optionsPanel.add(optionsBackToMainMenuButton);
