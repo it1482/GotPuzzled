@@ -55,29 +55,7 @@ public class LoadSavePuzzles implements Serializable{
 		
 	}
 	
-	public void importPuzzle(){
-		PuzzleData puzzleData=null;
-		
-		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
-		int result = fc.showOpenDialog(null);
-		if(result == JFileChooser.APPROVE_OPTION){
-			File file = fc.getSelectedFile();
-			try{
-				FileInputStream saveFile = new FileInputStream(file.getPath());
-				ObjectInputStream save = new ObjectInputStream(saveFile);
-				puzzleData = (PuzzleData) save.readObject();
-				save.close();
-				
-			} catch (Exception exp){
-				exp.printStackTrace();
-				
-			}
-			
-		}else{
-			System.out.println("Bye");
-			System.exit(0);
-		}
-	}
+	
 
 	
 	public void exportPuzzle(Puzzle puzzle){

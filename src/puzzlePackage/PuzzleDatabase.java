@@ -1,11 +1,14 @@
 package puzzlePackage;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 import playerPackage.Player;
 
@@ -85,6 +88,23 @@ public class PuzzleDatabase {
 		//puzzlesNames.add("Puzzle 1");
 
 
+	}
+	
+	public void importPuzzle(PuzzleData p){
+		boolean flag = true;
+		for(PuzzleData puzzle: puzzlesData)
+			if(puzzle.getName()==p.getName()){
+				System.out.println("This Puzzle already exists");
+				flag = false;
+				break;
+			}
+		if(flag){
+			puzzlesData.add(p);
+			puzzlesNames.add(p.getName());
+			loadsave.save(puzzlesData);
+		}
+		
+		
 	}
 
 }
