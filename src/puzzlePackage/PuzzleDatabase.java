@@ -2,8 +2,10 @@ package puzzlePackage;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
@@ -102,9 +104,29 @@ public class PuzzleDatabase {
 			puzzlesData.add(p);
 			puzzlesNames.add(p.getName());
 			loadsave.save(puzzlesData);
+		}				
+		
+	}
+	
+	public void exportPuzzle(String pname){
+		PuzzleData puzzleToExport = null;
+		for(PuzzleData p: puzzlesData){
+			if(p.getName()==pname){
+				puzzleToExport = p;
+				String filename = pname + ".ser";
+				try{
+					FileOutputStream fos = new FileOutputStream(filename);
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(puzzleToExport);
+					oos.close();
+					System.out.println("puzzles serialised");
+					}
+				catch (Exception e){
+						e.printStackTrace();
+				}
+			break;
+			}
 		}
-		
-		
 	}
 
 }
