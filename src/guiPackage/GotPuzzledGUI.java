@@ -12,10 +12,10 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
-import javax.imageio.ImageIO;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
-import javax.swing.Icon;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -47,8 +47,6 @@ import JigsawPuzzlePackage.JigsawFrame;
 import MainPackage.Database;
 import SlidingPuzzlePackage.SlidingPuzzle;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 
 public class GotPuzzledGUI {
@@ -107,10 +105,6 @@ public class GotPuzzledGUI {
 	
 	private JButton createLadderButton;
 	
-	
-	private JLabel optionsTitleLabel;
-	private JButton optionsBackToMainMenuButton;
-	private JLabel leaderboardsTitleLabel;
 	
 	
 	private JRadioButton optionsMusicOnRadioButton;
@@ -480,9 +474,10 @@ public class GotPuzzledGUI {
 		database.getPuzzleDatabase().testDatabase(); 
 
 		final JList customPuzzlesJList = new JList(model);
+		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
 		UpdateJList(customPuzzlesJList);
 
-		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
 		
@@ -1200,13 +1195,16 @@ public class GotPuzzledGUI {
 		editorExportPuzzlePanel.add(editorExportPuzzleTitleLabel);
 		
 		
-		
-		//JScrollPane editorCustomPuzzlesListScrollPane =	customPuzzlesListScrollPane;
-				
-				
+		JScrollPane editorCustomPuzzlesListScrollPane = new JScrollPane( );
 
-	
-		//editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
+		editorCustomPuzzlesListScrollPane.setBounds(150, 70, 300, 150);
+		editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
+		
+		
+		//JList editorCustomPuzzlesJList = customPuzzlesJList;
+		//editorCustomPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		//editorCustomPuzzlesListScrollPane.setViewportView(editorCustomPuzzlesJList);
 		
 		
 		
@@ -1326,7 +1324,7 @@ public class GotPuzzledGUI {
 		
 		
 		
-		JRadioButton optionsMusicOffRadioButton = new JRadioButton("Off", false);
+		optionsMusicOffRadioButton = new JRadioButton("Off", false);
 		optionsMusicOffRadioButton.setForeground(Color.BLACK);
 		optionsMusicOffRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		optionsMusicOffRadioButton.setBackground(new Color(245, 245, 220));
