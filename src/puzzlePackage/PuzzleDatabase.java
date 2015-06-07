@@ -130,7 +130,7 @@ public class PuzzleDatabase {
 	public void importPuzzle(PuzzleData p,ArrayList<PuzzleData> puzzles,ArrayList<String> puzzleNames){
 		boolean flag = true;
 		for(PuzzleData puzzle: puzzlesData)
-			if(puzzle.getName()==p.getName()){
+			if(puzzle.getName().equals(p.getName())){
 				System.out.println("This Puzzle already exists");
 				flag = false;
 				break;
