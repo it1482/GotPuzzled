@@ -68,6 +68,8 @@ public class GotPuzzledGUI {
 	
 	private JPanel ladderPanel;
 	
+	private JPanel playLadderPanel;
+	
 	private JPanel customGamePanel;
 	
 	private JPanel editorPanel;
@@ -87,6 +89,8 @@ public class GotPuzzledGUI {
 	private JPanel optionsPanel;
 	
 	private JPanel leaderboardsPanel;
+	
+	
 	
 	private JScrollPane customPuzzlesListScrollPane;
 	
@@ -408,6 +412,9 @@ public class GotPuzzledGUI {
 		JButton ladderStartLadderButton = new JButton("Start Ladder!");
 		ladderStartLadderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				ladderPanel.setVisible(false);
+				playLadderPanel.setVisible(true);
+				
 				
 			}
 		});
@@ -429,6 +436,64 @@ public class GotPuzzledGUI {
 		ladderBackToPlayPanelButton.setBackground(new Color(34, 139, 34));
 		ladderBackToPlayPanelButton.setBounds(20, 470, 100, 50);
 		ladderPanel.add(ladderBackToPlayPanelButton);
+		
+		
+		
+		
+		/**
+		 * Play Ladder Panel start
+		 * 
+		 */
+		
+		playLadderPanel = new JPanel();
+		playLadderPanel.setLayout(null);
+		playLadderPanel.setBackground(new Color(245, 245, 220));
+		playLadderPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(playLadderPanel);
+		playLadderPanel.setVisible(false);
+		
+		JButton playLadderBackToLadderPanelButton = new JButton("Back");
+		playLadderBackToLadderPanelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playLadderPanel.setVisible(false);
+				ladderPanel.setVisible(true);
+			}
+		});
+		playLadderBackToLadderPanelButton.setForeground(Color.WHITE);
+		playLadderBackToLadderPanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		playLadderBackToLadderPanelButton.setBackground(new Color(34, 139, 34));
+		playLadderBackToLadderPanelButton.setBounds(20, 470, 100, 50);
+		playLadderPanel.add(playLadderBackToLadderPanelButton);
+		
+		
+		JLabel playLadderTitleLabel = new JLabel("Ladder Challenge Puzzles:");
+		playLadderTitleLabel.setToolTipText("");
+		playLadderTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		playLadderTitleLabel.setForeground(new Color(34, 139, 34));
+		playLadderTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		playLadderTitleLabel.setBounds(0, 0, 621, 54);
+		playLadderPanel.add(playLadderTitleLabel);
+		
+		
+		JScrollPane ladderChallengePuzzlesListScrollPane = new JScrollPane();
+		ladderChallengePuzzlesListScrollPane.setBounds(110, 110, 400, 300);
+		playLadderPanel.add(ladderChallengePuzzlesListScrollPane);
+		
+		
+		JList<String> ladderChallengePuzzlesJList = new JList();
+		ladderChallengePuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		// this adds to the JList the ability to ScrollDown
+		ladderChallengePuzzlesListScrollPane.setViewportView(ladderChallengePuzzlesJList);
+		
+		
+		/**
+		 * Play Ladder Panel end
+		 * 
+		 */
+		
+		
+		
 		
 		customGamePanel = new JPanel();
 		customGamePanel.setLayout(null);
