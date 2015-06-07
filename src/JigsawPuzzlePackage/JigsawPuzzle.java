@@ -1,6 +1,7 @@
 package JigsawPuzzlePackage;
 
 
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 import java.awt.*;
@@ -204,18 +205,18 @@ public class JigsawPuzzle extends Puzzle
  */
   
 	private  Image imageScale(BufferedImage loadedImage){
-		int preferredMaxHeigth = 1200;
-		int preferredMaxWidth = 1200;
+		int preferredMaxHeigth = 768;
+		int preferredMaxWidth = 1024;
 		int currentHeigth = loadedImage.getHeight();
 		int currentWidth =  loadedImage.getWidth();
 		double scale_reduction = 1;
 		
 		//Scaling down until we find the best suited size
 		while(currentHeigth > preferredMaxHeigth || currentWidth > preferredMaxWidth){
-			scale_reduction -= 0.001;
+			scale_reduction -= 0.01;
 			currentHeigth = (int) (scale_reduction *loadedImage.getHeight(null)) ;
 			currentWidth = (int) (scale_reduction* loadedImage.getWidth(null));
-			//System.out.println(currentWidth + "x" +currentHeigth + " scale " + scale_reduction);
+			System.out.println(currentWidth + "x" +currentHeigth + " scale " + scale_reduction);
 		}
 		
 
@@ -298,6 +299,10 @@ public class JigsawPuzzle extends Puzzle
           Timer timer = new Timer (200, this);
           timer.setRepeats (false);
           timer.start();
+        }
+        else
+        {
+        	JOptionPane.showMessageDialog(null, "You Won", "Puzzle Got Solved!", JOptionPane.PLAIN_MESSAGE);
         }
       }
     };

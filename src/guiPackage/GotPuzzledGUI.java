@@ -15,6 +15,7 @@ import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -34,6 +35,8 @@ import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -43,6 +46,9 @@ import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
 import MainPackage.Database;
 import SlidingPuzzlePackage.SlidingPuzzle;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 
 public class GotPuzzledGUI {
@@ -452,12 +458,13 @@ public class GotPuzzledGUI {
 		
 		
 		// auto to panel vrisketai mesa sto customGamePanel kai tha xrhsimooieithei gia to preview tou puzzle pou thelei na paiksei o paiktis
-		JPanel customGamePreviewPanel = new JPanel();
-		customGamePreviewPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		customGamePreviewPanel.setBounds(177, 230, 250, 200);
-		customGamePanel.add(customGamePreviewPanel);
+		final JLabel customGamePreviewLabel = new JLabel();
+		customGamePreviewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		customGamePreviewLabel.setBounds(177, 230, 250, 200);
+		customGamePanel.add(customGamePreviewLabel);
 		
 		JScrollPane customPuzzlesListScrollPane = new JScrollPane( );
+
 		customPuzzlesListScrollPane.setBounds(150, 70, 300, 150);
 		customGamePanel.add(customPuzzlesListScrollPane);
 		
@@ -471,6 +478,26 @@ public class GotPuzzledGUI {
 		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
+		
+		/**
+		 * Handles the preview of the image in Custom Game
+		 * 	 */
+		customPuzzlesJList.addListSelectionListener(new ListSelectionListener(){
+			  public void valueChanged(ListSelectionEvent evt) {
+				    if (!evt.getValueIsAdjusting()) {
+				    	if(customGamePanel.isVisible()){
+				    	int index = database.getPuzzleDatabase().getPuzzlesNames().indexOf(customPuzzlesJList.getSelectedValue());
+				    	ImageIcon currentIcon = database.getPuzzleDatabase().getPuzzles().get(index).getImage();
+				    	Image image = currentIcon.getImage(); // transform it 
+				    	Image newimg = image.getScaledInstance(customGamePreviewLabel.getWidth(), customGamePreviewLabel.getHeight(),  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+				    	currentIcon = new ImageIcon(newimg);  // transform it back
+				    	customGamePreviewLabel.setIcon(currentIcon);
+				    	}
+				    }
+				  }
+		});
+		
+
 		
 		// here you can add code to implement the Start Game function
 		JButton customGameStartGameButton = new JButton("Start Game!");
@@ -701,14 +728,7 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleLoadImageButton);
 		
 		final JRadioButton createPuzzleJigsawRadioButton = new JRadioButton("Jigsaw Puzzle");
-		createPuzzleJigsawRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (createPuzzleJigsawRadioButton.isSelected()){
-					createPuzzleRotationCheckBox.setEnabled(true);
-					
-				}
-			}
-		});
+
 		createPuzzleJigsawRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleJigsawRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleJigsawRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -716,14 +736,7 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleJigsawRadioButton);
 		
 		final JRadioButton createPuzzleSlidingRadioButton = new JRadioButton("Sliding Puzzle",true);
-		createPuzzleSlidingRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (createPuzzleSlidingRadioButton.isSelected()) {
-					createPuzzleRotationCheckBox.setSelected(false);
-					createPuzzleRotationCheckBox.setEnabled(false);
-				}
-			}
-		});
+
 		createPuzzleSlidingRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleSlidingRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleSlidingRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -752,6 +765,16 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleDificultyLabel);
 		
 		final JRadioButton createPuzzleEasyRadioButton = new JRadioButton("Easy",true);
+		createPuzzleEasyRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(createPuzzleJigsawRadioButton.isSelected()){
+					createPuzzlePiecesTextField.setText("20");
+				}
+				if(createPuzzleSlidingRadioButton.isSelected())
+					createPuzzlePiecesTextField.setText("3x3");
+			}
+		});
+
 		createPuzzleEasyRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleEasyRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleEasyRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -759,6 +782,16 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleEasyRadioButton);
 		
 		final JRadioButton createPuzzleMediumRadioButton = new JRadioButton("Medium");
+		createPuzzleMediumRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(createPuzzleJigsawRadioButton.isSelected()){
+					createPuzzlePiecesTextField.setText("50");
+				}
+				if(createPuzzleSlidingRadioButton.isSelected())
+					createPuzzlePiecesTextField.setText("4x4");
+			}
+			
+		});
 		createPuzzleMediumRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleMediumRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleMediumRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -766,6 +799,15 @@ public class GotPuzzledGUI {
 		createPuzzlePanel.add(createPuzzleMediumRadioButton);
 		
 		JRadioButton createPuzzleHardRadioButton = new JRadioButton("Hard");
+		createPuzzleHardRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(createPuzzleJigsawRadioButton.isSelected()){
+					createPuzzlePiecesTextField.setText("100");
+				}
+				if(createPuzzleSlidingRadioButton.isSelected())
+					createPuzzlePiecesTextField.setText("5x5");
+			}
+		});
 		createPuzzleHardRadioButton.setForeground(new Color(34, 139, 34));
 		createPuzzleHardRadioButton.setBackground(new Color(245, 245, 220));
 		createPuzzleHardRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
@@ -776,6 +818,7 @@ public class GotPuzzledGUI {
 		dificultyButtonGroup.add(createPuzzleEasyRadioButton);
 		dificultyButtonGroup.add(createPuzzleMediumRadioButton);
 		dificultyButtonGroup.add(createPuzzleHardRadioButton);
+		
 		
 		JLabel createPuzzlePiecesLabel = new JLabel("Pieces:");
 		createPuzzlePiecesLabel.setToolTipText("");
@@ -793,6 +836,41 @@ public class GotPuzzledGUI {
 		createPuzzlePiecesTextField.setBackground(Color.WHITE);
 		createPuzzlePiecesTextField.setBounds(420, 310, 62, 30);
 		createPuzzlePanel.add(createPuzzlePiecesTextField);
+		
+		createPuzzleSlidingRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (createPuzzleSlidingRadioButton.isSelected()) {
+					createPuzzleRotationCheckBox.setSelected(false);
+					createPuzzleRotationCheckBox.setEnabled(false);
+					if(createPuzzleEasyRadioButton.isSelected())
+						createPuzzlePiecesTextField.setText("3x3");
+					else if(createPuzzleMediumRadioButton.isSelected()){
+						createPuzzlePiecesTextField.setText("4x4");
+					}
+					else{
+						createPuzzlePiecesTextField.setText("5x5");
+					}
+				}
+			}
+		});
+		
+		createPuzzleJigsawRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (createPuzzleJigsawRadioButton.isSelected()){
+					createPuzzleRotationCheckBox.setEnabled(true);
+					if(createPuzzleEasyRadioButton.isSelected())
+						createPuzzlePiecesTextField.setText("20");
+					else if(createPuzzleMediumRadioButton.isSelected()){
+						createPuzzlePiecesTextField.setText("50");
+					}
+					else{
+						createPuzzlePiecesTextField.setText("100");
+					}
+						
+				}
+			}
+		});
+		
 		
 		//Gets all the parsed information from the user and creates the puzzle
 		createPuzzleButton = new JButton("Create Puzzle");
@@ -1173,6 +1251,9 @@ public class GotPuzzledGUI {
 		}
 		return image;
 	}
+	
+	
+	
 	/** Converts ImageIcon to BufferedImage in order to be used on both puzzles.
 	 */
 	private BufferedImage ConvertIconToBufferedImage(ImageIcon icon){
