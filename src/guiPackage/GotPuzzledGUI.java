@@ -452,19 +452,7 @@ public class GotPuzzledGUI {
 		frmGotPuzzled.getContentPane().add(playLadderPanel);
 		playLadderPanel.setVisible(false);
 		
-		JButton playLadderBackToLadderPanelButton = new JButton("Back");
-		playLadderBackToLadderPanelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				playLadderPanel.setVisible(false);
-				ladderPanel.setVisible(true);
-			}
-		});
-		playLadderBackToLadderPanelButton.setForeground(Color.WHITE);
-		playLadderBackToLadderPanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		playLadderBackToLadderPanelButton.setBackground(new Color(34, 139, 34));
-		playLadderBackToLadderPanelButton.setBounds(20, 470, 100, 50);
-		playLadderPanel.add(playLadderBackToLadderPanelButton);
-		
+				
 		
 		JLabel playLadderTitleLabel = new JLabel("Ladder Challenge Puzzles:");
 		playLadderTitleLabel.setToolTipText("");
@@ -485,6 +473,36 @@ public class GotPuzzledGUI {
 		
 		// this adds to the JList the ability to ScrollDown
 		ladderChallengePuzzlesListScrollPane.setViewportView(ladderChallengePuzzlesJList);
+		
+		
+		// here you can add code to implement the NEXT PUZZLE Ladder function
+		JButton playLadderNextPuzzleButton = new JButton("Next Puzzle!");
+		playLadderNextPuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		playLadderNextPuzzleButton.setForeground(Color.WHITE);
+		playLadderNextPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		playLadderNextPuzzleButton.setBackground(new Color(34, 139, 34));
+		playLadderNextPuzzleButton.setBounds(181, 450, 243, 72);
+		playLadderPanel.add(playLadderNextPuzzleButton);
+		
+		JButton playLadderBackToLadderPanelButton = new JButton("Back");
+		playLadderBackToLadderPanelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				playLadderPanel.setVisible(false);
+				ladderPanel.setVisible(true);
+			}
+		});
+		playLadderBackToLadderPanelButton.setForeground(Color.WHITE);
+		playLadderBackToLadderPanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		playLadderBackToLadderPanelButton.setBackground(new Color(34, 139, 34));
+		playLadderBackToLadderPanelButton.setBounds(20, 470, 100, 50);
+		playLadderPanel.add(playLadderBackToLadderPanelButton);
+		
+		
+		
 		
 		
 		/**
