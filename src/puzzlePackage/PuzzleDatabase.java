@@ -1,5 +1,7 @@
 package puzzlePackage;
+import java.awt.Component;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -11,6 +13,8 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import playerPackage.Player;
 
@@ -92,7 +96,38 @@ public class PuzzleDatabase {
 
 	}
 	
-	public void importPuzzle(PuzzleData p){
+	/**Chooses the PuzzleData ser file to import.
+	 * 
+	 */
+	public static PuzzleData fileChooserPuzzle(Component comp){
+		PuzzleData puzzle = null;
+		MediaTracker tracker = new MediaTracker(comp);
+		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
+		int result = fc.showOpenDialog(null);
+		if(result == JFileChooser.APPROVE_OPTION){
+			File file = fc.getSelectedFile();
+			try{
+				FileInputStream fileIn = new FileInputStream(file.getAbsolutePath());
+				ObjectInputStream in = new ObjectInputStream(fileIn);
+				puzzle = (PuzzleData) in.readObject();
+				in.close();
+				fileIn.close();		
+				tracker.waitForAll();
+				System.out.println("path complete - desirialized");
+			} catch (Exception exp){
+				exp.printStackTrace();
+				
+			}
+			
+		}else{
+			System.out.println("Bye");
+		}
+		return puzzle;
+	}
+	
+	
+	
+	public void importPuzzle(PuzzleData p,ArrayList<PuzzleData> puzzles,ArrayList<String> puzzleNames){
 		boolean flag = true;
 		for(PuzzleData puzzle: puzzlesData)
 			if(puzzle.getName()==p.getName()){
@@ -101,9 +136,10 @@ public class PuzzleDatabase {
 				break;
 			}
 		if(flag){
-			puzzlesData.add(p);
+			puzzles.add(p);
 			puzzlesNames.add(p.getName());
-			loadsave.save(puzzlesData);
+			loadsave.save(puzzles);
+			
 		}				
 		
 	}
@@ -114,7 +150,7 @@ public class PuzzleDatabase {
 			if(p.getName()==pname){
 				puzzleToExport = p;
 				String filename = pname + ".ser";
-				try{
+				try{;
 					FileOutputStream fos = new FileOutputStream(filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 					oos.writeObject(puzzleToExport);

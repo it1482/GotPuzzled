@@ -13,9 +13,11 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 
+
+
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -477,6 +479,7 @@ public class GotPuzzledGUI {
 		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		UpdateJList(customPuzzlesJList);
+	
 
 		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
@@ -594,6 +597,7 @@ public class GotPuzzledGUI {
 		editorPanel.add(editorExportButton);
 		
 		JButton editorImportButton = new JButton("Import");
+
 		editorImportButton.setForeground(Color.WHITE);
 		editorImportButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		editorImportButton.setBackground(new Color(34, 139, 34));
@@ -1144,12 +1148,7 @@ public class GotPuzzledGUI {
 
 	
 		JButton editorExportPuzzlePanelButton = new JButton("Export Puzzle");
-		editorExportPuzzlePanelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editorExportPanel.setVisible(false);
-				editorExportPuzzlePanel.setVisible(true);
-			}
-		});
+
 		editorExportPuzzlePanelButton.setForeground(Color.WHITE);
 		editorExportPuzzlePanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		editorExportPuzzlePanelButton.setBackground(new Color(34, 139, 34));
@@ -1208,6 +1207,7 @@ public class GotPuzzledGUI {
 		
 		JScrollPane editorCustomPuzzlesListScrollPane = new JScrollPane( );
 
+
 		editorCustomPuzzlesListScrollPane.setBounds(155, 120, 300, 270);
 		editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
 	
@@ -1218,6 +1218,7 @@ public class GotPuzzledGUI {
 
 		final JList exportCustomPuzzlesJList = new JList(exportModel);
 		exportCustomPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		UpdateJList(exportCustomPuzzlesJList);
 		
 		
 		editorCustomPuzzlesListScrollPane.setViewportView(exportCustomPuzzlesJList);
@@ -1241,7 +1242,8 @@ public class GotPuzzledGUI {
 		JButton editorExportPuzzleButton = new JButton("Export Puzzle!");
 		editorExportPuzzleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				int index = database.getPuzzleDatabase().getPuzzlesNames().indexOf(exportCustomPuzzlesJList.getSelectedValue());
+				 database.getPuzzleDatabase().exportPuzzle(database.getPuzzleDatabase().getPuzzlesNames().get(index));
 			}
 		});
 		editorExportPuzzleButton.setForeground(Color.WHITE);
@@ -1249,6 +1251,23 @@ public class GotPuzzledGUI {
 		editorExportPuzzleButton.setBackground(new Color(34, 139, 34));
 		editorExportPuzzleButton.setBounds(181, 450, 243, 72);
 		editorExportPuzzlePanel.add(editorExportPuzzleButton);
+		editorExportPuzzlePanelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportPanel.setVisible(false);
+				editorExportPuzzlePanel.setVisible(true);
+				UpdateJList(exportCustomPuzzlesJList);
+			}
+		});
+		
+		editorImportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				PuzzleData importedPuzzle = database.getPuzzleDatabase().fileChooserPuzzle(frmGotPuzzled);
+				database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
+				UpdateJList(exportCustomPuzzlesJList);
+				UpdateJList(customPuzzlesJList);
+				
+			}
+		});
 		/**
 		 * Editor Export Puzzle Panel End
 		 */
@@ -1446,6 +1465,7 @@ public class GotPuzzledGUI {
 
 	}
 	
+	
 	// createPuzzleBackToCreateButton Listener implementation
 	// it's been implemented here as a class
 	// edw tha prostethei kai h dynatothta me to back to user na ginontai erase ola ta pedia tou createPuzzlePanel
@@ -1457,6 +1477,7 @@ public class GotPuzzledGUI {
 		}
 	}
 	
+
 	public static ImageIcon fileChooser(Component comp){
 		ImageIcon image=null;
 		MediaTracker tracker = new MediaTracker(comp);
