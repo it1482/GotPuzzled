@@ -1142,34 +1142,34 @@ public class GotPuzzledGUI {
 		});
 		editorExportPanel.add(editorExportBackToEditorButton);
 
-		// EXPORT PUZZLE BUTTON
-		JButton editorExportPuzzleButton = new JButton("Export Puzzle");
-		editorExportPuzzleButton.addActionListener(new ActionListener() {
+	
+		JButton editorExportPuzzlePanelButton = new JButton("Export Puzzle");
+		editorExportPuzzlePanelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				editorExportPanel.setVisible(false);
 				editorExportPuzzlePanel.setVisible(true);
 			}
 		});
-		editorExportPuzzleButton.setForeground(Color.WHITE);
-		editorExportPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
-		editorExportPuzzleButton.setBackground(new Color(34, 139, 34));
-		editorExportPuzzleButton.setBounds(181, 140, 243, 72);
-		editorExportPanel.add(editorExportPuzzleButton);
+		editorExportPuzzlePanelButton.setForeground(Color.WHITE);
+		editorExportPuzzlePanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportPuzzlePanelButton.setBackground(new Color(34, 139, 34));
+		editorExportPuzzlePanelButton.setBounds(181, 140, 243, 72);
+		editorExportPanel.add(editorExportPuzzlePanelButton);
 		
 		
-		
-		// EXPORT LADDER BUTTON
-		JButton editorExportLadderButton = new JButton("Export Ladder");
-		editorExportLadderButton.addActionListener(new ActionListener() {
+	
+		JButton editorExportLadderPanelButton = new JButton("Export Ladder");
+		editorExportLadderPanelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				editorExportPanel.setVisible(false);
+				editorExportLadderPanel.setVisible(true);
 			}
 		});
-		editorExportLadderButton.setForeground(Color.WHITE);
-		editorExportLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
-		editorExportLadderButton.setBackground(new Color(34, 139, 34));
-		editorExportLadderButton.setBounds(181, 250, 243, 72);
-		editorExportPanel.add(editorExportLadderButton);
+		editorExportLadderPanelButton.setForeground(Color.WHITE);
+		editorExportLadderPanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportLadderPanelButton.setBackground(new Color(34, 139, 34));
+		editorExportLadderPanelButton.setBounds(181, 250, 243, 72);
+		editorExportPanel.add(editorExportLadderPanelButton);
 		
 		/**
 		 * Editor Export Panel End
@@ -1195,16 +1195,32 @@ public class GotPuzzledGUI {
 		editorExportPuzzlePanel.add(editorExportPuzzleTitleLabel);
 		
 		
+		JLabel editorExportPuzzleSubTitleLabel = new JLabel("Choose the Puzzle you want to export.");
+		editorExportPuzzleSubTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportPuzzleSubTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportPuzzleSubTitleLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 28));
+		editorExportPuzzleSubTitleLabel.setBounds(0, 50, 621, 54);
+		editorExportPuzzlePanel.add(editorExportPuzzleSubTitleLabel);
+		
+		
+		
+		
+		
 		JScrollPane editorCustomPuzzlesListScrollPane = new JScrollPane( );
 
-		editorCustomPuzzlesListScrollPane.setBounds(150, 70, 300, 150);
+		editorCustomPuzzlesListScrollPane.setBounds(155, 120, 300, 270);
 		editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
+	
+		
+		final DefaultListModel exportModel = new DefaultListModel();
+		//Initiate list with the current puzzles taken from database
+		//database.getPuzzleDatabase().testDatabase(); 
+
+		final JList exportCustomPuzzlesJList = new JList(exportModel);
+		exportCustomPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		
-		//JList editorCustomPuzzlesJList = customPuzzlesJList;
-		//editorCustomPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		
-		//editorCustomPuzzlesListScrollPane.setViewportView(editorCustomPuzzlesJList);
+		editorCustomPuzzlesListScrollPane.setViewportView(exportCustomPuzzlesJList);
 		
 		
 		
@@ -1221,59 +1237,18 @@ public class GotPuzzledGUI {
 		});
 		editorExportPuzzlePanel.add(editorExportPuzzleBackToExportButton);
 		
-		
-		
-		
-		
-		/*
-		JLabel editorExportPuzzleSubTitleLabel = new JLabel("Choose your destiny!");
-		editorExportPuzzleSubTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		editorExportPuzzleSubTitleLabel.setForeground(new Color(34, 139, 34));
-		editorExportPuzzleSubTitleLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 28));
-		editorExportPuzzleSubTitleLabel.setBounds(0, 43, 621, 54);
-		editorExportPuzzlePanel.add(editorExportPuzzleSubTitleLabel);
-		
-		JScrollPane uzzlesListScrollPane = new JScrollPane();
-		laddersListScrollPane.setBounds(110, 110, 400, 300);
-		editorExportPuzzlePanel.add(laddersListScrollPane);
-		
-		
-		JList<String> laddersJList = new JList();
-		laddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		
-		// this adds to the JList the ability to ScrollDown
-		laddersListScrollPane.setViewportView(laddersJList);
-		
-		
-		JButton ladderStartLadderButton = new JButton("Start Ladder!");
-		ladderStartLadderButton.addActionListener(new ActionListener() {
+		// EXPORT PUZZLE BUTTON (JFILE CHOOSER)
+		JButton editorExportPuzzleButton = new JButton("Export Puzzle!");
+		editorExportPuzzleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 			}
 		});
-		ladderStartLadderButton.setForeground(Color.WHITE);
-		ladderStartLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
-		ladderStartLadderButton.setBackground(new Color(34, 139, 34));
-		ladderStartLadderButton.setBounds(181, 450, 243, 72);
-		ladderPanel.add(ladderStartLadderButton);
-		
-		
-		
-		JButton editorExportBackToEditorButton = new JButton("Back");
-		editorExportBackToEditorButton.setForeground(Color.WHITE);
-		editorExportBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
-		editorExportBackToEditorButton.setBackground(new Color(34, 139, 34));
-		editorExportBackToEditorButton.setBounds(20, 470, 100, 50);
-		editorExportBackToEditorButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				editorExportPanel.setVisible(false);
-				editorPanel.setVisible(true);	
-			}
-		});
-		editorExportPanel.add(editorExportBackToEditorButton);
-
-		
-		*/
+		editorExportPuzzleButton.setForeground(Color.WHITE);
+		editorExportPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportPuzzleButton.setBackground(new Color(34, 139, 34));
+		editorExportPuzzleButton.setBounds(181, 450, 243, 72);
+		editorExportPuzzlePanel.add(editorExportPuzzleButton);
 		/**
 		 * Editor Export Puzzle Panel End
 		 */
@@ -1281,6 +1256,81 @@ public class GotPuzzledGUI {
 		
 		
 		
+		/**
+		 * Editor Export Ladder Panel Start
+		 */
+		editorExportLadderPanel = new JPanel();
+		editorExportLadderPanel.setLayout(null);
+		editorExportLadderPanel.setBackground(new Color(245, 245, 220));
+		editorExportLadderPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(editorExportLadderPanel);
+		editorExportLadderPanel.setVisible(false);
+		
+		JLabel editorExportLadderTitleLabel = new JLabel("Export Ladder");
+		editorExportLadderTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportLadderTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportLadderTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		editorExportLadderTitleLabel.setBounds(0, 0, 621, 54);
+		editorExportLadderPanel.add(editorExportLadderTitleLabel);
+		
+		
+		JLabel editorExportLadderSubTitleLabel = new JLabel("Choose the Ladder you want to export.");
+		editorExportLadderSubTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportLadderSubTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportLadderSubTitleLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 28));
+		editorExportLadderSubTitleLabel.setBounds(0, 50, 621, 54);
+		editorExportLadderPanel.add(editorExportLadderSubTitleLabel);
+		
+		
+		
+		
+		
+		JScrollPane editorLaddersListScrollPane = new JScrollPane( );
+
+		editorLaddersListScrollPane.setBounds(155, 120, 300, 270);
+		editorExportLadderPanel.add(editorLaddersListScrollPane);
+	
+		
+		final DefaultListModel exportModel2 = new DefaultListModel();
+		//Initiate list with the current puzzles taken from database
+		//database.getPuzzleDatabase().testDatabase(); 
+
+		final JList exportLaddersJList = new JList(exportModel2);
+		exportLaddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		
+		editorLaddersListScrollPane.setViewportView(exportLaddersJList);
+		
+		
+		
+		JButton editorExportLadderBackToExportButton = new JButton("Back");
+		editorExportLadderBackToExportButton.setForeground(Color.WHITE);
+		editorExportLadderBackToExportButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		editorExportLadderBackToExportButton.setBackground(new Color(34, 139, 34));
+		editorExportLadderBackToExportButton.setBounds(20, 470, 100, 50);
+		editorExportLadderBackToExportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportLadderPanel.setVisible(false);	
+				editorExportPanel.setVisible(true);				
+			}
+		});
+		editorExportLadderPanel.add(editorExportLadderBackToExportButton);
+		
+		// EXPORT LADDER BUTTON (JFILE CHOOSER)
+		JButton editorExportLadderButton = new JButton("Export Ladder!");
+		editorExportLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		editorExportLadderButton.setForeground(Color.WHITE);
+		editorExportLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportLadderButton.setBackground(new Color(34, 139, 34));
+		editorExportLadderButton.setBounds(181, 450, 243, 72);
+		editorExportLadderPanel.add(editorExportLadderButton);
+		/**
+		 * Editor Export Puzzle Panel End
+		 */
 		
 		
 		
