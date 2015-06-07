@@ -77,11 +77,18 @@ public class GotPuzzledGUI {
 	private JPanel createPuzzlePanel; 
 	private JPanel createLadderPanel;
 	
+	private JPanel editorExportPanel;
 	
+	
+	private JPanel editorExportPuzzlePanel;
+	
+	private JPanel editorExportLadderPanel;
 	
 	private JPanel optionsPanel;
 	
 	private JPanel leaderboardsPanel;
+	
+	private JScrollPane customPuzzlesListScrollPane;
 	
 	
 	private JMenuBar menuBar;
@@ -463,7 +470,7 @@ public class GotPuzzledGUI {
 		customGamePreviewLabel.setBounds(177, 230, 250, 200);
 		customGamePanel.add(customGamePreviewLabel);
 		
-		JScrollPane customPuzzlesListScrollPane = new JScrollPane( );
+		customPuzzlesListScrollPane = new JScrollPane( );
 
 		customPuzzlesListScrollPane.setBounds(150, 70, 300, 150);
 		customGamePanel.add(customPuzzlesListScrollPane);
@@ -481,7 +488,7 @@ public class GotPuzzledGUI {
 		
 		/**
 		 * Handles the preview of the image in Custom Game
-		 * 	 */
+		 */
 		customPuzzlesJList.addListSelectionListener(new ListSelectionListener(){
 			  public void valueChanged(ListSelectionEvent evt) {
 				    if (!evt.getValueIsAdjusting()) {
@@ -579,6 +586,12 @@ public class GotPuzzledGUI {
 		editorPanel.add(editorCreateButton);
 		
 		JButton editorExportButton = new JButton("Export");
+		editorExportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorPanel.setVisible(false);
+				editorExportPanel.setVisible(true);
+			}
+		});
 		editorExportButton.setForeground(Color.WHITE);
 		editorExportButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		editorExportButton.setBackground(new Color(34, 139, 34));
@@ -597,6 +610,9 @@ public class GotPuzzledGUI {
 		editorBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		editorBackToMainMenuButton.setBackground(new Color(34, 139, 34));
 		
+		
+		
+	
 		
 		/**
 		 * Editor Create Panel Start
@@ -1092,16 +1108,182 @@ public class GotPuzzledGUI {
 				
 			}
 		});		
-		
-		
+		/**
+		 * Create Ladder Panel End
+		 */
 		
 		
 		
 		
 		
 		/**
-		 * Create Ladder Panel End
+		 * Editor Export Panel Start
 		 */
+		editorExportPanel = new JPanel();
+		editorExportPanel.setLayout(null);
+		editorExportPanel.setBackground(new Color(245, 245, 220));
+		editorExportPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(editorExportPanel);
+		editorExportPanel.setVisible(false);
+		
+		JLabel editorExportTitleLabel = new JLabel("Export");
+		editorExportTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		editorExportTitleLabel.setBounds(0, 0, 621, 54);
+		editorExportPanel.add(editorExportTitleLabel);
+		
+		
+		JButton editorExportBackToEditorButton = new JButton("Back");
+		editorExportBackToEditorButton.setForeground(Color.WHITE);
+		editorExportBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		editorExportBackToEditorButton.setBackground(new Color(34, 139, 34));
+		editorExportBackToEditorButton.setBounds(20, 470, 100, 50);
+		editorExportBackToEditorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportPanel.setVisible(false);
+				editorPanel.setVisible(true);	
+			}
+		});
+		editorExportPanel.add(editorExportBackToEditorButton);
+
+		// EXPORT PUZZLE BUTTON
+		JButton editorExportPuzzleButton = new JButton("Export Puzzle");
+		editorExportPuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportPanel.setVisible(false);
+				editorExportPuzzlePanel.setVisible(true);
+			}
+		});
+		editorExportPuzzleButton.setForeground(Color.WHITE);
+		editorExportPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportPuzzleButton.setBackground(new Color(34, 139, 34));
+		editorExportPuzzleButton.setBounds(181, 140, 243, 72);
+		editorExportPanel.add(editorExportPuzzleButton);
+		
+		
+		
+		// EXPORT LADDER BUTTON
+		JButton editorExportLadderButton = new JButton("Export Ladder");
+		editorExportLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		editorExportLadderButton.setForeground(Color.WHITE);
+		editorExportLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorExportLadderButton.setBackground(new Color(34, 139, 34));
+		editorExportLadderButton.setBounds(181, 250, 243, 72);
+		editorExportPanel.add(editorExportLadderButton);
+		
+		/**
+		 * Editor Export Panel End
+		 */
+		
+		
+		
+		/**
+		 * Editor Export Puzzle Panel Start
+		 */
+		editorExportPuzzlePanel = new JPanel();
+		editorExportPuzzlePanel.setLayout(null);
+		editorExportPuzzlePanel.setBackground(new Color(245, 245, 220));
+		editorExportPuzzlePanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(editorExportPuzzlePanel);
+		editorExportPuzzlePanel.setVisible(false);
+		
+		JLabel editorExportPuzzleTitleLabel = new JLabel("Export Puzzle");
+		editorExportPuzzleTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportPuzzleTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportPuzzleTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		editorExportPuzzleTitleLabel.setBounds(0, 0, 621, 54);
+		editorExportPuzzlePanel.add(editorExportPuzzleTitleLabel);
+		
+		
+		
+		//JScrollPane editorCustomPuzzlesListScrollPane =	customPuzzlesListScrollPane;
+				
+				
+
+	
+		//editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
+		
+		
+		
+		JButton editorExportPuzzleBackToExportButton = new JButton("Back");
+		editorExportPuzzleBackToExportButton.setForeground(Color.WHITE);
+		editorExportPuzzleBackToExportButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		editorExportPuzzleBackToExportButton.setBackground(new Color(34, 139, 34));
+		editorExportPuzzleBackToExportButton.setBounds(20, 470, 100, 50);
+		editorExportPuzzleBackToExportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportPuzzlePanel.setVisible(false);	
+				editorExportPanel.setVisible(true);				
+			}
+		});
+		editorExportPuzzlePanel.add(editorExportPuzzleBackToExportButton);
+		
+		
+		
+		
+		
+		/*
+		JLabel editorExportPuzzleSubTitleLabel = new JLabel("Choose your destiny!");
+		editorExportPuzzleSubTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorExportPuzzleSubTitleLabel.setForeground(new Color(34, 139, 34));
+		editorExportPuzzleSubTitleLabel.setFont(new Font("Segoe UI Black", Font.PLAIN, 28));
+		editorExportPuzzleSubTitleLabel.setBounds(0, 43, 621, 54);
+		editorExportPuzzlePanel.add(editorExportPuzzleSubTitleLabel);
+		
+		JScrollPane uzzlesListScrollPane = new JScrollPane();
+		laddersListScrollPane.setBounds(110, 110, 400, 300);
+		editorExportPuzzlePanel.add(laddersListScrollPane);
+		
+		
+		JList<String> laddersJList = new JList();
+		laddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		
+		// this adds to the JList the ability to ScrollDown
+		laddersListScrollPane.setViewportView(laddersJList);
+		
+		
+		JButton ladderStartLadderButton = new JButton("Start Ladder!");
+		ladderStartLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+			}
+		});
+		ladderStartLadderButton.setForeground(Color.WHITE);
+		ladderStartLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		ladderStartLadderButton.setBackground(new Color(34, 139, 34));
+		ladderStartLadderButton.setBounds(181, 450, 243, 72);
+		ladderPanel.add(ladderStartLadderButton);
+		
+		
+		
+		JButton editorExportBackToEditorButton = new JButton("Back");
+		editorExportBackToEditorButton.setForeground(Color.WHITE);
+		editorExportBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		editorExportBackToEditorButton.setBackground(new Color(34, 139, 34));
+		editorExportBackToEditorButton.setBounds(20, 470, 100, 50);
+		editorExportBackToEditorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorExportPanel.setVisible(false);
+				editorPanel.setVisible(true);	
+			}
+		});
+		editorExportPanel.add(editorExportBackToEditorButton);
+
+		
+		*/
+		/**
+		 * Editor Export Puzzle Panel End
+		 */
+		
+		
+		
+		
+		
 		
 		
 		
