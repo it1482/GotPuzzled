@@ -509,15 +509,19 @@ public class GotPuzzledGUI {
 					else
 					{
 						// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
-						backFromSlidingToMainMenuButton.setVisible(true);
+						//backFromSlidingToMainMenuButton.setVisible(true);
 						
 						//Initiates Sliding puzzle
 						imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getImage());
-						frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
+						SlidingPuzzle slidingpuzzle = new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
+								imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty(),frmGotPuzzled);
+						slidingpuzzle.setVisible(true);
+					    frmGotPuzzled.setVisible(false);
+						/*frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
 						imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty()));
 						frmGotPuzzled.setVisible(true);
 						frmGotPuzzled.setResizable(true);
-						frmGotPuzzled.setSize(800,800);
+						frmGotPuzzled.setSize(800,800);*/
 						
 					}
 					database.getLadderDatabase().getLadders().get(index).setCurrentLevel(database.getLadderDatabase().getLadders().get(index).getCurrentLevel()+1);
@@ -671,15 +675,18 @@ public class GotPuzzledGUI {
 				else
 				{
 					// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
-					backFromSlidingToMainMenuButton.setVisible(true);
+					//backFromSlidingToMainMenuButton.setVisible(true);
 					
 					//Initiates Sliding puzzle
 					imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(index).getImage());
-					frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),
-					imageInput,	database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty()));
+					SlidingPuzzle slidingpuzzle = new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(index).getName(),
+					imageInput,	database.getPuzzleDatabase().getPuzzles().get(index).getDifficulty(),frmGotPuzzled);
+					slidingpuzzle.setVisible(true);
+				    frmGotPuzzled.setVisible(false);
+					/*
 					frmGotPuzzled.setVisible(true);
 					frmGotPuzzled.setResizable(true);
-					frmGotPuzzled.setSize(800,800);
+					frmGotPuzzled.setSize(800,800);*/
 					
 				}
 			}

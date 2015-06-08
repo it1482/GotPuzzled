@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -23,17 +24,16 @@ import playerPackage.CalculateScore;
 import playerPackage.Player;
 import puzzlePackage.Puzzle;
 
-public class SlidingPuzzle extends Puzzle implements ActionListener{
-
-	// Checkpoint/Milestone
-		SlidingTimer timer ;
-		
+public class SlidingPuzzle extends Puzzle implements ActionListener{	
+	SlidingTimer timer ;		
 	
-	
+	JFrame frmGotPuzzled,myFrame;
+	JPanel myPanel = new JPanel();
 	Image image;
 	ImageIcon icon;
 	JButton buttons[],tempbuttons[],rightbuttons[],blankButton,newGame;
 	JButton tipButton = new JButton("Tip"),new_gameButton = new JButton("New Game");
+	JButton main_menu_button = new JButton("Main Menu");
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label;
@@ -43,8 +43,10 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	
 	public int counting = 0;
 	int size_pleuras;
-	public SlidingPuzzle(String name, Image image, int difficulty) {
-		super(name, image, difficulty);
+	public SlidingPuzzle(String name, Image image, int difficulty,JFrame frmGotPuzzled) {
+		super(name, image, difficulty);		
+		this.frmGotPuzzled=frmGotPuzzled;	
+		
 		if(difficulty==1)
 			size_pleuras=3;
 		else if(difficulty==2)
@@ -53,45 +55,38 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			size_pleuras=5;
 		else
 			System.out.println("Error in partsNumber variable.");
-		this.image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);
-		
-		
-
-		
-		
-		//Pleura tou puzzle
-		setSize(400,300);
+		this.image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);			
 		
 		buttons = new JButton[size_pleuras*size_pleuras];
 		//Gia na mpoun se stoixish ta koumpia
 		grid = new JPanel ( new GridLayout(size_pleuras,size_pleuras) );
-		
+		this.setContentPane(myPanel);
+		this.setVisible(true);
+		this.setSize(800, 800);
+		this.setTitle("Jigsaw");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setupPanels();
 		setupImage();
 		
-		add(grid);
-		add(timer.getTime_label());
+		myPanel.add(grid);
+		myPanel.add(timer.getTime_label());
 		new_gameButton.addActionListener(this);
-		
+		main_menu_button.addActionListener(this);
 		MouseHandler handler = new MouseHandler();
 		tipButton.addMouseListener(handler);
 		
-		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));
-	
+		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));	
 		
-		add(moves_label,BorderLayout.CENTER);
-		add(tipButton,BorderLayout.CENTER);
-		add(new_gameButton,BorderLayout.CENTER);
-		
+		myPanel.add(moves_label,BorderLayout.CENTER);
+		myPanel.add(tipButton,BorderLayout.CENTER);
+		myPanel.add(new_gameButton,BorderLayout.CENTER);
+		myPanel.add(main_menu_button,BorderLayout.CENTER);		
 	}
 	
 	
 	
-	public void setupPanels(){
-		
+	public void setupPanels(){		
 		spots = new JPanel[size_pleuras*size_pleuras];
-
-		
 		rightbuttons = new JButton[size_pleuras*size_pleuras];
 		tempbuttons = new JButton[size_pleuras*size_pleuras];
 		
@@ -100,23 +95,10 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		for(int i=0;i<spots.length;i++){
 			spots[i] = new JPanel(new BorderLayout());
 			grid.add(spots[i]);
-		}
-		
+		}		
 	}
 	
-	public void setupImage(){
-		
-		
-			
-		/*
-		try{
-			tracker.waitForAll();
-			image = ImageIO.read(new File("images/pic.jpg"));
-			image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);
-		} catch (Exception e){
-			
-		
-		}*/
+	public void setupImage(){		
 		BufferedImage bimage = new BufferedImage(
 				image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
 		Graphics g = bimage.getGraphics();
@@ -144,7 +126,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	}
 	
 	public void setupButton(int id,Image img){
-		buttons[id] = new JButton(Integer.toString(id),new ImageIcon(img));
+		buttons[id] = new JButton(/*Integer.toString(id),*/new ImageIcon(img));
 		buttons[id].addActionListener(this);
 		buttons[id].setMargin(new Insets(0,0,0,0));
 		buttons[id].setContentAreaFilled(false);
@@ -156,11 +138,12 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(new_gameButton == e.getSource()){
 			newGame();
+		}else if(main_menu_button == e.getSource()){
+			goToMenu();
 		}else{
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
-						changeSpots(i,false);
-						
+						changeSpots(i,false);						
 						break; 
 					}
 			}
@@ -185,9 +168,7 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			if(!automatic){
 				movecounter++;
 				moves_label.setText("Moves : "+Integer.toString(movecounter));
-			}
-			
-			
+			}			
 			spots[currentBlankSpot].removeAll();
 			spots[i].removeAll();
 			
@@ -196,15 +177,11 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			
 			buttons[currentBlankSpot] = buttons[i];
 			buttons[i] = blankButton;
-			currentBlankSpot = i;
-			
-			repaint();
-				
+			currentBlankSpot = i;			
+			repaint();				
 			return;
 			
-		}
-		
-		
+		}		
 	}
 	
 	public void shufflePuzzle(){
@@ -253,22 +230,14 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	}
 	
 	class MouseHandler implements MouseListener{
-		
-		
 		@Override
-		public void mouseClicked(MouseEvent arg0) {
-		
-		}
+		public void mouseClicked(MouseEvent arg0) {		}
 
 		@Override
-		public void mouseEntered(MouseEvent arg0) {
-		
-		}
+		public void mouseEntered(MouseEvent arg0) {		}
 
 		@Override
-		public void mouseExited(MouseEvent arg0) {
-		
-		}
+		public void mouseExited(MouseEvent arg0) {		}
 
 		@Override
 		public void mousePressed(MouseEvent arg0) {
@@ -293,18 +262,15 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 				spots[i].add(buttons[i]);
 				
 			}
-			repaint();
-			
-		}
-		
+			repaint();			
+		}		
 	}
 	
 	
 	public void newGame(){
 		timer.stopTimer();
 		timer.setTimerCounter(0);
-		timer.startTimer();
-		
+		timer.startTimer();		
 		movecounter=0;
 		moves_label.setText("Moves : "+Integer.toString(movecounter));
 		shufflePuzzle();
@@ -314,14 +280,15 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		endTime = timer.getTimerCounter();
 		endMoves = movecounter;
 		CalculateScore tempscore = new CalculateScore(super.getDifficulty(),(double)endTime);
-		Player newplayer = new Player(super.getName(),(int) tempscore.returnScore());
+		Player newplayer = new Player(super.getName(),(int) tempscore.returnScore());		
 		
-		
-		
-		playerName=JOptionPane.showInputDialog(grid,"Time:" + endTime + " ,Moves:" + endMoves + "\nYour Name:","You Won!", JOptionPane.PLAIN_MESSAGE);
-		newGame();
+		JOptionPane.showMessageDialog(null, "You Won", "Puzzle Got Solved!", JOptionPane.PLAIN_MESSAGE);
+		//playerName=JOptionPane.showInputDialog(grid,"Time:" + endTime + " ,Moves:" + endMoves + "\nYour Name:","You Won!", JOptionPane.PLAIN_MESSAGE);
+		goToMenu();
 	}
 	
-
-	
+	public void goToMenu(){
+		frmGotPuzzled.setVisible(true);
+    	this.dispose();
+	}	
 }
