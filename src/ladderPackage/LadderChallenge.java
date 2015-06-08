@@ -1,11 +1,12 @@
 package ladderPackage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import puzzlePackage.Puzzle;
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleDatabase;
 
-public class LadderChallenge {
+public class LadderChallenge implements Serializable {
 	private String Name;
 	private int currentLevel = 0;
 	private int levelNumber = 0;

@@ -23,7 +23,7 @@ public class LoadSaveLadders implements Serializable {
 	public ArrayList<LadderChallenge> load(){
 		ArrayList<LadderChallenge> l = null;
 		try{
-			FileInputStream fis = new FileInputStream("puzzlesData.ser");
+			FileInputStream fis = new FileInputStream("laddersData.ser");
 	         ObjectInputStream ois = new ObjectInputStream(fis);
 	         l = (ArrayList<LadderChallenge>) ois.readObject();
 	         ladders = l;

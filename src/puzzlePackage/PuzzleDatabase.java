@@ -17,6 +17,7 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import ladderPackage.LadderChallenge;
 import playerPackage.Player;
 
 //NEEDS REWORKING
@@ -79,52 +80,40 @@ public class PuzzleDatabase {
 	/**Just for testing creates a database to see if things are working properly.
 	 *  
 	 */
-	public void testDatabase() {
+	public void UpdatePuzzleNamesArrayList() {
 		ImageIcon image = null;
-		/* try {                
-			 image = ImageIO.read(new File("images/pic.jpg"));
-	       } catch (IOException ex) {
-	            // handle exception...
-	       }*/
+
 		 for(int i=0;i<puzzlesData.size();i++){
 			 puzzlesNames.add(puzzlesData.get(i).getName());
 		 }
-		 
-
-		//puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
-		//puzzlesNames.add("Puzzle 1");
-
 
 	}
 	
 	/**Chooses the PuzzleData ser file to import.
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 * 
 	 */
-	public static PuzzleData fileChooserPuzzle(Component comp){
+	public static PuzzleData loadPuzzle(File file){
 		PuzzleData puzzle = null;
-		MediaTracker tracker = new MediaTracker(comp);
-		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
-		int result = fc.showOpenDialog(null);
-		if(result == JFileChooser.APPROVE_OPTION){
-			File file = fc.getSelectedFile();
-			try{
-				FileInputStream fileIn = new FileInputStream(file.getAbsolutePath());
-				ObjectInputStream in = new ObjectInputStream(fileIn);
-				puzzle = (PuzzleData) in.readObject();
-				in.close();
-				fileIn.close();		
-				tracker.waitForAll();
-				System.out.println("path complete - desirialized");
-			} catch (Exception exp){
-				exp.printStackTrace();
-				
-			}
-			
-		}else{
-			System.out.println("Bye");
-		}
+		try{
+			FileInputStream fileIn = new FileInputStream(file.getAbsolutePath());
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			puzzle = (PuzzleData) in.readObject();
+			in.close();
+			fileIn.close();		
+		}catch(IOException e){
+			System.out.println("");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		System.out.println("path complete - desirialized");
 		return puzzle;
-	}
+			
+		}
+
+	
 	
 	
 	
@@ -150,7 +139,7 @@ public class PuzzleDatabase {
 		for(PuzzleData p: puzzlesData){
 			if(p.getName()==pname){
 				puzzleToExport = p;
-				String filename = pname + ".ser";
+				String filename = pname + ".puz";
 				try{;
 					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);

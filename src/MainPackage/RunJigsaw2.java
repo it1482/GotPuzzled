@@ -15,7 +15,7 @@ public class RunJigsaw2 {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		PuzzleDatabase database = new PuzzleDatabase() ;
-		database.testDatabase();
+		//database.getPuzzleDatabase().UpdatePuzzleNamesArrayList();
 		JigsawCutter varCutter = null;
 		PuzzleData temp_data = database.getPuzzles().get(0);
 		if(temp_data instanceof PuzzleJigsawData){

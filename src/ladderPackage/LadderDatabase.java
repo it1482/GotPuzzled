@@ -2,6 +2,11 @@ package ladderPackage;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -36,10 +41,10 @@ public class LadderDatabase {
 		
 	}
 	
-	public void testDatabase(ArrayList<PuzzleData> puzzles) {
-		ladders.add(new LadderChallenge("ladder1",puzzles.size(),puzzles))  ;
-		ladderNames.add("ladder1");
-
+	public void UpdateLadderNamesArrayList() {
+		 for(int i=0;i<ladders.size();i++){
+			 ladderNames.add(ladders.get(i).getName());
+		 }
 		 
 
 		//puzzlesData.add(new PuzzleJigsawData("Puzzle 1",image,1,true));
@@ -47,6 +52,80 @@ public class LadderDatabase {
 
 
 	}
+	
+	
+	public static LadderChallenge loadLadder(File file) {
+		LadderChallenge ladder = null;
+		try{
+			FileInputStream fileIn = new FileInputStream(file.getAbsolutePath());
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+
+			ladder = (LadderChallenge) in.readObject();
+			in.close();
+			fileIn.close();		
+		}catch(IOException e){
+			System.out.println("");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("");
+
+		}
+
+		System.out.println("path complete - desirialized");
+		return ladder;
+			
+		}
+	
+	public void importLadder(LadderChallenge p,ArrayList<LadderChallenge> ladders,ArrayList<String> laddersNames){
+		boolean flag = true;
+		for(LadderChallenge ladder: ladders)
+			if(ladder.getName().equals(p.getName())){
+				System.out.println("This Puzzle already exists");
+				flag = false;
+				break;
+			}
+		if(flag){
+			ladders.add(p);
+			laddersNames.add(p.getName());
+			loadsave.save(ladders);
+			System.out.println("Ladder Desirialized");
+			
+		}				
+		
+	}
+	
+	
+	
+	public void exportLadder(String pname){
+		LadderChallenge ladderToExport = null;
+		for(LadderChallenge l: ladders){
+			if(l.getName()==pname){
+				ladderToExport = l;
+				String filename = pname + ".ser";
+				try{;
+					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
+					ObjectOutputStream oos = new ObjectOutputStream(fos);
+					oos.writeObject(ladderToExport);
+					oos.close();
+					System.out.println("Ladder Serialised");
+					}
+				catch (Exception e){
+						e.printStackTrace();
+				}
+			break;
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public LoadSaveLadders getLoadsave() {
 		return loadsave;
