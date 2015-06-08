@@ -92,10 +92,12 @@ public class GotPuzzledGUI {
 	
 	private JPanel editorExportPanel;
 	
-	
 	private JPanel editorExportPuzzlePanel;
 	
 	private JPanel editorExportLadderPanel;
+	
+	private JPanel editorImportPanel;
+	
 	
 	private JPanel optionsPanel;
 	
@@ -760,6 +762,12 @@ public class GotPuzzledGUI {
 		JButton editorImportButton = new JButton("Import");
 
 		editorImportButton.setForeground(Color.WHITE);
+		editorImportButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorPanel.setVisible(false);
+				editorImportPanel.setVisible(true);
+			}
+		});
 		editorImportButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		editorImportButton.setBackground(new Color(34, 139, 34));
 		editorImportButton.setBounds(181, 340, 243, 72);
@@ -1351,7 +1359,6 @@ public class GotPuzzledGUI {
 		editorExportLadderPanelButton.setBackground(new Color(34, 139, 34));
 		editorExportLadderPanelButton.setBounds(181, 250, 243, 72);
 		editorExportPanel.add(editorExportLadderPanelButton);
-		
 		/**
 		 * Editor Export Panel End
 		 */
@@ -1440,9 +1447,6 @@ public class GotPuzzledGUI {
 				UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 			}
 		});
-		
-
-		
 		/**
 		 * Editor Export Puzzle Panel End
 		 */
@@ -1562,6 +1566,74 @@ public class GotPuzzledGUI {
 				*/
 			}
 		});
+		
+		
+		
+
+		/**
+		 * Editor Import Panel Start
+		 */
+		editorImportPanel = new JPanel();
+		editorImportPanel.setLayout(null);
+		editorImportPanel.setBackground(new Color(245, 245, 220));
+		editorImportPanel.setBounds(0, 0, 631, 557);
+		frmGotPuzzled.getContentPane().add(editorImportPanel);
+		editorImportPanel.setVisible(false);
+		
+		JLabel editorImportTitleLabel = new JLabel("Import");
+		editorImportTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		editorImportTitleLabel.setForeground(new Color(34, 139, 34));
+		editorImportTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
+		editorImportTitleLabel.setBounds(0, 0, 621, 54);
+		editorImportPanel.add(editorImportTitleLabel);
+		
+		
+		JButton editorImportBackToEditorButton = new JButton("Back");
+		editorImportBackToEditorButton.setForeground(Color.WHITE);
+		editorImportBackToEditorButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
+		editorImportBackToEditorButton.setBackground(new Color(34, 139, 34));
+		editorImportBackToEditorButton.setBounds(20, 470, 100, 50);
+		editorImportBackToEditorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				editorImportPanel.setVisible(false);
+				editorPanel.setVisible(true);	
+			}
+		});
+		editorImportPanel.add(editorImportBackToEditorButton);
+
+	
+		JButton editorImportPuzzlePanelButton = new JButton("Import Puzzle");
+		editorImportPuzzlePanelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		editorImportPuzzlePanelButton.setForeground(Color.WHITE);
+		editorImportPuzzlePanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorImportPuzzlePanelButton.setBackground(new Color(34, 139, 34));
+		editorImportPuzzlePanelButton.setBounds(181, 140, 243, 72);
+		editorImportPanel.add(editorImportPuzzlePanelButton);
+		
+		
+	
+		JButton editorImportLadderPanelButton = new JButton("Import Ladder");
+		editorImportLadderPanelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		editorImportLadderPanelButton.setForeground(Color.WHITE);
+		editorImportLadderPanelButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
+		editorImportLadderPanelButton.setBackground(new Color(34, 139, 34));
+		editorImportLadderPanelButton.setBounds(181, 250, 243, 72);
+		editorImportPanel.add(editorImportLadderPanelButton);
+		/**
+		 * Editor Import Panel End
+		 */
+		
+		
+		
+		
 		
 		
 		optionsPanel = new JPanel();
