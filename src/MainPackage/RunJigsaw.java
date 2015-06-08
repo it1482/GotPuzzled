@@ -188,10 +188,10 @@ public class RunJigsaw extends JFrame {
 			    
 
 			    // Set up and show the frame.
-			    JigsawFrame frame = new JigsawFrame ((BufferedImage) image, varCutter, chckbxRotation.isSelected());
-			    frame.begin();
-			    frame.setSize (1024, 740);
-			    frame.show();
+			    //JigsawFrame frame = new JigsawFrame ((BufferedImage) image, varCutter, chckbxRotation.isSelected(),false);
+			   // frame.begin();
+			   // frame.setSize (1024, 740);
+			   // frame.show();
 			  }
 	 
 	  protected void fireBrowseAction()

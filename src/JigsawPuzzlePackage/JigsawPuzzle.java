@@ -1,6 +1,7 @@
 package JigsawPuzzlePackage;
 
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
@@ -63,12 +64,16 @@ public class JigsawPuzzle extends Puzzle
 
   /**
    * Creates a new JigsawPuzzle.
+ * @param frmGotPuzzled 
+ * @param jigsawFrame 
    * @param image the final picture
    * @param cut the cut to use on the image
    */
-  public JigsawPuzzle (String name, BufferedImage loadedImage, JigsawCutter cutter, boolean rotation)
+  public JigsawPuzzle (String name, BufferedImage loadedImage, JigsawCutter cutter, boolean rotation, JFrame frmGotPuzzled, JigsawFrame jigsawFrame)
   {
 	super(name,loadedImage);
+	this.frmGotPuzzled = frmGotPuzzled;
+	this.jigsawFrame = jigsawFrame;
 	this.rotation = rotation;
     this.image = imageScale(loadedImage);
     this.cutter = cutter;
@@ -99,6 +104,9 @@ public class JigsawPuzzle extends Puzzle
   private int bgColor;
   private int clearX0, clearY0, clearX1, clearY1;
   private Color clearColor;
+  private boolean puzzleFinished = false;
+  private JFrame frmGotPuzzled,jigsawFrame;
+
 
   // If a keyboard command can affect a piece, it'll be this one.
   // Typically, this piece should be last in zOrder, but you never know.
@@ -286,6 +294,7 @@ public class JigsawPuzzle extends Puzzle
 
     ActionListener fader = new ActionListener() {
       int trans = 0x00;
+
       public void actionPerformed (ActionEvent evt) {
         for (int i = 0; i < data.length; i++)
           data[i] = (data[i] & 0x00ffffff) | (trans << 24);
@@ -303,7 +312,13 @@ public class JigsawPuzzle extends Puzzle
         else
         {
         	JOptionPane.showMessageDialog(null, "You Won", "Puzzle Got Solved!", JOptionPane.PLAIN_MESSAGE);
+        	puzzleFinished = true;
+        	frmGotPuzzled.setVisible(true);
+        	jigsawFrame.dispose();
+        	
+      	
         }
+
       }
     };
 
@@ -643,6 +658,10 @@ public class JigsawPuzzle extends Puzzle
   }
 
 
+
+public boolean isFinished() {
+	return finished;
+}
 
 public boolean isRotation() {
 	// TODO Auto-generated method stub

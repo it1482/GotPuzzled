@@ -16,6 +16,11 @@ import java.io.File;
 
 
 
+
+
+
+import java.util.ArrayList;
+
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
@@ -28,6 +33,7 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -42,6 +48,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import ladderPackage.LadderChallenge;
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
@@ -122,6 +129,14 @@ public class GotPuzzledGUI {
 	Database database = new Database();
 	private ImageIcon image;
 	DefaultListModel<String> model;
+	DefaultListModel<String> model2;
+
+
+
+	private DefaultListModel<String> model3;
+
+
+
 	
 
 	
@@ -165,6 +180,8 @@ public class GotPuzzledGUI {
 		
 		//loading database data
 		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
+
+		
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -396,10 +413,13 @@ public class GotPuzzledGUI {
 		JScrollPane laddersListScrollPane = new JScrollPane();
 		laddersListScrollPane.setBounds(110, 110, 400, 300);
 		ladderPanel.add(laddersListScrollPane);
+	
 		
-		
-		JList<String> laddersJList = new JList();
+		final JList<String> laddersJList = new JList();
 		laddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		database.getLadderDatabase().testDatabase(database.getPuzzleDatabase().getPuzzles());
+		UpdateJList(laddersJList,database.getLadderDatabase().getLadderNames());
+		model2 = new DefaultListModel();
 		
 		// this adds to the JList the ability to ScrollDown
 		laddersListScrollPane.setViewportView(laddersJList);
@@ -410,14 +430,7 @@ public class GotPuzzledGUI {
 		
 		// here you can add code to implement the Start Ladder function
 		JButton ladderStartLadderButton = new JButton("Start Ladder!");
-		ladderStartLadderButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				ladderPanel.setVisible(false);
-				playLadderPanel.setVisible(true);
-				
-				
-			}
-		});
+
 		ladderStartLadderButton.setForeground(Color.WHITE);
 		ladderStartLadderButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		ladderStartLadderButton.setBackground(new Color(34, 139, 34));
@@ -468,17 +481,64 @@ public class GotPuzzledGUI {
 		playLadderPanel.add(ladderChallengePuzzlesListScrollPane);
 		
 		
-		JList<String> ladderChallengePuzzlesJList = new JList();
+
+		final JList ladderChallengePuzzlesJList = new JList();
 		ladderChallengePuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		// this adds to the JList the ability to ScrollDown
 		ladderChallengePuzzlesListScrollPane.setViewportView(ladderChallengePuzzlesJList);
+		UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadders().get(0).getPuzzlesnames());
+
+		
+
 		
 		
 		// here you can add code to implement the NEXT PUZZLE Ladder function
 		JButton playLadderNextPuzzleButton = new JButton("Next Puzzle!");
 		playLadderNextPuzzleButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				int index = database.getLadderDatabase().getLadderNames().indexOf(laddersJList.getSelectedValue());
+				if(database.getLadderDatabase().getLadders().get(index).getCurrentLevel() < database.getLadderDatabase().getLadders().get(index).getLevelNumber()){
+					int indexCurrentLevel = database.getLadderDatabase().getLadders().get(index).getCurrentLevel();
+					BufferedImage imageInput;
+					
+					System.out.println(indexCurrentLevel);
+					if(database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel) instanceof PuzzleJigsawData)
+					{
+						//Initiates Jigsaw puzzle
+						PuzzleJigsawData current = (PuzzleJigsawData) database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel);
+
+						imageInput = ConvertIconToBufferedImage(current.getImage());
+						JigsawCutter varCutter = new JigsawCutter(current.getDifficulty(),current.getRotation());
+						JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation(),frmGotPuzzled);
+						jigframe.begin();
+						jigframe.setSize (1024, 740);
+					    jigframe.setVisible(true);
+					    frmGotPuzzled.setVisible(false);
+					    
+
+					}
+					else
+					{
+						// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
+						backFromSlidingToMainMenuButton.setVisible(true);
+						
+						//Initiates Sliding puzzle
+						imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getImage());
+						frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
+						imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty()));
+						frmGotPuzzled.setVisible(true);
+						frmGotPuzzled.setResizable(true);
+						frmGotPuzzled.setSize(800,800);
+						
+					}
+					database.getLadderDatabase().getLadders().get(index).setCurrentLevel(database.getLadderDatabase().getLadders().get(index).getCurrentLevel()+1);
+				}
+				else
+					JOptionPane.showMessageDialog(null,"Ladder Challenge Finished!" , "You Won", JOptionPane.PLAIN_MESSAGE);
+
+				 
+				 
 				
 			}
 		});
@@ -561,7 +621,7 @@ public class GotPuzzledGUI {
 		final JList customPuzzlesJList = new JList(model);
 		customPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
-		UpdateJList(customPuzzlesJList);
+		UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 	
 
 		
@@ -584,7 +644,18 @@ public class GotPuzzledGUI {
 				    }
 				  }
 		});
-		
+		ladderStartLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ladderPanel.setVisible(false);
+				playLadderPanel.setVisible(true);
+				database.getLadderDatabase().getLadders().get(0).setCurrentLevel(0);
+				int index = database.getLadderDatabase().getLadderNames().indexOf(laddersJList.getSelectedValue());
+				UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadders().get(index).getPuzzlesnames());
+				
+				
+				
+			}
+		});
 
 		
 		// here you can add code to implement the Start Game function
@@ -602,11 +673,11 @@ public class GotPuzzledGUI {
 
 					imageInput = ConvertIconToBufferedImage(current.getImage());
 					JigsawCutter varCutter = new JigsawCutter(current.getDifficulty(),current.getRotation());
-					JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation());
+					JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation(),frmGotPuzzled);
 					jigframe.begin();
 					jigframe.setSize (1024, 740);
 				    jigframe.setVisible(true);
-				    frmGotPuzzled.setVisible(false);
+				    frmGotPuzzled.dispose();
 
 				}
 				else
@@ -621,6 +692,7 @@ public class GotPuzzledGUI {
 					frmGotPuzzled.setVisible(true);
 					frmGotPuzzled.setResizable(true);
 					frmGotPuzzled.setSize(800,800);
+					
 				}
 			}
 		});
@@ -1015,7 +1087,7 @@ public class GotPuzzledGUI {
 						database.getPuzzleDatabase().getPuzzles().add(new PuzzleData(name,image,difficulty));
 						database.getPuzzleDatabase().getPuzzlesNames().add(name);
 					}
-					UpdateJList(customPuzzlesJList);
+					UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 					database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
 					System.out.println(name + " puzzle got saved!");
 					
@@ -1075,7 +1147,7 @@ public class GotPuzzledGUI {
 		createLadderCustomLadderJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		createLadderCustomLadderListScrollPane.setViewportView(createLadderCustomLadderJList);
-		
+
 		
 		final JLabel createLadderAvailablePuzzlesLabel = new JLabel("Available Puzzles:");
 		createLadderAvailablePuzzlesLabel.setBackground(new Color(238, 238, 238));
@@ -1087,6 +1159,7 @@ public class GotPuzzledGUI {
 		
 		
 		JScrollPane createLadderAvailablePuzzlesListScrollPane = new JScrollPane( );
+		
 		createLadderAvailablePuzzlesListScrollPane.setBounds(310, 100, 260, 250);
 		createLadderPanel.add(createLadderAvailablePuzzlesListScrollPane);
 		
@@ -1094,6 +1167,7 @@ public class GotPuzzledGUI {
 		createLadderAvailablePuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		
 		createLadderAvailablePuzzlesListScrollPane.setViewportView(createLadderAvailablePuzzlesJList);
+		UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 		
 		
 		JButton createLadderBackToCreateButton = new JButton("Back");
@@ -1149,8 +1223,19 @@ public class GotPuzzledGUI {
 		createLadderAddPuzzleToCustomLadderButton.setBounds(255, 355, 100, 42);
 		createLadderPanel.add(createLadderAddPuzzleToCustomLadderButton);		
 		// here we implement the createLadderAddPuzzleToCustomLadderButton button
+		final ArrayList<PuzzleData> temp_ladder_puzzles = new ArrayList<PuzzleData>();
+		final ArrayList<String> temp_ladder_puzzles_names = new ArrayList<String>();
 		createLadderAddPuzzleToCustomLadderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				int index = database.getPuzzleDatabase().getPuzzlesNames().indexOf(createLadderAvailablePuzzlesJList.getSelectedValue());
+				temp_ladder_puzzles.add(database.getPuzzleDatabase().getPuzzles().get(index));
+				temp_ladder_puzzles_names.add(database.getPuzzleDatabase().getPuzzlesNames().get(index));
+				System.out.println("Puzzle Added to Ladder");
+				UpdateJList(createLadderCustomLadderJList,temp_ladder_puzzles_names);
+				
+				
+				
 			
 			}
 		});		
@@ -1169,7 +1254,9 @@ public class GotPuzzledGUI {
 		// here we implement the clear ladder information button
 		clearCreateLadderInformationButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				temp_ladder_puzzles.clear();
+				temp_ladder_puzzles_names.clear();
+				UpdateJList(createLadderCustomLadderJList,temp_ladder_puzzles_names);
 			}
 		});		
 		
@@ -1187,6 +1274,11 @@ public class GotPuzzledGUI {
 		createLadderButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//System.out.println("create ladder pressed");
+				String name = createLadderNewLadderNameTextField.getText() ;
+				database.getLadderDatabase().getLadders().add(new LadderChallenge (name,temp_ladder_puzzles.size(),temp_ladder_puzzles));
+				database.getLadderDatabase().getLadderNames().add(name);
+				UpdateJList(laddersJList,database.getLadderDatabase().getLadderNames());
+				
 				
 			}
 		});		
@@ -1301,7 +1393,7 @@ public class GotPuzzledGUI {
 
 		final JList exportCustomPuzzlesJList = new JList(exportModel);
 		exportCustomPuzzlesJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		UpdateJList(exportCustomPuzzlesJList);
+		UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 		
 		
 		editorCustomPuzzlesListScrollPane.setViewportView(exportCustomPuzzlesJList);
@@ -1338,7 +1430,7 @@ public class GotPuzzledGUI {
 			public void actionPerformed(ActionEvent e) {
 				editorExportPanel.setVisible(false);
 				editorExportPuzzlePanel.setVisible(true);
-				UpdateJList(exportCustomPuzzlesJList);
+				UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 			}
 		});
 		
@@ -1346,8 +1438,8 @@ public class GotPuzzledGUI {
 			public void actionPerformed(ActionEvent arg0) {
 				PuzzleData importedPuzzle = database.getPuzzleDatabase().fileChooserPuzzle(frmGotPuzzled);
 				database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
-				UpdateJList(exportCustomPuzzlesJList);
-				UpdateJList(customPuzzlesJList);
+				UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+				UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 				
 			}
 		});
@@ -1602,15 +1694,16 @@ public class GotPuzzledGUI {
 			return bi;
 	}
 
-	private void UpdateJList(JList list){
+	
+
+	
+	private void UpdateJList(JList list, ArrayList<String> elements){
 	    model = new DefaultListModel<String>();
-	    for(String p : database.getPuzzleDatabase().getPuzzlesNames()){
+	    for(String p : elements){
 	         model.addElement(p);
 	    }    
 	    list.setModel(model);     
 	    list.setSelectedIndex(0);
 	}
-	
-	
 
 }

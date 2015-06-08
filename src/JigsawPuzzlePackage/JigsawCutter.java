@@ -35,8 +35,8 @@ public class JigsawCutter
 
   public void setPreferredPieceCount(int difficulty)
   {
-    if (difficulty == 1) 
-    	this.prefPieces = 20;
+    if 		(difficulty == 1) 
+    	this.prefPieces = 2;
     else if (difficulty == 2)
     	this.prefPieces = 50;
     else

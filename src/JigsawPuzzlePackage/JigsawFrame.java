@@ -1,6 +1,8 @@
 package JigsawPuzzlePackage;
 
 
+import guiPackage.GotPuzzledGUI;
+
 import javax.swing.*;
 
 import java.awt.image.*;
@@ -27,7 +29,7 @@ public class JigsawFrame extends JFrame
    * they are placed close enough, and are rotated the same way.
    */
   @SuppressWarnings("deprecation")
-public static void main (String[] args)
+/*public static void main (String[] args)
   {
     JigsawFrame frame = randomFrame(args);
     frame.begin();
@@ -35,25 +37,29 @@ public static void main (String[] args)
     frame.setSize (1200, 1200);
 
     frame.show();
-  }
 
+  }
+*/
   public static final char HELP = 'H';
 
-  public JigsawFrame (BufferedImage image, JigsawCutter cutter, boolean rotation)
+  public JigsawFrame (BufferedImage image, JigsawCutter cutter, boolean rotation,JFrame frmGotPuzzled)
   {
     super ("Jigsaw Puzzle");
     this.rotation = rotation;
-    puzzle = new JigsawPuzzle ("random name", image, cutter,rotation);
+    puzzle = new JigsawPuzzle ("random name", image, cutter,rotation,frmGotPuzzled,this);
     setContentPane (new JScrollPane (puzzle));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
 
     puzzle.addKeyListener (new KeyAdapter() {
       public void keyTyped (KeyEvent e) { keyTyped0 (e); } });
+    this.dispose();
+    
   }
 
   static JigsawPuzzle puzzle;
   private static boolean rotation;
+private static JFrame frmGotPuzzled;
 
   /** Tells this frame to begin the puzzle.  The image is cut if it hasn't
    * already, and the pieces are placed on the board.
@@ -61,10 +67,13 @@ public static void main (String[] args)
   public void begin()
   {
     puzzle.reset();
+
   }
+  
 
   public static JigsawFrame randomFrame(String[] args)
   {
+	System.out.println("HELLO");
     final int defPrefPieces = 200;
     final File defBase = new File (".");
     File base = defBase;
@@ -91,7 +100,8 @@ public static void main (String[] args)
     if (base.isFile() && !JigUtil.isImage(base)) base = defBase;
 
     BufferedImage image = null;
-	return new JigsawFrame ( (BufferedImage) image, new JigsawCutter (prefPieces, puzzle.isRotation()),rotation);
+
+	return new JigsawFrame ( (BufferedImage) image, new JigsawCutter (prefPieces, puzzle.isRotation()),rotation,frmGotPuzzled);
   }
 
   // Adds a crude help dialog to the puzzle.
@@ -130,5 +140,11 @@ public static void main (String[] args)
       );
   }
 
+public static JigsawPuzzle getPuzzle() {
+	return puzzle;
+}
+
+  
+  
 }
 

@@ -5,6 +5,7 @@ import java.awt.MediaTracker;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -151,7 +152,7 @@ public class PuzzleDatabase {
 				puzzleToExport = p;
 				String filename = pname + ".ser";
 				try{;
-					FileOutputStream fos = new FileOutputStream(filename);
+					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 					oos.writeObject(puzzleToExport);
 					oos.close();

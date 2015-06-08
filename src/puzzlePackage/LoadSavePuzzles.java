@@ -57,9 +57,4 @@ public class LoadSavePuzzles implements Serializable{
 	
 	
 
-	
-	public void exportPuzzle(Puzzle puzzle){
-		
-	}
-
 }
