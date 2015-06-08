@@ -1,6 +1,5 @@
 package ladderPackage;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -9,9 +8,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import javax.swing.ImageIcon;
-
-import puzzlePackage.LoadSavePuzzles;
 import puzzlePackage.PuzzleData;
 
 public class LadderDatabase {
@@ -101,7 +97,7 @@ public class LadderDatabase {
 		for(LadderChallenge l: ladders){
 			if(l.getName()==pname){
 				ladderToExport = l;
-				String filename = pname + ".ser";
+				String filename = pname + ".lad";
 				try{;
 					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);

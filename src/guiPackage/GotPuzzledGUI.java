@@ -11,17 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
-
-
-
-
-
-
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 import javax.swing.ButtonGroup;
@@ -53,7 +42,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ladderPackage.LadderChallenge;
 import puzzlePackage.PuzzleData;
-import puzzlePackage.PuzzleDatabase;
 import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
@@ -135,17 +123,9 @@ public class GotPuzzledGUI {
 	Database database = new Database();
 	private ImageIcon image;
 	DefaultListModel<String> model;
-	DefaultListModel<String> model2;
 
 
 
-	private DefaultListModel<String> model3;
-
-
-
-	
-
-	
 	/**
 	 * Launch the application.
 	 */
@@ -260,7 +240,7 @@ public class GotPuzzledGUI {
 		
 		JLabel mainMenuTitleLabel = new JLabel("Got Puzzled!");
 		mainMenuTitleLabel.setForeground(new Color(34, 139, 34));
-		mainMenuTitleLabel.setBounds(12, 0, 621, 54);
+		mainMenuTitleLabel.setBounds(-2, 0, 621, 54);
 		mainMenuTitleLabel.setToolTipText("Let the Game begin");
 		mainMenuTitleLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 39));
 		mainMenuTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -427,7 +407,7 @@ public class GotPuzzledGUI {
 		final JList<String> laddersJList = new JList();
 		laddersJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		UpdateJList(laddersJList,database.getLadderDatabase().getLadderNames());
-		model2 = new DefaultListModel();
+
 		
 		// this adds to the JList the ability to ScrollDown
 		laddersListScrollPane.setViewportView(laddersJList);
@@ -1059,60 +1039,7 @@ public class GotPuzzledGUI {
 		//Gets all the parsed information from the user and creates the puzzle
 		createPuzzleButton = new JButton("Create Puzzle");
 		createPuzzleButton.setEnabled(false);
-		createPuzzleButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
 
-				
-				int difficulty;
-				boolean rotation;
-				String name;
-				
-				
-				rotation = createPuzzleRotationCheckBox.isSelected(); 
-				if(createPuzzleEasyRadioButton.isSelected())
-				{
-					difficulty = 1;
-				}
-				else if(createPuzzleMediumRadioButton.isSelected())
-				{
-					difficulty = 2;
-				}
-				else
-				{
-					difficulty = 3;
-				}
-	
-				name = createPuzzleNewPuzzleNameTextField.getText();
-				//System.out.println(name);
-				//System.out.println(difficulty);
-				//System.out.println(rotation);
-				//System.out.println(image);
-				//System.out.println(createPuzzleJigsawRadioButton.isSelected());
-				
-				//Checking if image has been loaded, name already exists in database or name field is empty
-				if(image != null && (name != "" && !database.getPuzzleDatabase().getPuzzlesNames().contains(name)) ){
-					if(createPuzzleJigsawRadioButton.isSelected())
-					{
-						database.getPuzzleDatabase().getPuzzles().add(new PuzzleJigsawData(name,image,difficulty,rotation));
-						database.getPuzzleDatabase().getPuzzlesNames().add(name);
-					}
-					if(createPuzzleSlidingRadioButton.isSelected())
-					{
-						database.getPuzzleDatabase().getPuzzles().add(new PuzzleData(name,image,difficulty));
-						database.getPuzzleDatabase().getPuzzlesNames().add(name);
-					}
-					UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-					database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
-					System.out.println(name + " puzzle got saved!");
-					
-						
-				}
-				else 
-					System.out.println("Please check your input");
-
-				
-			}
-		});
 		createPuzzleButton.setForeground(Color.WHITE);
 		createPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		createPuzzleButton.setBackground(new Color(34, 139, 34));
@@ -1284,19 +1211,7 @@ public class GotPuzzledGUI {
 		createLadderButton.setBounds(181, 450, 243, 72);
 		createLadderPanel.add(createLadderButton);		
 		createLadderButton.setEnabled(false);
-		// here we implement the create ladder button
-		createLadderButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//System.out.println("create ladder pressed");
-				String name = createLadderNewLadderNameTextField.getText() ;
-				database.getLadderDatabase().getLadders().add(new LadderChallenge (name,temp_ladder_puzzles.size(),temp_ladder_puzzles));
-				database.getLadderDatabase().getLadderNames().add(name);
-				UpdateJList(laddersJList,database.getLadderDatabase().getLadderNames());
-				database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
-				
-				
-			}
-		});		
+	
 		/**
 		 * Create Ladder Panel End
 		 */
@@ -1533,42 +1448,44 @@ public class GotPuzzledGUI {
 		 * Editor Export Puzzle Panel End
 		 */
 		
-		//Importing Function
-		editorImportButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*
-				File file = null;
-				file = fileChooserUI(frmGotPuzzled);
-				PuzzleData importedPuzzle = null;
-				LadderChallenge importedLadder = null;
-				importedPuzzle = PuzzleDatabase.loadPuzzle(file);
-				importedLadder = LadderDatabase.loadLadder(file);
-
-				if(importedLadder != null){
-					database.getLadderDatabase().importLadder(importedLadder, database.getLadderDatabase().getLadders(), database.getLadderDatabase().getLadderNames());
-					database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
-					UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadderNames());
-					UpdateJList(exportLaddersJList,database.getLadderDatabase().getLadderNames());
-
-					
-				}
+		// here we implement the create ladder button
+		createLadderButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//System.out.println("create ladder pressed");
+				String name = createLadderNewLadderNameTextField.getText() ;
+				database.getLadderDatabase().getLadders().add(new LadderChallenge (name,temp_ladder_puzzles.size(),temp_ladder_puzzles));
+				database.getLadderDatabase().getLadderNames().add(name);
+				UpdateJList(laddersJList,database.getLadderDatabase().getLadderNames());
+				UpdateJList(exportLaddersJList,database.getLadderDatabase().getLadderNames());;
+				database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
 				
-				if(importedPuzzle != null){
-					database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
-					database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
-					UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-					UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-					UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-					
-				}
-
-
-				*/
+				
 			}
-		});
+		});	
+		//Importing Function
+
+		/*
+		File file = null;
+		file = fileChooserUI(frmGotPuzzled);
+		PuzzleData importedPuzzle = null;
+		LadderChallenge importedLadder = null;
+		importedPuzzle = PuzzleDatabase.loadPuzzle(file);
+		importedLadder = LadderDatabase.loadLadder(file);
+
+		if(importedLadder != null){
+			database.getLadderDatabase().importLadder(importedLadder, database.getLadderDatabase().getLadders(), database.getLadderDatabase().getLadderNames());
+			database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
+			UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadderNames());
+			UpdateJList(exportLaddersJList,database.getLadderDatabase().getLadderNames());
+		}
 		
-		
-		
+		if(importedPuzzle != null){
+			database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
+			database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
+			UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+			UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+			UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+*/
 
 		/**
 		 * Editor Import Panel Start
@@ -1606,6 +1523,17 @@ public class GotPuzzledGUI {
 		editorImportPuzzlePanelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				
+				File file = null;
+				file = fileChooserUI(frmGotPuzzled);
+				PuzzleData importedPuzzle = null;
+				importedPuzzle = database.getPuzzleDatabase().loadPuzzle(file);
+				if(importedPuzzle != null){
+					database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
+					UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+					UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+					UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+				}
 			}
 		});
 		editorImportPuzzlePanelButton.setForeground(Color.WHITE);
@@ -1620,6 +1548,17 @@ public class GotPuzzledGUI {
 		editorImportLadderPanelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				File file = null;
+				file = fileChooserUI(frmGotPuzzled);
+				LadderChallenge importedLadder = null;
+				importedLadder = database.getLadderDatabase().loadLadder(file);
+				if(importedLadder != null){
+					database.getLadderDatabase().importLadder(importedLadder, database.getLadderDatabase().getLadders(), database.getLadderDatabase().getLadderNames());
+					database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
+					UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadderNames());
+					UpdateJList(exportLaddersJList,database.getLadderDatabase().getLadderNames());
+				}
+
 			}
 		});
 		editorImportLadderPanelButton.setForeground(Color.WHITE);
@@ -1630,7 +1569,61 @@ public class GotPuzzledGUI {
 		/**
 		 * Editor Import Panel End
 		 */
-		
+		createPuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				
+				int difficulty;
+				boolean rotation;
+				String name;
+				
+				
+				rotation = createPuzzleRotationCheckBox.isSelected(); 
+				if(createPuzzleEasyRadioButton.isSelected())
+				{
+					difficulty = 1;
+				}
+				else if(createPuzzleMediumRadioButton.isSelected())
+				{
+					difficulty = 2;
+				}
+				else
+				{
+					difficulty = 3;
+				}
+	
+				name = createPuzzleNewPuzzleNameTextField.getText();
+				//System.out.println(name);
+				//System.out.println(difficulty);
+				//System.out.println(rotation);
+				//System.out.println(image);
+				//System.out.println(createPuzzleJigsawRadioButton.isSelected());
+				
+				//Checking if image has been loaded, name already exists in database or name field is empty
+				if(image != null && (name != "" && !database.getPuzzleDatabase().getPuzzlesNames().contains(name)) ){
+					if(createPuzzleJigsawRadioButton.isSelected())
+					{
+						database.getPuzzleDatabase().getPuzzles().add(new PuzzleJigsawData(name,image,difficulty,rotation));
+						database.getPuzzleDatabase().getPuzzlesNames().add(name);
+					}
+					if(createPuzzleSlidingRadioButton.isSelected())
+					{
+						database.getPuzzleDatabase().getPuzzles().add(new PuzzleData(name,image,difficulty));
+						database.getPuzzleDatabase().getPuzzlesNames().add(name);
+					}
+					UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+					UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
+					database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
+					System.out.println(name + " puzzle got saved!");
+					
+						
+				}
+				else 
+					System.out.println("Please check your input");
+
+				
+			}
+		});
 		
 		
 		
@@ -1820,7 +1813,7 @@ public class GotPuzzledGUI {
 	
 
 	
-	private void UpdateJList(JList list, ArrayList<String> elements){
+	private void UpdateJList(JList<String> list, ArrayList<String> elements){
 	    model = new DefaultListModel<String>();
 	    for(String p : elements){
 	         model.addElement(p);

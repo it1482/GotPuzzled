@@ -8,8 +8,6 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import puzzlePackage.PuzzleData;
-
 
 public class LoadSaveLadders implements Serializable {
 	private ArrayList<LadderChallenge> ladders  = new ArrayList<LadderChallenge>();

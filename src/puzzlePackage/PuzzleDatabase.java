@@ -1,24 +1,13 @@
 package puzzlePackage;
-import java.awt.Component;
-import java.awt.Image;
-import java.awt.MediaTracker;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import ladderPackage.LadderChallenge;
-import playerPackage.Player;
 
 //NEEDS REWORKING
 public class PuzzleDatabase {
