@@ -1726,16 +1726,24 @@ public class GotPuzzledGUI {
 		leaderboardsBackToPlayButton.setBackground(new Color(34, 139, 34));
 		leaderboardsBackToPlayButton.setBounds(20, 470, 100, 50);
 		leaderboardsPanel.add(leaderboardsBackToPlayButton);
+		//
 		
-		JScrollPane leaderboardsScrollPane = new JScrollPane();
-		leaderboardsScrollPane.setBounds(150, 70, 324, 370);
-		leaderboardsPanel.add(leaderboardsScrollPane);
-		
-		JList leaderboardsJList = new JList();
-		leaderboardsJList.setFont(new Font("Segoe UI", Font.PLAIN, 20));
-		
-		leaderboardsScrollPane.setViewportView(leaderboardsJList);
-		
+		JScrollPane leaderboardsScrollPaneNames = new JScrollPane();
+		leaderboardsScrollPaneNames.setBounds(150, 70, 162, 370);
+		leaderboardsPanel.add(leaderboardsScrollPaneNames);
+		JList leaderboardsJListNames = new JList();
+		leaderboardsJListNames.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		leaderboardsScrollPaneNames.setViewportView(leaderboardsJListNames);
+		//
+		JScrollPane leaderboardsScrollPaneScore = new JScrollPane();
+		leaderboardsScrollPaneScore.setBounds(312, 70, 162, 370);
+		leaderboardsPanel.add(leaderboardsScrollPaneScore);
+		JList leaderboardsJListScores = new JList();
+		leaderboardsJListScores.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+		leaderboardsJListScores.setBounds(0, 0, 321, 367);
+		leaderboardsScrollPaneScore.setViewportView(leaderboardsJListScores);
+
+		//UpdateJList(leaderboardsJListNames,database.getPlayersDatabase().getPlayers());
 		
 
 	}

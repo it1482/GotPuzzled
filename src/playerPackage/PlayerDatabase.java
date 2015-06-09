@@ -7,6 +7,8 @@ import java.util.Vector;
 public class PlayerDatabase {
 	
 	private ArrayList<Player> players;
+	private ArrayList<String> names;
+	private ArrayList<String> scores;
 
 	private LoadSavePlayers loadsave;
 	
@@ -26,6 +28,8 @@ public class PlayerDatabase {
 		players.add(new Player("",0));
 		
 	}
+	
+	
 	
 	public void test(){
 		players.add(new Player("a",10));
