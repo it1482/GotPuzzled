@@ -340,14 +340,7 @@ public class GotPuzzledGUI {
 		playCustomButton.setBounds(181, 189, 243, 72);
 		playPanel.add(playCustomButton);
 		
-		/*
-		JButton playLoadGame = new JButton("Load Game");
-		playLoadGame.setForeground(Color.WHITE);
-		playLoadGame.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
-		playLoadGame.setBackground(new Color(34, 139, 34));
-		playLoadGame.setBounds(181, 297, 243, 72);
-		playPanel.add(playLoadGame);
-		*/
+
 		
 		JButton playLeaderboardsButton = new JButton("Leaderboards");
 		playLeaderboardsButton.addActionListener(new ActionListener() {

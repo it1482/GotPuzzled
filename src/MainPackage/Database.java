@@ -9,7 +9,7 @@ public class Database {
 	private PuzzleDatabase puzzleDatabase = new PuzzleDatabase();
 	private LadderDatabase ladderDatabase = new LadderDatabase();
 	private OptionDatabase options = new OptionDatabase();
-	private PlayerDatabase players;
+	private PlayerDatabase players = new PlayerDatabase();
 
 	public PuzzleDatabase getPuzzleDatabase() {
 		return puzzleDatabase;
@@ -20,7 +20,7 @@ public class Database {
 	public OptionDatabase getOptions() {
 		return options;
 	}
-	public PlayerDatabase getPlayers() {
+	public PlayerDatabase getPlayersDatabase() {
 		return players;
 	}
 	

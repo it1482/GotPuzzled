@@ -1,24 +1,46 @@
 package playerPackage;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Vector;
 
 public class PlayerDatabase {
 	
 	private ArrayList<Player> players;
-	
+
 	private LoadSavePlayers loadsave;
 	
-	public PlayerDatabase(LoadSavePlayers loadsave){
+	public PlayerDatabase(){
+	
+		this.loadsave = new LoadSavePlayers();
+		this.players = new ArrayList<Player>();
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
+		players.add(new Player("",0));
 		
-		this.loadsave = loadsave;
-		players = loadsave.getPlayers();
-		
+	}
+	
+	public void test(){
+		players.add(new Player("a",10));
+		players.add(new Player("a",50));
+		players.add(new Player("a",100));
+		players.add(new Player("a",0));
 	}
 	
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	
+	public void sortPlayer(){
+		Collections.sort(players);
+	}
+
 	public void loadPlayers(){
 		players = this.loadsave.load();
 	}
@@ -48,5 +70,6 @@ public class PlayerDatabase {
 		}
 		players.add(player);
 	}
+
 
 }

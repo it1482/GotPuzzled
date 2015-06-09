@@ -1,6 +1,8 @@
 package playerPackage;
 
-public class Player {
+import java.util.Vector;
+
+public class Player implements Comparable<Player>{
 	private String name;
 	private int score;
 	public Player(String name, int score) {
@@ -8,13 +10,27 @@ public class Player {
 		this.score = score;
 	}
 	
-	public void addScore(int scoreToAdd){
-		score += scoreToAdd;
-	}
+
 	
+	public int getScore() {
+		return score;
+	}
+
+
+
+
 	public String getName(){
 		return name;
 	}
-	
+
+	public int compareTo(Player arg0) {
+		if(this.score > arg0.score)
+			return -1;
+		else if (this.score < arg0.score)
+			return +1;
+		return 0;
+	}
+
+
 
 }

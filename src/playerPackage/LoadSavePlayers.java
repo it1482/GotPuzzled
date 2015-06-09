@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 public class LoadSavePlayers implements Serializable{
 	private ArrayList<Player> players = new ArrayList<Player>();
+	private ArrayList<String> names = new ArrayList<String>();
 	
 	public LoadSavePlayers(){
 		players = new ArrayList<Player>();
@@ -33,6 +34,12 @@ public class LoadSavePlayers implements Serializable{
 		return players;
 	}
 	
+	
+	public ArrayList<String> getNames() {
+		return names;
+	}
+
+
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
