@@ -1742,8 +1742,10 @@ public class GotPuzzledGUI {
 		leaderboardsJListScores.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		leaderboardsJListScores.setBounds(0, 0, 321, 367);
 		leaderboardsScrollPaneScore.setViewportView(leaderboardsJListScores);
-
-		//UpdateJList(leaderboardsJListNames,database.getPlayersDatabase().getPlayers());
+		database.getPlayersDatabase().test();
+		database.getPlayersDatabase().updateStringArray();
+		UpdateJList(leaderboardsJListNames,database.getPlayersDatabase().getNames());
+		UpdateJList(leaderboardsJListScores,database.getPlayersDatabase().getScores());
 		
 
 	}

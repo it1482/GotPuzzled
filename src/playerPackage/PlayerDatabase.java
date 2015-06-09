@@ -16,32 +16,38 @@ public class PlayerDatabase {
 	
 		this.loadsave = new LoadSavePlayers();
 		this.players = new ArrayList<Player>();
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
-		players.add(new Player("",0));
+		this.names = new ArrayList<String>();
+		this.scores = new  ArrayList<String>();
+
 		
 	}
-	
+	public void updateStringArray(){
+		sortPlayers();
+		for(int i=0;i<players.size();i++){
+			names.add(players.get(i).getName());
+			scores.add( Integer.toString(players.get(i).getScore()));
+		}
+	}
 	
 	
 	public void test(){
-		players.add(new Player("a",10));
-		players.add(new Player("a",50));
-		players.add(new Player("a",100));
-		players.add(new Player("a",0));
+		players.add(new Player("Player1",10));
+		players.add(new Player("Player3",50));
+		players.add(new Player("Player2",100));
+		players.add(new Player("Player4",0));
 	}
 	
+	
+	public ArrayList<String> getNames() {
+		return names;
+	}
+	public ArrayList<String> getScores() {
+		return scores;
+	}
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	public void sortPlayer(){
+	public void sortPlayers(){
 		Collections.sort(players);
 	}
 
