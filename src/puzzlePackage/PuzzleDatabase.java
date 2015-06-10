@@ -8,6 +8,7 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 
 
 public class PuzzleDatabase {
@@ -68,7 +69,15 @@ public class PuzzleDatabase {
 
 	public void UpdatePuzzleNamesArrayList() {
 		 for(int i=0;i<puzzlesData.size();i++){
-			 puzzlesNames.add(puzzlesData.get(i).getName());
+			 if(puzzlesData.get(i).getDifficulty() == 1)
+			 puzzlesNames.add(puzzlesData.get(i).getName() + " (Easy)" );
+			 else if (puzzlesData.get(i).getDifficulty() == 1){
+				 puzzlesNames.add(puzzlesData.get(i).getName() + " (Medium)" );
+			 }
+			 else
+			 {
+				 puzzlesNames.add(puzzlesData.get(i).getName() + " (Hard)" );
+			 }
 		 }
 
 	}
@@ -119,8 +128,9 @@ public class PuzzleDatabase {
 			if(p.getName()==pname){
 				puzzleToExport = p;
 				String filename = pname + ".puz";
-				try{;
-					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
+				try{
+					String userHomeFolder = System.getProperty("user.home")+"\\Desktop\\"; 
+					FileOutputStream fos = new FileOutputStream(userHomeFolder+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 					oos.writeObject(puzzleToExport);
 					oos.close();
