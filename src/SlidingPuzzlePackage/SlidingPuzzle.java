@@ -33,20 +33,19 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	ImageIcon icon;
 	JButton buttons[],tempbuttons[],rightbuttons[],blankButton,newGame;
 	JButton tipButton = new JButton("Tip"),new_gameButton = new JButton("New Game");
-	JButton main_menu_button = new JButton("Main Menu"),music_button= new JButton("Stop Music");
+	//JButton main_menu_button = new JButton("Main Menu");
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0;
 	JLabel moves_label;
 	//o xronos kai oi kinhseis pou 8a emfanizei sto victory
 	int endTime,endMoves;
 	String playerName;
-	BackgroundSound sound = new BackgroundSound();
+	
 	public int counting = 0;
 	int size_pleuras;
 	public SlidingPuzzle(String name, Image image, int difficulty,JFrame frmGotPuzzled) {
 		super(name, image, difficulty);		
-		this.frmGotPuzzled=frmGotPuzzled;	
-		sound.startMusic();
+		this.frmGotPuzzled=frmGotPuzzled;
 		if(difficulty==1)
 			size_pleuras=3;
 		else if(difficulty==2)
@@ -71,15 +70,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		myPanel.add(grid);
 		myPanel.add(timer.getTime_label());
 		new_gameButton.addActionListener(this);
-		main_menu_button.addActionListener(this);
-		music_button.addActionListener(this);
+		//main_menu_button.addActionListener(this);
 		MouseHandler handler = new MouseHandler();
 		tipButton.addMouseListener(handler);
 		
 		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));		
 		myPanel.add(new_gameButton,BorderLayout.CENTER);
-		myPanel.add(main_menu_button,BorderLayout.CENTER);	
-		myPanel.add(music_button,BorderLayout.CENTER);
+		//myPanel.add(main_menu_button,BorderLayout.CENTER);
 		myPanel.add(tipButton,BorderLayout.CENTER);			
 		myPanel.add(moves_label,BorderLayout.CENTER);
 	}
@@ -139,17 +136,9 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		if(new_gameButton == e.getSource()){
 			newGame();
-		}else if(main_menu_button == e.getSource()){
+		}/*else if(main_menu_button == e.getSource()){
 			goToMenu();
-		}else if(music_button == e.getSource()){
-			if(sound.getMusic().isActive()){
-				sound.stopMusic();
-				music_button.setText("Start Music");
-			}else{
-				sound.startMusic();
-				music_button.setText("Stop Music");
-			}
-		}else {
+		}*/else {
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
 						changeSpots(i,false);						
@@ -297,7 +286,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	}
 	
 	public void goToMenu(){
+		
 		frmGotPuzzled.setVisible(true);
-    	this.dispose();
+		this.dispose();
 	}	
 }

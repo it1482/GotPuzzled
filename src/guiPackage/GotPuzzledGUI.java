@@ -46,6 +46,7 @@ import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
 import MainPackage.Database;
+import SlidingPuzzlePackage.BackgroundSound;
 import SlidingPuzzlePackage.SlidingPuzzle;
 
 
@@ -58,7 +59,7 @@ public class GotPuzzledGUI {
 	// kentriko vasiko frame - panw sto opoio kathontai ola ta panels
 	private JFrame frmGotPuzzled;
 
-
+	private BackgroundSound sound = new BackgroundSound();
 	
 	// kentriko panel
 	private JPanel mainMenuPanel;
