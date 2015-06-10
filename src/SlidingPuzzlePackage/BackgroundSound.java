@@ -17,7 +17,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 	    		clip = AudioSystem.getClip();
 				clip.open(audioInputStream);
 				clip.loop(100);
-	    		//clip.start();
+	    		clip.start();
 			} catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
