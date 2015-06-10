@@ -10,11 +10,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 
 import playerPackage.Player;
 
-//NEED REWORKING
+
 public class LoadSavePuzzles implements Serializable{
 	private ArrayList<PuzzleData> puzzles = new ArrayList<PuzzleData>();
 	
@@ -25,19 +26,53 @@ public class LoadSavePuzzles implements Serializable{
 	
 	public ArrayList<PuzzleData> load(){
 		ArrayList<PuzzleData> p = null;
-		try{
-			FileInputStream fis = new FileInputStream("puzzlesData.ser");
-	         ObjectInputStream ois = new ObjectInputStream(fis);
-	         p = (ArrayList<PuzzleData>) ois.readObject();
-	         puzzles = p;
-	         ois.close();
-	         fis.close();
+		File f = new File("puzzlesData.ser");
+		if(f.exists() && !f.isDirectory()) {
+			try{
+				FileInputStream fis = new FileInputStream("puzzlesData.ser");
+		         ObjectInputStream ois = new ObjectInputStream(fis);
+		         p = (ArrayList<PuzzleData>) ois.readObject();
+		         puzzles = p;
+		         ois.close();
+		         fis.close();
+			}
+			catch (Exception e){
+				e.printStackTrace();
+			}
 		}
-		catch (Exception e){
-			e.printStackTrace();
+		else
+		{
+			initiate();
 		}
 
 		return puzzles;
+	}
+	
+	public void initiate(){
+		ImageIcon image =  new ImageIcon("images/1.jpg");
+		puzzles.add(new PuzzleData("Puzzle 1",image ,3));
+		image =  new ImageIcon("images/2.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 2",image ,1,true));
+		image =  new ImageIcon("images/3.jpg");
+		puzzles.add(new PuzzleData("Puzzle 3",image ,1));
+		image =  new ImageIcon("images/4.jpg");
+		puzzles.add(new PuzzleData("Puzzle 4",image ,1));
+		image =  new ImageIcon("images/5.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 5",image ,2,false));
+		image =  new ImageIcon("images/6.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 6",image ,2,true));
+		image =  new ImageIcon("images/7.jpg");
+		puzzles.add(new PuzzleData("Puzzle 7",image ,1));
+		image =  new ImageIcon("images/8.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 8",image ,1,false));
+		image =  new ImageIcon("images/9.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 9",image ,1,false));
+		image =  new ImageIcon("images/10.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 10",image ,3,false));
+		image =  new ImageIcon("images/11.jpg");
+		puzzles.add(new PuzzleJigsawData("Puzzle 11",image ,1,true));
+		image =  new ImageIcon("images/12.jpg");
+		puzzles.add(new PuzzleData("Puzzle 12",image ,2));
 	}
 
 	public void save (ArrayList<PuzzleData> puzzles){

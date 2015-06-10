@@ -41,6 +41,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import ladderPackage.LadderChallenge;
+import playerPackage.Player;
 import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
@@ -126,6 +127,10 @@ public class GotPuzzledGUI {
 
 
 
+	protected int score;
+
+
+
 	/**
 	 * Launch the application.
 	 */
@@ -165,10 +170,16 @@ public class GotPuzzledGUI {
 	private void initialize() {
 		
 		//loading database data
+		//database.getPlayersDatabase().test();
 		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
 		database.getLadderDatabase().setLadders(database.getLadderDatabase().getLoadsave().load());
+		database.getPlayersDatabase().setPlayers(database.getPlayersDatabase().getLoadSave().load());
 		database.getPuzzleDatabase().UpdatePuzzleNamesArrayList(); 
 		database.getLadderDatabase().UpdateLadderNamesArrayList();
+		database.getPlayersDatabase().UpdateStringArrays();
+		//database.getPlayersDatabase().getLoadSave().save(database.getPlayersDatabase().getPlayers());
+
+
 
 		
 		
@@ -474,59 +485,7 @@ public class GotPuzzledGUI {
 
 		
 		
-		// here you can add code to implement the NEXT PUZZLE Ladder function
 		JButton playLadderNextPuzzleButton = new JButton("Next Puzzle!");
-		playLadderNextPuzzleButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				int index = database.getLadderDatabase().getLadderNames().indexOf(laddersJList.getSelectedValue());
-				if(database.getLadderDatabase().getLadders().get(index).getCurrentLevel() < database.getLadderDatabase().getLadders().get(index).getLevelNumber()){
-					int indexCurrentLevel = database.getLadderDatabase().getLadders().get(index).getCurrentLevel();
-					BufferedImage imageInput;
-					
-					System.out.println(indexCurrentLevel);
-					if(database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel) instanceof PuzzleJigsawData)
-					{
-						//Initiates Jigsaw puzzle
-						PuzzleJigsawData current = (PuzzleJigsawData) database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel);
-
-						imageInput = ConvertIconToBufferedImage(current.getImage());
-						JigsawCutter varCutter = new JigsawCutter(current.getDifficulty(),current.getRotation());
-						JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation(),frmGotPuzzled);
-						jigframe.begin();
-						jigframe.setSize (1024, 740);
-					    jigframe.setVisible(true);
-					    frmGotPuzzled.setVisible(false);
-					    
-
-					}
-					else
-					{
-						// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
-						//backFromSlidingToMainMenuButton.setVisible(true);
-						
-						//Initiates Sliding puzzle
-						imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getImage());
-						SlidingPuzzle slidingpuzzle = new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
-								imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty(),frmGotPuzzled);
-						slidingpuzzle.setVisible(true);
-					    frmGotPuzzled.setVisible(false);
-						/*frmGotPuzzled.setContentPane(new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
-						imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty()));
-						frmGotPuzzled.setVisible(true);
-						frmGotPuzzled.setResizable(true);
-						frmGotPuzzled.setSize(800,800);*/
-						
-					}
-					database.getLadderDatabase().getLadders().get(index).setCurrentLevel(database.getLadderDatabase().getLadders().get(index).getCurrentLevel()+1);
-				}
-				else
-					JOptionPane.showMessageDialog(null,"Ladder Challenge Finished!" , "You Won", JOptionPane.PLAIN_MESSAGE);
-
-				 
-				 
-				
-			}
-		});
 		playLadderNextPuzzleButton.setForeground(Color.WHITE);
 		playLadderNextPuzzleButton.setFont(new Font("Segoe UI Black", Font.BOLD, 24));
 		playLadderNextPuzzleButton.setBackground(new Color(34, 139, 34));
@@ -636,7 +595,7 @@ public class GotPuzzledGUI {
 				database.getLadderDatabase().getLadders().get(0).setCurrentLevel(0);
 				int index = database.getLadderDatabase().getLadderNames().indexOf(laddersJList.getSelectedValue());
 				UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadders().get(index).getPuzzlesnames());
-				
+				score = 0;
 				
 				
 			}
@@ -1462,30 +1421,6 @@ public class GotPuzzledGUI {
 				
 			}
 		});	
-		//Importing Function
-
-		/*
-		File file = null;
-		file = fileChooserUI(frmGotPuzzled);
-		PuzzleData importedPuzzle = null;
-		LadderChallenge importedLadder = null;
-		importedPuzzle = PuzzleDatabase.loadPuzzle(file);
-		importedLadder = LadderDatabase.loadLadder(file);
-
-		if(importedLadder != null){
-			database.getLadderDatabase().importLadder(importedLadder, database.getLadderDatabase().getLadders(), database.getLadderDatabase().getLadderNames());
-			database.getLadderDatabase().getLoadsave().save(database.getLadderDatabase().getLadders());
-			UpdateJList(ladderChallengePuzzlesJList,database.getLadderDatabase().getLadderNames());
-			UpdateJList(exportLaddersJList,database.getLadderDatabase().getLadderNames());
-		}
-		
-		if(importedPuzzle != null){
-			database.getPuzzleDatabase().importPuzzle(importedPuzzle,database.getPuzzleDatabase().getPuzzles(),database.getPuzzleDatabase().getPuzzlesNames());
-			database.getPuzzleDatabase().getLoadsave().save(database.getPuzzleDatabase().getPuzzles());
-			UpdateJList(exportCustomPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-			UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-			UpdateJList(createLadderAvailablePuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
-*/
 
 		/**
 		 * Editor Import Panel Start
@@ -1731,21 +1666,93 @@ public class GotPuzzledGUI {
 		JScrollPane leaderboardsScrollPaneNames = new JScrollPane();
 		leaderboardsScrollPaneNames.setBounds(150, 70, 162, 370);
 		leaderboardsPanel.add(leaderboardsScrollPaneNames);
-		JList leaderboardsJListNames = new JList();
+		final JList leaderboardsJListNames = new JList();
 		leaderboardsJListNames.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		leaderboardsScrollPaneNames.setViewportView(leaderboardsJListNames);
 		//
 		JScrollPane leaderboardsScrollPaneScore = new JScrollPane();
 		leaderboardsScrollPaneScore.setBounds(312, 70, 162, 370);
 		leaderboardsPanel.add(leaderboardsScrollPaneScore);
-		JList leaderboardsJListScores = new JList();
+		final JList leaderboardsJListScores = new JList();
 		leaderboardsJListScores.setFont(new Font("Segoe UI", Font.PLAIN, 20));
 		leaderboardsJListScores.setBounds(0, 0, 321, 367);
 		leaderboardsScrollPaneScore.setViewportView(leaderboardsJListScores);
-		database.getPlayersDatabase().test();
-		database.getPlayersDatabase().updateStringArray();
 		UpdateJList(leaderboardsJListNames,database.getPlayersDatabase().getNames());
 		UpdateJList(leaderboardsJListScores,database.getPlayersDatabase().getScores());
+		// here you can add code to implement the NEXT PUZZLE Ladder function
+
+		playLadderNextPuzzleButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int index = database.getLadderDatabase().getLadderNames().indexOf(laddersJList.getSelectedValue());
+
+				if(database.getLadderDatabase().getLadders().get(index).getCurrentLevel() < database.getLadderDatabase().getLadders().get(index).getLevelNumber()){
+					int indexCurrentLevel = database.getLadderDatabase().getLadders().get(index).getCurrentLevel();
+					BufferedImage imageInput;
+					
+					System.out.println(indexCurrentLevel);
+					if(database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel) instanceof PuzzleJigsawData)
+					{
+						//Initiates Jigsaw puzzle
+						PuzzleJigsawData current = (PuzzleJigsawData) database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel);
+
+						imageInput = ConvertIconToBufferedImage(current.getImage());
+						JigsawCutter varCutter = new JigsawCutter(current.getDifficulty(),current.getRotation());
+						JigsawFrame jigframe = new JigsawFrame (imageInput, varCutter, ((PuzzleJigsawData)current).getRotation(),frmGotPuzzled);
+						jigframe.begin();
+						jigframe.setSize (1024, 740);
+					    jigframe.setVisible(true);
+					    frmGotPuzzled.setVisible(false);
+					    
+
+					}
+					else
+					{
+						// sets visible the back to main menu button on the jMenu - it will be set nonvisible when will finish or close the sliding puzzle
+						//backFromSlidingToMainMenuButton.setVisible(true);
+						
+						//Initiates Sliding puzzle
+						imageInput = ConvertIconToBufferedImage(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getImage());
+						SlidingPuzzle slidingpuzzle = new SlidingPuzzle(database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getName(),
+								imageInput,	database.getPuzzleDatabase().getPuzzles().get(indexCurrentLevel).getDifficulty(),frmGotPuzzled);
+						slidingpuzzle.setVisible(true);
+					    frmGotPuzzled.setVisible(false);
+						
+					}
+
+					score  += database.getLadderDatabase().getLadders().get(index).getPuzzles().get(indexCurrentLevel).getDifficulty()*200;
+					database.getLadderDatabase().getLadders().get(index).setCurrentLevel(database.getLadderDatabase().getLadders().get(index).getCurrentLevel()+1);
+
+					
+					System.out.println(score);
+
+				}
+				else{
+					JOptionPane.showMessageDialog(null,"Ladder Challenge Finished!" , "You Won", JOptionPane.PLAIN_MESSAGE);
+					System.out.println(database.getPlayersDatabase().getPlayers().size());
+
+					for(int i = database.getPlayersDatabase().getPlayers().size()-1;i>=0;i--){
+						if(database.getPlayersDatabase().getPlayers().get(i).getScore() < score){
+							String name = JOptionPane.showInputDialog(frmGotPuzzled, "What's your name?");
+							Player newPlayer = new Player(name,score);
+							database.getPlayersDatabase().getPlayers().set(i, newPlayer);
+							i = -1;
+						}
+					}
+					database.getPlayersDatabase().UpdateStringArrays();
+	
+					UpdateJList(leaderboardsJListNames,database.getPlayersDatabase().getNames());
+					UpdateJList(leaderboardsJListScores,database.getPlayersDatabase().getScores());
+					database.getPlayersDatabase().getLoadSave().save(database.getPlayersDatabase().getPlayers());
+					playLadderPanel.setVisible(false);
+					playPanel.setVisible(true);
+					
+				}
+
+				 
+				 
+				
+			}
+		});
 		
 
 	}

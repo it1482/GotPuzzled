@@ -13,31 +13,29 @@ public class PlayerDatabase {
 	private LoadSavePlayers loadsave;
 	
 	public PlayerDatabase(){
-	
-		this.loadsave = new LoadSavePlayers();
+		super();
 		this.players = new ArrayList<Player>();
 		this.names = new ArrayList<String>();
 		this.scores = new  ArrayList<String>();
+		this.loadsave = new LoadSavePlayers(players);
 
 		
 	}
-	public void updateStringArray(){
+	public void UpdateStringArrays(){
 		sortPlayers();
+		names.clear();
+		scores.clear();
 		for(int i=0;i<players.size();i++){
 			names.add(players.get(i).getName());
 			scores.add( Integer.toString(players.get(i).getScore()));
 		}
 	}
 	
+
 	
-	public void test(){
-		players.add(new Player("Player1",10));
-		players.add(new Player("Player3",50));
-		players.add(new Player("Player2",100));
-		players.add(new Player("Player4",0));
+	public void setPlayers(ArrayList<Player> players) {
+		this.players = players;
 	}
-	
-	
 	public ArrayList<String> getNames() {
 		return names;
 	}
@@ -56,7 +54,7 @@ public class PlayerDatabase {
 	}
 	
 	//(object of PlayerDatabase).getLoaderSaver().load/save(players); to save or load the Player Database
-	public LoadSavePlayers getLoaderSaver(){
+	public LoadSavePlayers getLoadSave(){
 		return loadsave;
 	}
 

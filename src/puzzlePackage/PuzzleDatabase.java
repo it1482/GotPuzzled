@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
-//NEEDS REWORKING
+
 public class PuzzleDatabase {
 	private ArrayList<PuzzleData> puzzlesData;
 	private LoadSavePuzzles loadsave;
@@ -66,23 +66,14 @@ public class PuzzleDatabase {
 
 
 
-	/**Just for testing creates a database to see if things are working properly.
-	 *  
-	 */
 	public void UpdatePuzzleNamesArrayList() {
-		ImageIcon image = null;
-
 		 for(int i=0;i<puzzlesData.size();i++){
 			 puzzlesNames.add(puzzlesData.get(i).getName());
 		 }
 
 	}
 	
-	/**Chooses the PuzzleData ser file to import.
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
-	 * 
-	 */
+
 	public static PuzzleData loadPuzzle(File file){
 		PuzzleData puzzle = null;
 		try{
@@ -94,7 +85,6 @@ public class PuzzleDatabase {
 		}catch(IOException e){
 			System.out.println("");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
 		System.out.println("path complete - desirialized");

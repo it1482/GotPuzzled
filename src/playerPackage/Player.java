@@ -1,8 +1,8 @@
 package playerPackage;
 
-import java.util.Vector;
+import java.io.Serializable;
 
-public class Player implements Comparable<Player>{
+public class Player implements Comparable<Player> , Serializable{
 	private String name;
 	private int score;
 	public Player(String name, int score) {
