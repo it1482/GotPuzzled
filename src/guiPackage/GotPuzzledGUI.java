@@ -194,7 +194,12 @@ public class GotPuzzledGUI {
 						+ "After the end of the Ladder Challenge your score will be saved in the LeaderBoards Section if it's in between the top 10 scores.\n"
 						+ "Players can also create their own Ladder Challenges.\n\n"
 						+ "With Got Puzzled you can also export your own Puzzles and Ladder Challenges.\n"
-						+ "This will allow the other players to import your Puzzles and Ladder Challenges and play them\n\n", "About Got Puzzled", JOptionPane.INFORMATION_MESSAGE);
+						+ "This will allow the other players to import your Puzzles and Ladder Challenges and play them\n\n"
+						+ "Programmers and roles\n"
+						+ "Ares Tseka: Jigsaw Puzzle, Ladder Challenge, GUI-Database Connection, Save/Load Database, Export/Import Puzzles/Ladder Challenges\n"
+						+ "Vairlis Xaralampos: GUI Creation-Design\n"
+						+ "Giwrgos Aggelopoulos: Sliding Puzzle, Music\n"
+						+ "Fwakeus Spryridwn: Save/Load Database, Export/Import Puzzles/Ladder Challenges", "About Got Puzzled", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});
