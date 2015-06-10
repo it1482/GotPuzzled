@@ -46,9 +46,10 @@ import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
-import MainPackage.Database;
 import SlidingPuzzlePackage.BackgroundSound;
 import SlidingPuzzlePackage.SlidingPuzzle;
+import javax.swing.event.MenuKeyListener;
+import javax.swing.event.MenuKeyEvent;
 
 
 
@@ -62,72 +63,41 @@ public class GotPuzzledGUI {
 
 	private BackgroundSound sound = new BackgroundSound();
 	
+	
 	// kentriko panel
 	private JPanel mainMenuPanel;
-	
 	private JPanel playPanel;
-	
 	private JPanel ladderPanel;
-	
 	private JPanel playLadderPanel;
-	
 	private JPanel customGamePanel;
-	
 	private JPanel editorPanel;
-	
 	private JPanel editorCreatePanel;
-	
 	private JPanel createPuzzlePanel; 
 	private JPanel createLadderPanel;
-	
 	private JPanel editorExportPanel;
-	
 	private JPanel editorExportPuzzlePanel;
-	
 	private JPanel editorExportLadderPanel;
-	
 	private JPanel editorImportPanel;
-	
-	
 	private JPanel optionsPanel;
-	
 	private JPanel leaderboardsPanel;
-	
-	
-	
-	private JScrollPane customPuzzlesListScrollPane;
-	
-	
-	private JMenuBar menuBar;
-	
-	private JButton backFromSlidingToMainMenuButton;
 
-	
+	private JScrollPane customPuzzlesListScrollPane;
+	private JMenuBar menuBar;
+	private JButton backFromSlidingToMainMenuButton;
 	private JTextField createPuzzleNewPuzzleNameTextField;
 	private JTextField createLadderNewLadderNameTextField;
-	
 	private JCheckBox createPuzzleRotationCheckBox;
 	private JTextField createPuzzlePiecesTextField;
-	
-	
 	private JButton createPuzzleButton;
-	
 	private JButton createLadderButton;
-	
-	
-	
 	private JRadioButton optionsMusicOnRadioButton;
 	private JRadioButton optionsMusicOffRadioButton;
 	
 	
 	//fields needed
-
 	Database database = new Database();
 	private ImageIcon image;
 	DefaultListModel<String> model;
-
-
-
 	protected int score;
 
 
@@ -171,14 +141,12 @@ public class GotPuzzledGUI {
 	private void initialize() {
 		
 		//loading database data
-		//database.getPlayersDatabase().test();
 		database.getPuzzleDatabase().setPuzzlesData(database.getPuzzleDatabase().getLoadsave().load());
 		database.getLadderDatabase().setLadders(database.getLadderDatabase().getLoadsave().load());
 		database.getPlayersDatabase().setPlayers(database.getPlayersDatabase().getLoadSave().load());
 		database.getPuzzleDatabase().UpdatePuzzleNamesArrayList(); 
 		database.getLadderDatabase().UpdateLadderNamesArrayList();
 		database.getPlayersDatabase().UpdateStringArrays();
-		//database.getPlayersDatabase().getLoadSave().save(database.getPlayersDatabase().getPlayers());
 
 
 
@@ -190,7 +158,6 @@ public class GotPuzzledGUI {
 		frmGotPuzzled.setTitle("Got Puzzled 2.0");
 		frmGotPuzzled.setBounds(100, 100, 637, 609);
 		frmGotPuzzled.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//frmGotPuzzled.getContentPane().setLayout(new BorderLayout());
 		frmGotPuzzled.setResizable(false);
 		
 		
@@ -220,6 +187,14 @@ public class GotPuzzledGUI {
 		// ActionListener implementation to show about with hitting About Got Puzzled from the JMenu
 		mntmAboutGotPuzzled.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				JOptionPane.showMessageDialog (null, "Got Puzzle is a puzzle game which the player is able to play Sliding and Jigsaw Puzzles.\n"
+						+ "One of the core features of Got Puzzled is the freedom which it gives the player to create his own puzzles.\n\n"
+						+ "You can play a single puzzle in Custom Game mode\n"
+						+ "Got Puzzled also supports Ladder Challenge mode.\nLadder Challenge mode gets the player to solve a series of different puzzles.\n"
+						+ "After the end of the Ladder Challenge your score will be saved in the LeaderBoards Section if it's in between the top 10 scores.\n"
+						+ "Players can also create their own Ladder Challenges.\n\n"
+						+ "With Got Puzzled you can also export your own Puzzles and Ladder Challenges.\n"
+						+ "This will allow the other players to import your Puzzles and Ladder Challenges and play them\n\n", "About Got Puzzled", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
 		});
@@ -417,9 +392,6 @@ public class GotPuzzledGUI {
 		// this adds to the JList the ability to ScrollDown
 		laddersListScrollPane.setViewportView(laddersJList);
 		
-		// thn apo katw entolh thn egrapsa gia na testarw oti to scrollpane douleuei kanonika
-		//laddersJList.setListData(new String[1000]);
-		
 		
 		// here you can add code to implement the Start Ladder function
 		JButton ladderStartLadderButton = new JButton("Start Ladder!");
@@ -442,10 +414,7 @@ public class GotPuzzledGUI {
 		ladderBackToPlayPanelButton.setBackground(new Color(34, 139, 34));
 		ladderBackToPlayPanelButton.setBounds(20, 470, 100, 50);
 		ladderPanel.add(ladderBackToPlayPanelButton);
-		
-		
-		
-		
+
 		/**
 		 * Play Ladder Panel start
 		 * 
@@ -506,18 +475,14 @@ public class GotPuzzledGUI {
 		playLadderBackToLadderPanelButton.setBounds(20, 470, 100, 50);
 		playLadderPanel.add(playLadderBackToLadderPanelButton);
 		
-		
-		
-		
+
 		
 		/**
 		 * Play Ladder Panel end
 		 * 
 		 */
 		
-		
-		
-		
+
 		customGamePanel = new JPanel();
 		customGamePanel.setLayout(null);
 		customGamePanel.setBackground(new Color(245, 245, 220));
@@ -569,7 +534,6 @@ public class GotPuzzledGUI {
 		UpdateJList(customPuzzlesJList,database.getPuzzleDatabase().getPuzzlesNames());
 	
 
-		
 		customPuzzlesListScrollPane.setViewportView(customPuzzlesJList);
 		
 		/**
@@ -717,9 +681,7 @@ public class GotPuzzledGUI {
 		editorBackToMainMenuButton.setForeground(Color.WHITE);
 		editorBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		editorBackToMainMenuButton.setBackground(new Color(34, 139, 34));
-		
-		
-		
+			
 	
 		
 		/**
@@ -1008,10 +970,7 @@ public class GotPuzzledGUI {
 		/**
 		 * Create Puzzle Panel End
 		 */
-		
-		
-		
-		
+
 		
 		/**
 		 * Create Ladder Panel Start
@@ -1134,16 +1093,10 @@ public class GotPuzzledGUI {
 				temp_ladder_puzzles_names.add(database.getPuzzleDatabase().getPuzzlesNames().get(index));
 				System.out.println("Puzzle Added to Ladder");
 				UpdateJList(createLadderCustomLadderJList,temp_ladder_puzzles_names);
-				
-				
-				
-			
 			}
 		});		
 		
-		
-		
-		
+
 		
 		// CLEAR CREATE LADDER INFORMATION
 		JButton clearCreateLadderInformationButton = new JButton("Clear");
@@ -1265,13 +1218,8 @@ public class GotPuzzledGUI {
 		editorExportPuzzleSubTitleLabel.setBounds(0, 50, 621, 54);
 		editorExportPuzzlePanel.add(editorExportPuzzleSubTitleLabel);
 		
-		
-		
-		
-		
+
 		JScrollPane editorCustomPuzzlesListScrollPane = new JScrollPane( );
-
-
 		editorCustomPuzzlesListScrollPane.setBounds(155, 120, 300, 270);
 		editorExportPuzzlePanel.add(editorCustomPuzzlesListScrollPane);
 	
@@ -1354,9 +1302,7 @@ public class GotPuzzledGUI {
 		editorExportLadderSubTitleLabel.setBounds(0, 50, 621, 54);
 		editorExportLadderPanel.add(editorExportLadderSubTitleLabel);
 		
-		
-		
-		
+
 		
 		JScrollPane editorLaddersListScrollPane = new JScrollPane( );
 
@@ -1529,12 +1475,6 @@ public class GotPuzzledGUI {
 				}
 	
 				name = createPuzzleNewPuzzleNameTextField.getText();
-				//System.out.println(name);
-				//System.out.println(difficulty);
-				//System.out.println(rotation);
-				//System.out.println(image);
-				//System.out.println(createPuzzleJigsawRadioButton.isSelected());
-				
 				//Checking if image has been loaded, name already exists in database or name field is empty
 				if(image != null && (name != "" && !database.getPuzzleDatabase().getPuzzlesNames().contains(name)) ){
 					if(createPuzzleJigsawRadioButton.isSelected())
@@ -1596,6 +1536,11 @@ public class GotPuzzledGUI {
 		
 		
 		optionsMusicOnRadioButton = new JRadioButton("On", true);
+		optionsMusicOnRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				sound.startMusic();
+			}
+		});
 		optionsMusicOnRadioButton.setForeground(Color.BLACK);
 		optionsMusicOnRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		optionsMusicOnRadioButton.setBackground(new Color(245, 245, 220));
@@ -1605,6 +1550,11 @@ public class GotPuzzledGUI {
 		
 		
 		optionsMusicOffRadioButton = new JRadioButton("Off", false);
+		optionsMusicOffRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				sound.stopMusic();
+			}
+		});
 		optionsMusicOffRadioButton.setForeground(Color.BLACK);
 		optionsMusicOffRadioButton.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		optionsMusicOffRadioButton.setBackground(new Color(245, 245, 220));
@@ -1703,8 +1653,6 @@ public class GotPuzzledGUI {
 						jigframe.setSize (1024, 740);
 					    jigframe.setVisible(true);
 					    frmGotPuzzled.setVisible(false);
-					    
-
 					}
 					else
 					{
@@ -1748,10 +1696,6 @@ public class GotPuzzledGUI {
 					playPanel.setVisible(true);
 					
 				}
-
-				 
-				 
-				
 			}
 		});
 		
@@ -1828,8 +1772,9 @@ public class GotPuzzledGUI {
 			return bi;
 	}
 
-	
-
+	/** Updates the List in order to be visible on JLists
+	 * 
+	 */
 	
 	private void UpdateJList(JList<String> list, ArrayList<String> elements){
 	    model = new DefaultListModel<String>();

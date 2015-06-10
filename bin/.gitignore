@@ -1,7 +1,8 @@
-/guiPackage/
-/playerPackage/
-/MainPackage/
-/puzzlePackage/
 /JigsawPuzzlePackage/
-/ladderPackage/
+/MainPackage/
 /SlidingPuzzlePackage/
+/guiPackage/
+/ladderPackage/
+/optionsPackage/
+/playerPackage/
+/puzzlePackage/
