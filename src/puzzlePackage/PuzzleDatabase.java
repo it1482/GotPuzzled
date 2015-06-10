@@ -71,7 +71,7 @@ public class PuzzleDatabase {
 		 for(int i=0;i<puzzlesData.size();i++){
 			 if(puzzlesData.get(i).getDifficulty() == 1)
 			 puzzlesNames.add(puzzlesData.get(i).getName() + " (Easy)" );
-			 else if (puzzlesData.get(i).getDifficulty() == 1){
+			 else if (puzzlesData.get(i).getDifficulty() == 2){
 				 puzzlesNames.add(puzzlesData.get(i).getName() + " (Medium)" );
 			 }
 			 else
@@ -125,16 +125,26 @@ public class PuzzleDatabase {
 	public void exportPuzzle(String pname){
 		PuzzleData puzzleToExport = null;
 		for(PuzzleData p: puzzlesData){
-			if(p.getName()==pname){
+			String temp_name;
+			if(p.getDifficulty() == 1)
+				temp_name = p.getName() + " (Easy)";
+			else if(p.getDifficulty() == 2)
+				temp_name = p.getName()+ " (Medium)";
+			else
+				temp_name = p.getName()+ " (Hard)";
+			
+			System.out.println(temp_name);
+			System.out.println(pname);
+			if(temp_name.equals(pname)){
 				puzzleToExport = p;
 				String filename = pname + ".puz";
 				try{
-					String userHomeFolder = System.getProperty("user.home")+"\\Desktop\\"; 
+					String userHomeFolder =System.getProperty("user.home")+"\\Desktop\\";
 					FileOutputStream fos = new FileOutputStream(userHomeFolder+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 					oos.writeObject(puzzleToExport);
 					oos.close();
-					System.out.println("puzzles serialised");
+					System.out.println("Puzzle "+ filename + " serialised");
 					}
 				catch (Exception e){
 						e.printStackTrace();

@@ -99,7 +99,7 @@ public class LadderDatabase {
 				ladderToExport = l;
 				String filename = pname + ".lad";
 				try{;
-					FileOutputStream fos = new FileOutputStream("C:/Users/Ares/Desktop/"+filename);
+					FileOutputStream fos = new FileOutputStream(System.getProperty("user.home")+"\\Desktop\\"+filename);
 					ObjectOutputStream oos = new ObjectOutputStream(fos);
 					oos.writeObject(ladderToExport);
 					oos.close();
