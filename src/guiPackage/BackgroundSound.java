@@ -1,4 +1,4 @@
-package SlidingPuzzlePackage;
+package guiPackage;
 
 import java.io.File;
 import java.io.IOException;

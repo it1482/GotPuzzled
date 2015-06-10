@@ -46,8 +46,8 @@ import puzzlePackage.PuzzleData;
 import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
-import SlidingPuzzlePackage.BackgroundSound;
 import SlidingPuzzlePackage.SlidingPuzzle;
+
 import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MenuKeyEvent;
 
