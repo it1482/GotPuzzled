@@ -5,10 +5,12 @@
  * Basic phases implemented was: Requirement analysis, Software Design, Java Code Implementation adn Testing.
  * 
  * This code implements a Puzzle Game in which you can play, create, export or import puzzles made from pictures.
+ * You can also group puzzles to make Ladder Challenge. You can play, create, export or import ladders, too.
+ * The are puzzles and ladders by default made from images located in images folder. 
+ * This means that every time you start the program for the first time there will be standard puzzles and ladder to play with.
  * 
- * It includes six packages, each one of include full comments and JavaDocs support in order to fully understand the overall code functionality (classes and methods).
- * 
- *  
+ * The code includes six packages, each one of include full comments and JavaDocs support in order to fully understand the overall code functionality (classes and methods).
+ *   
  */
 
 
@@ -383,6 +385,7 @@ public class GotPuzzledGUI {
 				mainMenuPanel.setVisible(true);
 			}
 		});
+		
 		playBackToMainMenuButton.setFont(new Font("Segoe UI Black", Font.BOLD, 20));
 		playBackToMainMenuButton.setForeground(new Color(255, 255, 255));
 		playBackToMainMenuButton.setBackground(new Color(34, 139, 34));
