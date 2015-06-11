@@ -11,6 +11,7 @@
  * 
  * The code includes six packages, each one of include full comments and JavaDocs support in order to fully understand the overall code functionality (classes and methods).
  *   
+ * The only features that the program does not support regarding the documents we gave, it is the Save/Load Game and Spot The Difference Puzzles.
  */
 
 
@@ -63,9 +64,6 @@ import puzzlePackage.PuzzleJigsawData;
 import JigsawPuzzlePackage.JigsawCutter;
 import JigsawPuzzlePackage.JigsawFrame;
 import SlidingPuzzlePackage.SlidingPuzzle;
-
-import javax.swing.event.MenuKeyListener;
-import javax.swing.event.MenuKeyEvent;
 
 
 /**
