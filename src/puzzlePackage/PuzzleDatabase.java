@@ -33,7 +33,9 @@ public class PuzzleDatabase {
 		puzzlesData.add(new PuzzleData(name, image, difficulty));
 
 	}
-	/*This method appends the difficulty to each puzzle's name */
+	/**This method appends the difficulty to each puzzle's name
+	 * 
+	 */
 	public void UpdatePuzzleNamesArrayList() {
 		for (int i = 0; i < puzzlesData.size(); i++) {
 			if (puzzlesData.get(i).getDifficulty() == 1)
@@ -46,7 +48,11 @@ public class PuzzleDatabase {
 		}
 
 	}
-	/*Deserializing a puzzle*/
+	/**Deserializing a puzzle
+	 * 
+	 * @param file
+	 * @return the puzzle to be loaded
+	 */
 	public static PuzzleData loadPuzzle(File file) {
 		PuzzleData puzzle = null;
 		try {
@@ -64,7 +70,12 @@ public class PuzzleDatabase {
 		return puzzle;
 
 	}
-	/*Import a puzzle*/
+	/**Import a puzzle
+	 * 
+	 * @param p
+	 * @param puzzles
+	 * @param puzzleNames
+	 */
 	public void importPuzzle(PuzzleData p, ArrayList<PuzzleData> puzzles,
 			ArrayList<String> puzzleNames) {
 		boolean flag = true;
@@ -82,7 +93,10 @@ public class PuzzleDatabase {
 		}
 
 	}
-	/*Export a puzzle*/
+	/**Export a puzzle
+	 * 
+	 * @param pname
+	 */
 	public void exportPuzzle(String pname) {
 		PuzzleData puzzleToExport = null;
 		for (PuzzleData p : puzzlesData) {

@@ -16,7 +16,10 @@ public class LoadSavePuzzles implements Serializable {
 	public LoadSavePuzzles(ArrayList<PuzzleData> p) {
 		puzzles = p;
 	}
-	/*Deserialize the list of puzzles*/
+	/**Deserialize the list of puzzles
+	 * 
+	 * @return the list of puzzles
+	 */
 	public ArrayList<PuzzleData> load() {
 		ArrayList<PuzzleData> p = null;
 		File f = new File("puzzlesData.ser");
@@ -38,7 +41,9 @@ public class LoadSavePuzzles implements Serializable {
 		return puzzles;
 	}
 	
-	/*Initializing the puzzles made by the program*/
+	/**Initializing the puzzles made by the program
+	 * 
+	 */
 	public void initiate() {
 		ImageIcon image = new ImageIcon("images/1.jpg");
 		puzzles.add(new PuzzleData("Puzzle 1", image, 3));
@@ -66,7 +71,10 @@ public class LoadSavePuzzles implements Serializable {
 		puzzles.add(new PuzzleData("Puzzle 12", image, 2));
 	}
 	
-	/*Serialize the list of puzzles*/
+	/**Serialize the list of puzzles
+	 * 
+	 * @param puzzles
+	 */
 	public void save(ArrayList<PuzzleData> puzzles) {
 		try {
 			FileOutputStream fos = new FileOutputStream("puzzlesData.ser");

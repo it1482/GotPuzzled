@@ -42,7 +42,11 @@ public class LadderDatabase {
 
 	}
 	
-	//LadderChallenge Loader
+	/**LadderChallenge Loader
+	 * 
+	 * @param file
+	 * @return ladder
+	 */
 	public static LadderChallenge loadLadder(File file) {
 		LadderChallenge ladder = null;
 		try {
@@ -65,7 +69,12 @@ public class LadderDatabase {
 
 	}
 	
-	//LadderChallenge Importer
+	/**LadderChallenge Importer
+	 * 
+	 * @param p
+	 * @param ladders
+	 * @param laddersNames
+	 */
 	public void importLadder(LadderChallenge p,
 			ArrayList<LadderChallenge> ladders, ArrayList<String> laddersNames) {
 		boolean flag = true;
@@ -85,7 +94,9 @@ public class LadderDatabase {
 
 	}
 	
-	//LadderChallenge Exporter
+	/**LadderChallenge Exporter
+	 * @param pname
+	 */
 	public void exportLadder(String pname) {
 		LadderChallenge ladderToExport = null;
 		for (LadderChallenge l : ladders) {

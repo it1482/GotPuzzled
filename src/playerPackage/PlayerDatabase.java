@@ -20,7 +20,9 @@ public class PlayerDatabase {
 
 	}
 
-	//String updater for the arrays used on Leaderboards
+	/**String updater for the arrays used on Leaderboards
+	 * 
+	 */
 	public void UpdateStringArrays() {
 		sortPlayers();
 		names.clear();
@@ -31,7 +33,10 @@ public class PlayerDatabase {
 		}
 	}
 	
-	//PlayerCreator
+	/**PlayerCreator
+	 * 
+	 * @param PlayerName
+	 */
 	public void createPlayer(String PlayerName) {
 		for (Player p : players) {
 			if (p.getName() == PlayerName) {

@@ -15,7 +15,10 @@ public class LoadSavePlayers implements Serializable {
 		players = p;
 	}
 	
-	//Player Deserializer
+	/**Player Deserializer
+	 * 
+	 * @return the list of players
+	 */
 	public ArrayList<Player> load() {
 		ArrayList<Player> p = null;
 		File f = new File("players.ser");
@@ -38,7 +41,9 @@ public class LoadSavePlayers implements Serializable {
 		return players;
 	}
 	
-	//Player initiator
+	/**Player initiator
+	 * 
+	 */
 	public void initiate() {
 		players.add(new Player("Player1", 0));
 		players.add(new Player("Player3", 0));
@@ -52,7 +57,10 @@ public class LoadSavePlayers implements Serializable {
 		players.add(new Player("Player10", 0));
 	}
 
-	//Player Serializer
+	/**Player Serializer
+	 * 
+	 * @param players
+	 */
 	public void save(ArrayList<Player> players) {
 		try {
 			FileOutputStream fos = new FileOutputStream("players.ser");

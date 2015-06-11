@@ -19,7 +19,10 @@ public class LoadSaveLadders implements Serializable {
 	public LoadSaveLadders(ArrayList<LadderChallenge> l) {
 		ladders = l;
 	}
-	//LadderChallenge Deserializer
+	/**LadderChallenge Deserializer
+	 * 
+	 * @return ladders
+	 */
 	public ArrayList<LadderChallenge> load() {
 		ArrayList<LadderChallenge> l = null;
 		File f = new File("laddersData.ser");
@@ -41,7 +44,9 @@ public class LoadSaveLadders implements Serializable {
 		return ladders;
 	}
 
-	//LadderChallenge initiator
+	/**LadderChallenge initiator
+	 * 
+	 */
 	public void initiate() {
 		ArrayList<PuzzleData> puzzles = new ArrayList<PuzzleData>();
 
@@ -59,7 +64,12 @@ public class LoadSaveLadders implements Serializable {
 
 		ladders.add(ladder1);
 	}
-	//LadderChallenge Serializer
+	
+	
+	/**LadderChallenge Serializer
+	 * 
+	 * @param ladders
+	 */
 	public void save(ArrayList<LadderChallenge> ladders) {
 		try {
 			FileOutputStream fos = new FileOutputStream("laddersData.ser");
