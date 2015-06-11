@@ -35,7 +35,6 @@ public class SlidingPuzzle extends JFrame implements ActionListener{
 	JPanel grid,spots[];
 	int currentBlankSpot,movecounter=0,difficulty;
 	JLabel moves_label;
-	//o xronos kai oi kinhseis pou 8a emfanizei sto victory
 	int endTime,endMoves;
 	String playerName;
 	
@@ -79,7 +78,11 @@ public class SlidingPuzzle extends JFrame implements ActionListener{
 	}
 	
 	
-	/** Δημιουργια Κουμπιων **/
+	/** 
+	 * Αρχικοποίηση-Σχεδιασμός του JPanel(spots) των κουμπιών,χρησιμοποιώντας το BorderLayout 
+	 * και προσθήκη του JPanel(spots) στο γενικό JPanel(grid) του JFrame.
+	 * 
+	 **/
 	public void setupPanels(){		
 		spots = new JPanel[size_pleuras*size_pleuras];
 		rightbuttons = new JButton[size_pleuras*size_pleuras];
