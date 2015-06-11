@@ -5,7 +5,17 @@ import java.util.ArrayList;
 
 import puzzlePackage.PuzzleData;
 
+/** Ladder Challenges stores all the essential data needed to make Ladder Challenge work properly.
+ * @param Name 
+ * @param currentLevel keeps track of the player's process.
+ * @param levelNumber give the number of levels.
+ * @param puzzles ArrayList which contains all the puzzles of the ladder.
+ * @param puzzlenames ArrayList that contains only the names of the puzzles for JList use.
+ * 
+ */
+
 public class LadderChallenge implements Serializable {
+
 	private String Name;
 	private int currentLevel = 0;
 	private int levelNumber = 0;

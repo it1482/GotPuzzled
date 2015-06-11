@@ -10,11 +10,19 @@ import java.util.ArrayList;
 
 import puzzlePackage.PuzzleData;
 
+
+
+/** LadderDatabase contains all the Ladder database and important methods.
+ * @param ladders ArrayList that contains all ladders 
+ * @param loadsave save/load class
+ * @param ladderNames Only for JList-GUI use.
+ * 
+ */
+
 public class LadderDatabase {
 	private ArrayList<LadderChallenge> ladders;
 	private LoadSaveLadders loadsave;
-	private ArrayList<String> ladderNames; // This array is needed for the JList
-	// in order to show the names!
+	private ArrayList<String> ladderNames; 
 
 	public LadderDatabase() {
 		super();
@@ -42,7 +50,7 @@ public class LadderDatabase {
 
 	}
 	
-	/**LadderChallenge Loader
+	/**LadderChallenge Loader. PopUp window for users to choose the ladder they want to import.
 	 * 
 	 * @param file
 	 * @return ladder
@@ -69,7 +77,7 @@ public class LadderDatabase {
 
 	}
 	
-	/**LadderChallenge Importer
+	/**LadderChallenge Importer. With this class the user is able to import user-made LadderChallenges.
 	 * 
 	 * @param p
 	 * @param ladders
@@ -94,7 +102,7 @@ public class LadderDatabase {
 
 	}
 	
-	/**LadderChallenge Exporter
+	/**LadderChallenge Exporter. With this class the user is able to export user-made LadderChallenges.
 	 * @param pname
 	 */
 	public void exportLadder(String pname) {

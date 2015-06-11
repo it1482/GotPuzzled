@@ -16,7 +16,7 @@ import java.awt.event.*;
 //   Mouse-down lags when there are lots of pieces.
 
 /**
- * Jigsaw puzzle.
+ * Jigsaw puzzle. All Jigsaw functionallities are here.
  */
 public class JigsawPuzzle extends JPanel
 {

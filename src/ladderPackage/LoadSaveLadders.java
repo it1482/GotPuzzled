@@ -19,7 +19,9 @@ public class LoadSaveLadders implements Serializable {
 	public LoadSaveLadders(ArrayList<LadderChallenge> l) {
 		ladders = l;
 	}
-	/**LadderChallenge Deserializer
+	
+	/**LadderChallenge Deserializer. Loads the LadderChallenge data of the game. 
+	 * If the .ser file does not exists, it creates a new one.
 	 * 
 	 * @return ladders
 	 */
@@ -44,7 +46,9 @@ public class LoadSaveLadders implements Serializable {
 		return ladders;
 	}
 
-	/**LadderChallenge initiator
+	/**LadderChallenge Initiator
+	 * If load method does not find the .ser file.
+	 * The initiator will produce a new .ser file with the in-game LadderChallenge.
 	 * 
 	 */
 	public void initiate() {
@@ -67,7 +71,7 @@ public class LoadSaveLadders implements Serializable {
 	
 	
 	/**LadderChallenge Serializer
-	 * 
+	 * Saves the current data of ladders.
 	 * @param ladders
 	 */
 	public void save(ArrayList<LadderChallenge> ladders) {
