@@ -28,39 +28,24 @@ public class JigsawFrame extends JFrame
    * keeping fitted pieces together.  Pieces are fitted automatically if
    * they are placed close enough, and are rotated the same way.
    */
-  @SuppressWarnings("deprecation")
-/*public static void main (String[] args)
-  {
-    JigsawFrame frame = randomFrame(args);
-    frame.begin();
-    // I always resize it to fill screen anyway
-    frame.setSize (1200, 1200);
 
-    frame.show();
-
-  }
-*/
   public static final char HELP = 'H';
 
   public JigsawFrame (BufferedImage image, JigsawCutter cutter, boolean rotation,JFrame frmGotPuzzled)
   {
     super ("Jigsaw Puzzle");
-    this.rotation = rotation;
-    puzzle = new JigsawPuzzle ("random name", image, cutter,rotation,frmGotPuzzled,this);
+    puzzle = new JigsawPuzzle (image, cutter,rotation,frmGotPuzzled,this);
     setContentPane (new JScrollPane (puzzle));
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     pack();
 
     puzzle.addKeyListener (new KeyAdapter() {
-      public void keyTyped (KeyEvent e) { keyTyped0 (e); } });
+    public void keyTyped (KeyEvent e) { keyTyped0 (e); } });
     this.dispose();
     
   }
 
   static JigsawPuzzle puzzle;
-  private static boolean rotation;
-private static JFrame frmGotPuzzled;
-
   /** Tells this frame to begin the puzzle.  The image is cut if it hasn't
    * already, and the pieces are placed on the board.
    */
@@ -70,39 +55,6 @@ private static JFrame frmGotPuzzled;
 
   }
   
-
-  public static JigsawFrame randomFrame(String[] args)
-  {
-	System.out.println("HELLO");
-    final int defPrefPieces = 200;
-    final File defBase = new File (".");
-    File base = defBase;
-    int prefPieces = defPrefPieces;
-    int arg = 0;
-    while (arg < args.length) {
-      if (args[arg].equals("-p")) {
-        arg++;
-        if (arg < args.length) {
-          try { prefPieces = Integer.parseInt (args[arg]); }
-          catch (NumberFormatException ex) {}
-        }
-      } else if (args[arg].equals("-c")) {
-        arg++;
-        if (arg < args.length) {
-		}
-      } else {
-        File argFile = new File (args[arg]);
-        if (argFile.exists()) base = argFile;
-      }
-      arg++;
-    }
-    System.out.println ("base="+base);
-    if (base.isFile() && !JigUtil.isImage(base)) base = defBase;
-
-    BufferedImage image = null;
-
-	return new JigsawFrame ( (BufferedImage) image, new JigsawCutter (prefPieces, puzzle.isRotation()),rotation,frmGotPuzzled);
-  }
 
   // Adds a crude help dialog to the puzzle.
   private void keyTyped0 (KeyEvent e)

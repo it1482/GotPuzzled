@@ -10,11 +10,8 @@ import java.awt.Rectangle;
 //   sticking out at the corners.
 //   The rightest solution would probably be to join the Knobs into
 //   continuous paths going all the way across the puzzle, and then use
-//   their intersections, etc. to compute piece corners.  I'll revisit this
-//   later.
+//   their intersections, etc. to compute piece corners.
 
-// ### Need a way to vary the slope at each point.  XDB and XDF need to be
-//   redone as plain distances, rather than X-axis variations.
 
 /**
  * A knob on one side of an interlocking jigsaw piece.  Knobs are also

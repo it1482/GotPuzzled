@@ -24,7 +24,7 @@ public class JigsawCutter
   /** Creates a JigsawCutter.
    * @param prefPieces the preferred number of pieces; the cutter will try
    *   to produce close to this many
-   *  @param flag_rotation tell the cutter if rotation will be supported
+   * @param flag_rotation tell the cutter if rotation will be supported
    * @throws IllegalArgumentException if prefPieces is less than 2
    */
   public JigsawCutter (int prefPieces, boolean flag_rotation)
@@ -191,14 +191,15 @@ public class JigsawCutter
     System.out.println ("                         S="+knobS);
     */
 
-    // Roundoff will sometimes cause the path bounds to be
-    // outside of the image bounds, even though that edge is a straight
-    // line.  This would cause the edge pieces to appear not to line up
-    // while they're being put together.  When the puzzle is finished, the
-    // dissolve trick would cause the image to appear blurry due to its
-    // finished version being one pixel off from the other.  I'm fixing the
-    // roundoff problem for the top and left edge pieces, and hoping the
-    // other pieces don't need any help.
+    /* Roundoff will sometimes cause the path bounds to be
+       outside of the image bounds, even though that edge is a straight
+       line.  This would cause the edge pieces to appear not to line up
+       while they're being put together.  When the puzzle is finished, the
+       dissolve trick would cause the image to appear blurry due to its
+       finished version being one pixel off from the other.  I'm fixing the
+       roundoff problem for the top and left edge pieces, and hoping the
+       other pieces don't need any help.
+     */
     Rectangle box = path.getBounds();
     if (box.x < 0) box.x = 0;
     if (box.y < 0) box.y = 0;

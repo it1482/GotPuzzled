@@ -3,6 +3,7 @@ package JigsawPuzzlePackage;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.awt.event.*;
 /**
  * Jigsaw puzzle.
  */
-public class JigsawPuzzle extends Puzzle
+public class JigsawPuzzle extends JPanel
 {
   // Class constants ------------------------------------------------------
 
@@ -33,24 +34,11 @@ public class JigsawPuzzle extends Puzzle
 
   // Available background colors
   public static final Color[] bgColors = {
-    Color.BLACK,
-    new Color ( 48,  0,  0),
-    new Color (  0, 48,  0),
-    new Color (  0,  0, 48),
-    new Color ( 48, 48, 48),
-    new Color ( 96,  0,  0),
-    new Color (  0, 96,  0),
-    new Color (  0,  0, 96),
-    new Color ( 96, 96, 96),
-    new Color (144,  0,  0),
-    new Color (  0,144,  0),
-    new Color (  0,  0,144),
-    new Color (144,144,144),
-    // Color.LIGHT_GRAY,
-    // Color.RED,
-    // Color.GREEN,
-    // Color.BLUE,
-    // Color.WHITE,
+	new Color ( 255,  255,  204), //Light Yellow
+    new Color ( 0,  204,  102),	  //Green
+    new Color ( 204, 255, 204),	  //Light Green
+    new Color ( 48, 48, 48),	  //Light Black
+    new Color ( 160, 160, 160),	  //Silver
   };
 
   public static final Color CLEAR_COLOR_W = new Color (255,255,255,48);
@@ -64,24 +52,25 @@ public class JigsawPuzzle extends Puzzle
 
   /**
    * Creates a new JigsawPuzzle.
- * @param frmGotPuzzled 
- * @param jigsawFrame 
+   * @param frmGotPuzzled 
+   * @param jigsawFrame 
    * @param image the final picture
    * @param cut the cut to use on the image
    */
-  public JigsawPuzzle (String name, BufferedImage loadedImage, JigsawCutter cutter, boolean rotation, JFrame frmGotPuzzled, JigsawFrame jigsawFrame)
+  public JigsawPuzzle (BufferedImage loadedImage, JigsawCutter cutter, boolean rotation, JFrame frmGotPuzzled, JigsawFrame jigsawFrame)
   {
-	super(name,loadedImage);
+	this.loadedImage = loadedImage;
 	this.frmGotPuzzled = frmGotPuzzled;
 	this.jigsawFrame = jigsawFrame;
 	this.rotation = rotation;
+	
     this.image = imageScale(loadedImage);
     this.cutter = cutter;
     computePreferredSize();
     setOpaque (true);
     // System.out.println ("isFocusable? "+isFocusable());
     setFocusable(true);
-    bgColor = 4;
+    bgColor = 0;
     setBackground (bgColors[bgColor]);
     setCursor (NORMAL_CURSOR);
     setClearColor();
@@ -207,10 +196,10 @@ public class JigsawPuzzle extends Puzzle
 
   // Private methods ------------------------------------------------------
 
-/**
- * If the image is too big. It scales it down. 
- * All images should be at 1200x1200 pixels max
- */
+  /**
+   * If the image is too big. It scales it down. 
+   * All images should be at 1024x768 pixels max
+   */
   
 	private  Image imageScale(BufferedImage loadedImage){
 		int preferredMaxHeigth = 768;
@@ -257,7 +246,9 @@ public class JigsawPuzzle extends Puzzle
     prefSize = new Dimension (width, height);
   }
 
-  // ### Should this be public?
+  /**
+   * When the puzzle has finished.
+   */
   private void finish()
   {
     if (zOrder.size() != 1) return;
@@ -309,7 +300,7 @@ public class JigsawPuzzle extends Puzzle
           timer.setRepeats (false);
           timer.start();
         }
-        else
+        else //Image is now completely visible.
         {
         	JOptionPane.showMessageDialog(null, "You Won", "Puzzle Got Solved!", JOptionPane.PLAIN_MESSAGE);
         	puzzleFinished = true;
@@ -507,21 +498,11 @@ public class JigsawPuzzle extends Puzzle
     Rectangle east  = (x1>=w || ah==0) ? emptyRect :
       new Rectangle (x1,ay, w-x1,ah);
 
-    // System.out.println ("w="+getWidth()+" h="+getHeight());
-    // int pw = piece.getCurrentWidth();
-    // int ph = piece.getCurrentHeight();
-    // System.out.println ("shuff p:("+pw+"x"+ph+")"+
-      // "r=("+x0+","+y0+")-("+x1+","+y1+")");
-    // System.out.println ("  n="+north);
-    // System.out.println ("  s="+south);
-    // System.out.println ("  w="+ west);
-    // System.out.println ("  e="+ east);
-    int
-      nArea = north.width * north.height,
-      sArea = south.width * south.height,
-      wArea = west .width * west .height,
-      eArea = east .width * east .height,
-      totalArea = nArea + sArea + wArea + eArea;
+    int nArea = north.width * north.height;
+    int sArea = south.width * south.height;
+    int wArea = west .width * west .height;
+    int eArea = east .width * east .height;
+    int totalArea = nArea + sArea + wArea + eArea;
 
     int rand = (int) (Math.random() * totalArea);
     // System.out.println ("total="+totalArea+" rand="+rand);
@@ -566,8 +547,8 @@ public class JigsawPuzzle extends Puzzle
     int prevY = focusPiece.getPuzzleY();
     focusPiece.setRotation (newRotation);
     // Make the piece appear to rotate about its center.
-    // ### Feature: When the mouse is down, rotate about the cursor instead
-    //   of the center.
+    // Feature: When the mouse is down, rotate about the cursor instead
+    // of the center.
     int centerX = prevX + prevW/2;
     int centerY = prevY + prevH/2;
     int currW = focusPiece.getCurrentWidth();
@@ -664,7 +645,6 @@ public boolean isFinished() {
 }
 
 public boolean isRotation() {
-	// TODO Auto-generated method stub
 	return rotation;
 }
 
