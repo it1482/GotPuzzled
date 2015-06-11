@@ -1,3 +1,17 @@
+/**
+ * This code was developed on 2015 for University of Macedonia academic purposes.
+ * In order to get the greatest possible grade in the course called "Software Technology" (4th Semester),
+ * a group of 11 students worked together to achieve best results. 
+ * Basic phases implemented was: Requirement analysis, Software Design, Java Code Implementation adn Testing.
+ * 
+ * This code implements a Puzzle Game in which you can play, create, export or import puzzles made from pictures.
+ * 
+ * It includes six packages, each one of include full comments and JavaDocs support in order to fully understand the overall code functionality (classes and methods).
+ * 
+ *  
+ */
+
+
 package guiPackage;
 
 import java.awt.Color;
@@ -52,19 +66,29 @@ import javax.swing.event.MenuKeyListener;
 import javax.swing.event.MenuKeyEvent;
 
 
-
+/**
+ * This class starts the program. It implements the Graphical User Interface.
+ * It includes 1 frame, 16 panels buttons and others.
+ * 
+ * It also includes a Database object from which you have access to all significant information (data) used by the program.
+ * These information are Puzzles, Ladders, Players, Scores information.
+ *  
+ */
 public class GotPuzzledGUI {
 		
 	/*
 	 * here we post all frames and panels to be visible and enable for whole code
 	 */
-	// kentriko vasiko frame - panw sto opoio kathontai ola ta panels
+	// basic frame in which all panels are added
 	private JFrame frmGotPuzzled;
 
+	
 	private BackgroundSound sound = new BackgroundSound();
 	
 	
-	// kentriko panel
+	/*
+	 * PANELS START
+	 */
 	private JPanel mainMenuPanel;
 	private JPanel playPanel;
 	private JPanel ladderPanel;
@@ -79,8 +103,14 @@ public class GotPuzzledGUI {
 	private JPanel editorExportLadderPanel;
 	private JPanel editorImportPanel;
 	private JPanel optionsPanel;
-	private JPanel leaderboardsPanel;
+	private JPanel leaderboardsPanel;	
+	/*
+	 * PANELS END
+	 */
 
+	/*
+	 * OTHER PANELS COMPONENTS START
+	 */
 	private JScrollPane customPuzzlesListScrollPane;
 	private JMenuBar menuBar;
 	private JButton backFromSlidingToMainMenuButton;
@@ -92,10 +122,13 @@ public class GotPuzzledGUI {
 	private JButton createLadderButton;
 	private JRadioButton optionsMusicOnRadioButton;
 	private JRadioButton optionsMusicOffRadioButton;
+	/*
+	 * OTHER PANELS COMPONENTS END
+	 */
 	
-	
-	//fields needed
+	// Database object
 	Database database = new Database();
+	// fields used for Image displaying
 	private ImageIcon image;
 	DefaultListModel<String> model;
 	protected int score;
@@ -118,8 +151,7 @@ public class GotPuzzledGUI {
 			public void run() {
 				try {
 					GotPuzzledGUI window = new GotPuzzledGUI();
-					window.frmGotPuzzled.setVisible(true);
-					
+					window.frmGotPuzzled.setVisible(true);					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -148,9 +180,6 @@ public class GotPuzzledGUI {
 		database.getLadderDatabase().UpdateLadderNamesArrayList();
 		database.getPlayersDatabase().UpdateStringArrays();
 
-
-
-		
 		
 		// a frame it's been constructed
 		frmGotPuzzled = new JFrame();
@@ -196,9 +225,9 @@ public class GotPuzzledGUI {
 						+ "With Got Puzzled you can also export your own Puzzles and Ladder Challenges.\n"
 						+ "This will allow the other players to import your Puzzles and Ladder Challenges and play them\n\n"
 						+ "Programmers and roles\n"
-						+ "Ares Tseka: Jigsaw Puzzle, Ladder Challenge, GUI-Database Connection, Save/Load Database, Export/Import Puzzles/Ladder Challenges\n"
-						+ "Vairlis Xaralampos: GUI Creation-Design\n"
-						+ "Giwrgos Aggelopoulos: Sliding Puzzle, Music\n"
+						+ "Tseka Ares: Jigsaw Puzzle, Ladder Challenge, GUI-Database Connection, Save/Load Database, Export/Import Puzzles/Ladder Challenges\n"
+						+ "Vairlis Charalampos: GUI Creation-Design\n"
+						+ "Aggelopoulos Giwrgos: Sliding Puzzle, Music\n"
 						+ "Fwakeus Spryridwn: Save/Load Database, Export/Import Puzzles/Ladder Challenges", "About Got Puzzled", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
