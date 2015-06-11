@@ -2,13 +2,19 @@ package playerPackage;
 
 import java.util.ArrayList;
 import java.util.Collections;
+/** PlayerDatabase contains all the Player database and important methods.
+ * @param players ArrayList that contains all players 
+ * @param loadsave save/load class
+ * @param names Only for JList-GUI use.
+ * @param scores Only for JList-GUI use.
+ * 
+ */
 
 public class PlayerDatabase {
 
 	private ArrayList<Player> players;
 	private ArrayList<String> names;
 	private ArrayList<String> scores;
-
 	private LoadSavePlayers loadsave;
 
 	public PlayerDatabase() {
@@ -33,7 +39,7 @@ public class PlayerDatabase {
 		}
 	}
 	
-	/**PlayerCreator
+	/**PlayerCreator method used when we want to add a player to the list.
 	 * 
 	 * @param PlayerName
 	 */
@@ -46,7 +52,20 @@ public class PlayerDatabase {
 		players.add(new Player(PlayerName, 0));
 
 	}
+	
+	/**
+	 * Sorts the players list.
+	 */
+	public void sortPlayers() {
+		Collections.sort(players);
+	}
 
+	public void loadPlayers() {
+		players = this.loadsave.load();
+	}
+
+	
+	//Getters&Setters
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
 	}
@@ -63,16 +82,6 @@ public class PlayerDatabase {
 		return players;
 	}
 
-	public void sortPlayers() {
-		Collections.sort(players);
-	}
-
-	public void loadPlayers() {
-		players = this.loadsave.load();
-	}
-
-	// (object of PlayerDatabase).getLoaderSaver().load/save(players); to save
-	// or load the Player Database
 	public LoadSavePlayers getLoadSave() {
 		return loadsave;
 	}

@@ -15,9 +15,10 @@ public class LoadSavePlayers implements Serializable {
 		players = p;
 	}
 	
-	/**Player Deserializer
+	/**Player Deserializer. Loads the top players of the game. 
+	 * If the .ser file does not exists, it creates a new one.
 	 * 
-	 * @return the list of players
+	 * @return players
 	 */
 	public ArrayList<Player> load() {
 		ArrayList<Player> p = null;
@@ -42,7 +43,7 @@ public class LoadSavePlayers implements Serializable {
 	}
 	
 	/**Player initiator
-	 * 
+	 * If load method does not find the .ser file.
 	 */
 	public void initiate() {
 		players.add(new Player("Player1", 0));
@@ -58,7 +59,7 @@ public class LoadSavePlayers implements Serializable {
 	}
 
 	/**Player Serializer
-	 * 
+	 * Saves the current data of players.
 	 * @param players
 	 */
 	public void save(ArrayList<Player> players) {

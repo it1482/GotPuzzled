@@ -1,5 +1,9 @@
 package playerPackage;
 
+/**
+ * Class that gives a more complex way to calculate score.
+ */
+
 public class CalculateScore {
 	private int puzzleDifficulty;
 	private double timer;
