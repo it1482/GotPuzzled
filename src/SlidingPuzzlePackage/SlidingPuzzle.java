@@ -22,9 +22,8 @@ import javax.swing.JPanel;
 
 import playerPackage.CalculateScore;
 import playerPackage.Player;
-import puzzlePackage.Puzzle;
 
-public class SlidingPuzzle extends Puzzle implements ActionListener{	
+public class SlidingPuzzle extends JFrame implements ActionListener{	
 	SlidingTimer timer ;		
 	
 	JFrame frmGotPuzzled,myFrame;
@@ -33,9 +32,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	ImageIcon icon;
 	JButton buttons[],tempbuttons[],rightbuttons[],blankButton,newGame;
 	JButton tipButton = new JButton("Tip"),new_gameButton = new JButton("New Game");
-	//JButton main_menu_button = new JButton("Main Menu");
 	JPanel grid,spots[];
-	int currentBlankSpot,movecounter=0;
+	int currentBlankSpot,movecounter=0,difficulty;
 	JLabel moves_label;
 	//o xronos kai oi kinhseis pou 8a emfanizei sto victory
 	int endTime,endMoves;
@@ -44,8 +42,8 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	public int counting = 0;
 	int size_pleuras;
 	public SlidingPuzzle(String name, Image image, int difficulty,JFrame frmGotPuzzled) {
-		super(name, image, difficulty);		
 		this.frmGotPuzzled=frmGotPuzzled;
+		this.difficulty=difficulty;
 		if(difficulty==1)
 			size_pleuras=3;
 		else if(difficulty==2)
@@ -57,32 +55,31 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		this.image=image.getScaledInstance(600,600, Image.SCALE_SMOOTH);			
 		
 		buttons = new JButton[size_pleuras*size_pleuras];
-		//Gia na mpoun se stoixish ta koumpia
 		grid = new JPanel ( new GridLayout(size_pleuras,size_pleuras) );
 		this.setContentPane(myPanel);
 		this.setVisible(true);
 		this.setSize(650, 800);
 		this.setTitle("Jigsaw");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		setupPanels();
 		setupImage();
 		
 		myPanel.add(grid);
 		myPanel.add(timer.getTime_label());
 		new_gameButton.addActionListener(this);
-		//main_menu_button.addActionListener(this);
+		
 		MouseHandler handler = new MouseHandler();
 		tipButton.addMouseListener(handler);
 		
 		moves_label = new JLabel("Moves: "+Integer.toString(movecounter));		
 		myPanel.add(new_gameButton,BorderLayout.CENTER);
-		//myPanel.add(main_menu_button,BorderLayout.CENTER);
 		myPanel.add(tipButton,BorderLayout.CENTER);			
 		myPanel.add(moves_label,BorderLayout.CENTER);
 	}
 	
 	
-	
+	/** Δημιουργια Κουμπιων **/
 	public void setupPanels(){		
 		spots = new JPanel[size_pleuras*size_pleuras];
 		rightbuttons = new JButton[size_pleuras*size_pleuras];
@@ -96,6 +93,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		}		
 	}
 	
+	/***
+	 * Μετατρέπει το αντικείμενο Image σε BufferedImage,
+	 * Κόβει την εικόνα σε κουτάκια ανάλογα με το πλήθος τους 
+	 * και τα συνδεει στο αντιστοιχο κουτι,καλεί την μέθοδο shufflePuzzle() 
+	 * και τέλος αρχικοποιεί το αντικείμενο Timer.
+	 *  
+	 */	 
 	public void setupImage(){		
 		BufferedImage bimage = new BufferedImage(
 				image.getWidth(null),image.getHeight(null),BufferedImage.TYPE_INT_ARGB);
@@ -122,9 +126,14 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		timer = new SlidingTimer(1000);
 		
 	}
-	
+	/*** 
+	 * Αρχικοποιεί τα κουμπιά της λίστας buttons,συνδέει το κάθε κουμπί με το ActionListener
+	 * και μορφοποιεί τις διαστάσεις του.
+	 * @param id
+	 * @param img
+	 */
 	public void setupButton(int id,Image img){
-		buttons[id] = new JButton(/*Integer.toString(id),*/new ImageIcon(img));
+		buttons[id] = new JButton(new ImageIcon(img));
 		buttons[id].addActionListener(this);
 		buttons[id].setMargin(new Insets(0,0,0,0));
 		buttons[id].setContentAreaFilled(false);
@@ -133,12 +142,14 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 	}
 	
 	@Override
+	/***
+	 * Εδώ υλοποιούνται οι εναλλαγες των κουμπιών με το κάθε πάτημα που γίνεται απο τον χρήστη,
+	 * επίσης υπαρχει και η μέθοδος newGame() που καλείται οταν πατηθεί το κουμπί " New Game "
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if(new_gameButton == e.getSource()){
 			newGame();
-		}/*else if(main_menu_button == e.getSource()){
-			goToMenu();
-		}*/else {
+		}else {
 			for(int i=0;i<buttons.length;i++){
 					if(buttons[i] == e.getSource()){
 						changeSpots(i,false);						
@@ -161,6 +172,12 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		
 	}
 	
+	/**
+	 * Γίνεται έλεγχος ορθότητας(καλόντας την μέθοδο validMove),σε περίπτωση που αυτό ισχύει
+	 * γίνεται αλλαγή και επανεσχεδιάζεται το JPanel,με τα κουμπιά στις νέες θέσεις τους.
+	 * @param i
+	 * @param automatic
+	 */
 	public void changeSpots(int i,boolean automatic){
 		if(validMove(i,currentBlankSpot)){
 			if(!automatic){
@@ -181,7 +198,17 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 			
 		}		
 	}
-	
+	/***
+	 * Στο ξεκίνημα κάθε παρτίδας,τα κομμάτια πρέπει να ανακατευτούν,χωρίς όμως να παραβιάζουν τους 
+	 * κανόνες του παιχνιδιού ώστε να είναι εφικτή η λύση του.
+	 * Κρατάμε σε μία μεταβλητή τύπου int τη θέση του κενού κουμπιού,
+	 * βρίσκουμε με τη βοήθεια της μεθόδου validMove,τις εφικτές εναλλαγές ο αριθμός των οποίων 
+	 * κυμαίνεται από δύο μέχρι τρεις,απορρίπτοντας την εναλλαγή με το κουμπί που εναλλάχθηκε τελευταίο.
+	 * Στη συνέχεια έχοντας τις εφικτές εναλλαγές σε μία λίστα,εφαρμόζουμε μία εναλλαγή επιλέγοντας τυχαία 
+	 * μία θέση από την προηγούμενη λίστα.
+	 * Τέλος,επαναλαμβάνουμε τα βήματα αυτά για έναν τυχαίο αριθμό εύρους 100-2100.
+	 * 
+	 */
 	public void shufflePuzzle(){
 		int last_position=-1;
 		
@@ -216,7 +243,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		}
 		
 	}
-	
+	/*** 
+	 * Ελέγχεται αν τα δύο κουμπιά (κενό κουμπί-το κουμπί που πατήθηκε) είναι γειτονικά,και σε περίπτωση που ισχύει
+	 * επιστρέφει την τιμή true, αλλιώς false.
+	 * @param i
+	 * @param blankpos
+	 * @return boolean
+	 */
 	public boolean validMove(int i,int blankpos){
 		if(i/size_pleuras==blankpos/size_pleuras && (blankpos-1==i || blankpos+1==i))
 			return true;
@@ -227,6 +260,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		return false;
 	}
 	
+	/** 
+	 * Εδώ υλοποιείται η λειτουργία του κουμπιού "Tip" ,
+	 * όταν παραμένει το κουμπί πατημένο , εμφανίζει τα κουμπιά στην σωστή τους θέση
+	 * και οταν αφήνεται το κουμπί επιστρέφει στην προηγούμενη κατάσταση.
+	 * @author Admin
+	 *
+	 */
 	class MouseHandler implements MouseListener{
 		@Override
 		public void mouseClicked(MouseEvent arg0) {		}
@@ -264,7 +304,10 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		}		
 	}
 	
-	
+	/***
+	 * Σε περίπτωση που πατηθεί το κουμπί "New Game" καλείται η μέθοδος αυτή
+	 * Η οποία μηδενίζει το χρονόμετρο και τον μετρητή κινήσεων.
+	 */
 	public void newGame(){
 		timer.stopTimer();
 		timer.setTimerCounter(0);
@@ -274,10 +317,13 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		shufflePuzzle();
 	}
 	
+	/***
+	 * Σε περίπτωση ολοκλήρωσης του παζλ , αποθηκεύονται τα αποτελέσματα του παιχνιδιού(Χρόνος,Κινήσεις)
+	 */
 	public void endStats() {
 		endTime = timer.getTimerCounter();
 		endMoves = movecounter;
-		CalculateScore tempscore = new CalculateScore(super.getDifficulty(),(double)endTime);
+		CalculateScore tempscore = new CalculateScore(difficulty,(double)endTime);
 		Player newplayer = new Player(super.getName(),(int) tempscore.returnScore());		
 		
 		JOptionPane.showMessageDialog(null, "You Won", "Puzzle Got Solved!", JOptionPane.PLAIN_MESSAGE);
@@ -285,6 +331,9 @@ public class SlidingPuzzle extends Puzzle implements ActionListener{
 		goToMenu();
 	}
 	
+	/** 
+	 * Επιστρέφει το κεντρικό μενού
+	 */
 	public void goToMenu(){
 		
 		frmGotPuzzled.setVisible(true);

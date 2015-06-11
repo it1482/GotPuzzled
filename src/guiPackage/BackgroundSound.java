@@ -8,7 +8,11 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
-
+	/**
+	 * Διαβάζεται το αρχείο sound.wav και ξεκινάει να παίζει μπαίνοντας σε μία "λούπα" των 100 επαναλήψεων.
+	 * @author Admin
+	 *
+	 */
     public class BackgroundSound {
     	Clip clip;
     	public BackgroundSound(){

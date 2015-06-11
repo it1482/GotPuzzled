@@ -37,7 +37,11 @@ public class SlidingTimer{
 	public JLabel getTime_label() {
 		return time_label;
 	}
-	
+	/**
+	 * Υλοποίηση του χρονομέτρου.
+	 * @author Admin
+	 *
+	 */
 	class TimerHandler implements ActionListener{
 		int timer_counter=0;
 		
