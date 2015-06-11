@@ -1599,7 +1599,6 @@ public class GotPuzzledGUI {
 		optionsPanel.add(optionsMusicOffRadioButton);
 		
 		
-		
 				
 		JButton optionsBackToMainMenuButton;
 		optionsBackToMainMenuButton = new JButton("Back");
@@ -1781,7 +1780,6 @@ public class GotPuzzledGUI {
 	/**Chooses a file from the PC and returns it.
 	 * 
 	 */
-
 	public static File fileChooserUI(Component comp){
 		JFileChooser fc = new JFileChooser(System.getProperty("user.home")+"\\Desktop\\");
 		int result = fc.showOpenDialog(null);
@@ -1794,9 +1792,9 @@ public class GotPuzzledGUI {
 
 	}
 	
-	/** Converts ImageIcon to BufferedImage in order to be used on both puzzles.
-	 */
 	
+	/** Converts ImageIcon to BufferedImage in order to be used on both puzzles.
+	 */	
 	private BufferedImage ConvertIconToBufferedImage(ImageIcon icon){
 		BufferedImage bi = new BufferedImage(
 			    icon.getIconWidth(),
@@ -1809,10 +1807,10 @@ public class GotPuzzledGUI {
 			return bi;
 	}
 
+	
 	/** Updates the List in order to be visible on JLists
 	 * 
-	 */
-	
+	 */	
 	private void UpdateJList(JList<String> list, ArrayList<String> elements){
 	    model = new DefaultListModel<String>();
 	    for(String p : elements){
